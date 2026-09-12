@@ -1,0 +1,71 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+
+const siteName = "Lorem Ipsum Generator";
+const contactEmail = "hello@loremmaker.com";
+---
+
+<PageLayout
+	title="Terms & Conditions — Lorem Ipsum Generator"
+	description="Read the Terms & Conditions for using Lorem Ipsum Generator, the free placeholder text tool at loremmaker.com."
+	eyebrow="Legal"
+	heading="Terms &amp; Conditions"
+	updated="September 12, 2026"
+>
+	<p>
+		By accessing or using loremmaker.com (the "Site"), you agree to be bound
+		by these Terms &amp; Conditions. If you do not agree, please do not use
+		the Site.
+	</p>
+
+	<h2>Use of the service</h2>
+	<p>
+		{siteName} is provided free of charge for generating placeholder
+		("lorem ipsum") text for design, development, and testing purposes. You
+		may use the generated text in personal and commercial projects without
+		attribution.
+	</p>
+
+	<h2>No warranty</h2>
+	<p>
+		The Site and its generated text are provided "as is" and "as available,"
+		without warranties of any kind, express or implied, including but not
+		limited to accuracy, reliability, or fitness for a particular purpose.
+	</p>
+
+	<h2>Limitation of liability</h2>
+	<p>
+		To the fullest extent permitted by law, {siteName} and its operators
+		will not be liable for any indirect, incidental, or consequential
+		damages arising from your use of, or inability to use, the Site.
+	</p>
+
+	<h2>Acceptable use</h2>
+	<p>You agree not to:</p>
+	<ul>
+		<li>Use the Site in any way that violates applicable law</li>
+		<li>Attempt to disrupt or overload the Site's infrastructure</li>
+		<li>Scrape or reproduce the Site's code or content for a competing service without permission</li>
+	</ul>
+
+	<h2>Intellectual property</h2>
+	<p>
+		The Site's design, code, and branding are owned by {siteName} unless
+		otherwise noted. Generated placeholder text itself is not eligible for
+		copyright protection and is free for you to use without restriction.
+	</p>
+
+	<h2>Changes to these terms</h2>
+	<p>
+		We may revise these Terms &amp; Conditions at any time. Continued use of
+		the Site after changes are posted constitutes acceptance of the revised
+		terms.
+	</p>
+
+	<h2>Contact us</h2>
+	<p>
+		Questions about these Terms? Email us at{" "}
+		<a href={`mailto:${contactEmail}`}>{contactEmail}</a> or visit our{" "}
+		<a href="/contact">Contact page</a>.
+	</p>
+</PageLayout>

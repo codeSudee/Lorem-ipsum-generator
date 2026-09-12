@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+	title="Server Error — Lorem Ipsum Generator"
+	description="Something went wrong on our end. Please try again in a moment."
+>
+	<Navbar />
+	<main id="main-content">
+		<section class="border-b border-hairline bg-canvas py-20 sm:py-28">
+			<div class="mx-auto max-w-[800px] px-6 text-center">
+				<p class="mono-eyebrow mb-3 text-mute">500</p>
+				<h1 class="text-heading-lg text-pretty text-ink">Something went wrong</h1>
+				<p class="mt-4 text-body-md text-body">
+					An unexpected error occurred on our end. Please try refreshing the
+					page, or come back in a few minutes.
+				</p>
+
+				<div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+					<a
+						href="/"
+						class="rounded-pill bg-ink px-[14px] py-2.5 text-button-lg font-medium text-on-primary transition-opacity hover:opacity-90"
+					>
+						Back to generator
+					</a>
+					<a
+						href="/contact"
+						class="rounded-pill border border-hairline bg-canvas-elevated px-[14px] py-2.5 text-button-lg font-medium text-ink transition-colors hover:bg-hairline-soft"
+					>
+						Contact us
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>

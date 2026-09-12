@@ -1,23 +1,159 @@
+---
+import "@fontsource/geist-sans/400.css";
+import "@fontsource/geist-sans/500.css";
+import "@fontsource/geist-sans/600.css";
+import "@fontsource/geist-mono/400.css";
+import "@fontsource/geist-mono/500.css";
+import "../styles/global.css";
+import { FAQS } from "../lib/faqs";
+
+interface Props {
+	title?: string;
+	description?: string;
+	/** Only the homepage should emit the FAQPage/WebApplication schema — it's the only page with matching visible content. */
+	isHome?: boolean;
+}
+
+const {
+	title = "Lorem Ipsum Generator — Free Online Text Generator",
+	description = "Generate placeholder text by paragraph, word, or exact character count (e.g. 500 characters) — plus a funny mode and Corporate, Tech, Foodie, and Cat themes. Copy instantly as plain text, HTML, or Markdown.",
+	isHome = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL("/og-image.png", Astro.site);
+const siteName = "Lorem Ipsum Generator";
+
+const faqStructuredData = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: FAQS.map((item) => ({
+		"@type": "Question",
+		name: item.q,
+		acceptedAnswer: {
+			"@type": "Answer",
+			text: item.a,
+		},
+	})),
+};
+
+const softwareAppStructuredData = {
+	"@context": "https://schema.org",
+	"@type": "WebApplication",
+	name: "Lorem Ipsum Generator",
+	url: Astro.site?.toString(),
+	applicationCategory: "DesignApplication",
+	operatingSystem: "Any",
+	offers: {
+		"@type": "Offer",
+		price: "0",
+		priceCurrency: "USD",
+	},
+	description:
+		"Free online placeholder text generator that creates lorem ipsum text by paragraph, sentence, word, or exact character count, plus themed word banks including a funny mode.",
+};
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="Lorem" />
+		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<!-- Google AdSense -->
+		<script
+			async
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6778789012514648"
+			crossorigin="anonymous"></script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-4XLJH7KKEZ"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-4XLJH7KKEZ");
+		</script>
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta
+			name="keywords"
+			content="lorem ipsum generator, lorem ipsum generator online, lorem ipsum generator text, lorem ipsum generator word, lorem ipsum generator characters, lorem ipsum generator character count, lorem ipsum generator by character count, lorem ipsum generator 500 characters, lorem ipsum generator funny, funny lorem ipsum generator, lorem ipsum paragraph, lorem ipsum dolor sit amet, lorem ipsum text copy"
+		/>
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="author" content="Lorem Ipsum Generator" />
+		<link rel="canonical" href={canonicalURL} />
+
+		<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+		<meta name="color-scheme" content="light dark" />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Lorem Ipsum Generator — free online lorem ipsum text generator" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL} />
+		<meta name="twitter:image:alt" content="Lorem Ipsum Generator — free online lorem ipsum text generator" />
+
+		<!-- Structured data -->
+		{isHome && <script type="application/ld+json" set:html={JSON.stringify(softwareAppStructuredData)} />}
+		{isHome && <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />}
+		<slot name="structured-data" />
+
+		<script is:inline>
+			// Runs before first paint to avoid a light/dark flash.
+			// Priority: explicit user choice in localStorage, then OS preference.
+			(function () {
+				const stored = localStorage.getItem("theme");
+				const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+				const isDark = stored === "dark" || (stored === null && prefersDark);
+				document.documentElement.classList.toggle("dark", isDark);
+			})();
+		</script>
 	</head>
 	<body>
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-on-primary"
+		>
+			Skip to content
+		</a>
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
+	* {
+		box-sizing: border-box;
+	}
+
 	html,
 	body {
 		margin: 0;
 		width: 100%;
-		height: 100%;
+		overflow-x: hidden;
 	}
 </style>

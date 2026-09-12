@@ -1,0 +1,341 @@
+---
+import { THEME_LIST } from "../lib/wordBanks";
+---
+
+<section id="generator" class="border-b border-hairline bg-canvas py-20 sm:py-28">
+	<div class="mx-auto max-w-[1200px] px-6">
+		<div class="mx-auto mb-10 max-w-2xl text-center">
+			<p class="mono-eyebrow mb-3 text-mute">The generator</p>
+			<h2 class="text-heading-lg text-pretty text-ink">Configure and generate</h2>
+			<p class="mt-3 text-body-lg text-body">
+				Pick a vocabulary, choose how much text you need, and export it in
+				the format your project expects — all without leaving this page.
+			</p>
+		</div>
+
+		<div
+			id="lorem-generator"
+			class="rounded-lg border border-hairline bg-canvas-elevated p-5 sm:p-8"
+		>
+			<form id="generator-form">
+				<div class="grid gap-8 lg:grid-cols-[minmax(0,320px)_1fr]">
+					<!-- Controls -->
+					<div class="flex flex-col gap-6">
+						<!-- Vocabulary / theme selector -->
+						<fieldset>
+							<legend class="mb-2 block text-label-sm font-medium text-ink">Vocabulary</legend>
+							<div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Vocabulary theme">
+								{THEME_LIST.map((theme, i) => (
+									<label
+										class="theme-option flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-3 py-2 text-center text-body-sm text-body transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint"
+									>
+										<input
+											type="radio"
+											name="theme"
+											value={theme.key}
+											checked={i === 0}
+											class="sr-only"
+										/>
+										{theme.label}
+									</label>
+								))}
+							</div>
+						</fieldset>
+
+						<!-- Amount unit + value -->
+						<div>
+							<label for="amount-input" class="mb-2 block text-label-sm font-medium text-ink">
+								Amount
+							</label>
+							<div class="flex gap-2">
+								<input
+									type="number"
+									id="amount-input"
+									name="amount"
+									min="1"
+									max="50"
+									value="5"
+									inputmode="numeric"
+									autocomplete="off"
+									class="w-20 rounded-sm border border-hairline bg-canvas-elevated px-3 py-2 text-body-md text-ink tabular-nums focus-visible:outline-2 focus-visible:outline-link"
+								/>
+								<div id="unit-dropdown" class="relative flex-1">
+									<button
+										type="button"
+										id="unit-select-trigger"
+										aria-haspopup="listbox"
+										aria-expanded="false"
+										aria-controls="unit-select-listbox"
+										class="flex w-full items-center justify-between rounded-sm border border-hairline bg-canvas-elevated px-3 py-2 text-body-md text-ink focus-visible:outline-2 focus-visible:outline-link"
+									>
+										<span id="unit-select-label">Paragraphs</span>
+										<svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="shrink-0 text-mute">
+											<path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+									<ul
+										id="unit-select-listbox"
+										role="listbox"
+										tabindex="-1"
+										aria-label="Amount unit"
+										aria-activedescendant=""
+										hidden
+										class="absolute inset-x-0 top-full z-10 mt-1 overflow-hidden rounded-sm border border-hairline bg-canvas-elevated shadow-lg"
+									>
+										<li role="option" id="unit-option-paragraphs" data-value="paragraphs" aria-selected="true" class="cursor-pointer px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Paragraphs</li>
+										<li role="option" id="unit-option-sentences" data-value="sentences" aria-selected="false" class="cursor-pointer px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Sentences</li>
+										<li role="option" id="unit-option-words" data-value="words" aria-selected="false" class="cursor-pointer px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Words</li>
+										<li role="option" id="unit-option-characters" data-value="characters" aria-selected="false" class="cursor-pointer px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Characters</li>
+									</ul>
+									<input type="hidden" id="unit-select" name="unit" value="paragraphs" />
+								</div>
+							</div>
+						</div>
+
+						<!-- Start with lorem toggle -->
+						<label class="flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-hairline px-3 py-2.5">
+							<span class="text-body-md text-ink">Start with the standard opener</span>
+							<input
+								type="checkbox"
+								id="start-with-lorem"
+								name="startWithLorem"
+								checked
+								class="h-5 w-9 shrink-0 cursor-pointer appearance-none rounded-full bg-hairline transition-colors before:block before:h-4 before:w-4 before:translate-x-0.5 before:translate-y-0.5 before:rounded-full before:bg-canvas-elevated before:shadow before:transition-transform checked:bg-ink checked:before:translate-x-[18px] checked:before:bg-on-primary"
+							/>
+						</label>
+
+						<!-- Format selector -->
+						<fieldset>
+							<legend class="mb-2 block text-label-sm font-medium text-ink">Export format</legend>
+							<div class="grid grid-cols-3 gap-2" role="radiogroup" aria-label="Export format">
+								{["plain", "html", "markdown"].map((fmt, i) => (
+									<label
+										class="format-option flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-2 py-2 text-center text-body-sm text-body capitalize transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint"
+									>
+										<input
+											type="radio"
+											name="format"
+											value={fmt}
+											checked={i === 0}
+											class="sr-only"
+										/>
+										{fmt}
+									</label>
+								))}
+							</div>
+						</fieldset>
+
+						<button
+							type="submit"
+							class="mt-1 flex items-center justify-center gap-2 rounded-sm bg-ink px-4 py-2.5 text-button-lg font-medium text-on-primary transition-opacity hover:opacity-90"
+						>
+							Generate
+							<kbd class="rounded-xs border border-on-primary/20 bg-on-primary/10 px-1.5 py-0.5 text-body-sm font-normal" aria-hidden="true">
+								&#8984;&#8617;
+							</kbd>
+						</button>
+					</div>
+
+					<!-- Output -->
+					<div class="flex flex-col">
+						<div class="mb-2 flex items-center justify-between gap-3">
+							<div class="flex items-center gap-4 text-body-sm text-mute tabular-nums" aria-live="polite">
+								<span><strong id="word-count" class="text-ink">0</strong> words</span>
+								<span><strong id="char-count" class="text-ink">0</strong> characters</span>
+							</div>
+							<button
+								type="button"
+								id="copy-button"
+								class="flex items-center gap-1.5 rounded-sm border border-hairline bg-canvas-elevated px-3 py-1.5 text-button-md text-ink transition-colors hover:bg-hairline-soft"
+								aria-label="Copy generated text to clipboard"
+							>
+								<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+									<rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+									<path d="M11 5V3.5C11 2.67 10.33 2 9.5 2H3.5C2.67 2 2 2.67 2 3.5V9.5C2 10.33 2.67 11 3.5 11H5" stroke="currentColor" stroke-width="1.3"/>
+								</svg>
+								<span id="copy-button-label">Copy</span>
+							</button>
+						</div>
+
+						<label for="output-area" class="sr-only">Generated placeholder text</label>
+						<textarea
+							id="output-area"
+							readonly
+							autocomplete="off"
+							spellcheck="false"
+							class="min-h-[320px] flex-1 resize-none rounded-sm border border-hairline bg-canvas p-4 font-mono text-body-md text-ink focus-visible:outline-2 focus-visible:outline-link"
+							aria-label="Generated placeholder text output"
+						></textarea>
+
+						<p class="sr-only" role="status" id="copy-status"></p>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { generate, type AmountUnit, type OutputFormat } from "../lib/generator";
+	import type { ThemeKey } from "../lib/wordBanks";
+
+	const form = document.getElementById("generator-form") as HTMLFormElement;
+	const amountInput = document.getElementById("amount-input") as HTMLInputElement;
+	const output = document.getElementById("output-area") as HTMLTextAreaElement;
+	const wordCountEl = document.getElementById("word-count") as HTMLElement;
+	const charCountEl = document.getElementById("char-count") as HTMLElement;
+	const copyButton = document.getElementById("copy-button") as HTMLButtonElement;
+	const copyLabel = document.getElementById("copy-button-label") as HTMLElement;
+	const copyStatus = document.getElementById("copy-status") as HTMLElement;
+
+	// Custom "unit" listbox (replaces a native <select> to avoid inconsistent
+	// popup positioning across browsers/devices) backed by a hidden input.
+	const unitTrigger = document.getElementById("unit-select-trigger") as HTMLButtonElement;
+	const unitListbox = document.getElementById("unit-select-listbox") as HTMLUListElement;
+	const unitLabel = document.getElementById("unit-select-label") as HTMLElement;
+	const unitHiddenInput = document.getElementById("unit-select") as HTMLInputElement;
+	const unitOptions = Array.from(unitListbox.querySelectorAll<HTMLLIElement>('[role="option"]'));
+
+	function closeUnitListbox() {
+		unitListbox.hidden = true;
+		unitTrigger.setAttribute("aria-expanded", "false");
+	}
+
+	function openUnitListbox() {
+		unitListbox.hidden = false;
+		unitTrigger.setAttribute("aria-expanded", "true");
+		const selected = unitOptions.find((opt) => opt.getAttribute("aria-selected") === "true");
+		selected?.focus();
+	}
+
+	function selectUnitOption(option: HTMLLIElement) {
+		const value = option.dataset.value ?? "paragraphs";
+		unitOptions.forEach((opt) => opt.setAttribute("aria-selected", String(opt === option)));
+		unitLabel.textContent = option.textContent?.trim() ?? "";
+		unitHiddenInput.value = value;
+		applyAmountConstraints(value);
+		unitHiddenInput.dispatchEvent(new Event("change", { bubbles: true }));
+		closeUnitListbox();
+		unitTrigger.focus();
+	}
+
+	// Each unit has a sensible amount range/default so a unit switch can't
+	// leave the input holding an out-of-range or nonsensical value (e.g. 500
+	// paragraphs, or 5 characters).
+	const AMOUNT_CONSTRAINTS: Record<string, { min: number; max: number; default: number }> = {
+		paragraphs: { min: 1, max: 50, default: 5 },
+		sentences: { min: 1, max: 50, default: 5 },
+		words: { min: 1, max: 200, default: 50 },
+		characters: { min: 1, max: 5000, default: 500 },
+	};
+
+	function applyAmountConstraints(unit: string) {
+		const constraints = AMOUNT_CONSTRAINTS[unit] ?? AMOUNT_CONSTRAINTS.paragraphs;
+		amountInput.min = String(constraints.min);
+		amountInput.max = String(constraints.max);
+
+		const current = Number(amountInput.value);
+		if (!current || current < constraints.min || current > constraints.max) {
+			amountInput.value = String(constraints.default);
+		}
+	}
+
+	unitTrigger.addEventListener("click", () => {
+		if (unitListbox.hidden) {
+			openUnitListbox();
+		} else {
+			closeUnitListbox();
+		}
+	});
+
+	unitOptions.forEach((option) => {
+		option.setAttribute("tabindex", "-1");
+		option.addEventListener("click", () => selectUnitOption(option));
+	});
+
+	unitListbox.addEventListener("keydown", (e) => {
+		const currentIndex = unitOptions.findIndex((opt) => opt === document.activeElement);
+		if (e.key === "ArrowDown") {
+			e.preventDefault();
+			const next = unitOptions[Math.min(currentIndex + 1, unitOptions.length - 1)];
+			next.focus();
+		} else if (e.key === "ArrowUp") {
+			e.preventDefault();
+			const prev = unitOptions[Math.max(currentIndex - 1, 0)];
+			prev.focus();
+		} else if (e.key === "Enter" || e.key === " ") {
+			e.preventDefault();
+			const active = unitOptions[currentIndex];
+			if (active) selectUnitOption(active);
+		} else if (e.key === "Escape") {
+			e.preventDefault();
+			closeUnitListbox();
+			unitTrigger.focus();
+		} else if (e.key === "Tab") {
+			closeUnitListbox();
+		}
+	});
+
+	document.addEventListener("click", (e) => {
+		if (!unitListbox.hidden && !e.composedPath().includes(document.getElementById("unit-dropdown")!)) {
+			closeUnitListbox();
+		}
+	});
+
+	function runGenerate() {
+		const formData = new FormData(form);
+		const theme = (formData.get("theme") as ThemeKey) ?? "classic";
+		const unit = (formData.get("unit") as AmountUnit) ?? "paragraphs";
+		const format = (formData.get("format") as OutputFormat) ?? "plain";
+		const amount = Number(formData.get("amount")) || 5;
+		const startWithLorem = formData.get("startWithLorem") === "on";
+
+		const result = generate({ theme, unit, amount, startWithLorem, format });
+
+		output.value = result.text;
+		wordCountEl.textContent = result.wordCount.toLocaleString();
+		charCountEl.textContent = result.characterCount.toLocaleString();
+	}
+
+	form.addEventListener("submit", (e) => {
+		e.preventDefault();
+		runGenerate();
+	});
+
+	// Live-regenerate on control change for instant feedback (no need to click Generate).
+	form.addEventListener("change", () => {
+		runGenerate();
+	});
+
+	// Keyboard shortcut: Cmd/Ctrl+Enter to regenerate from anywhere in the form.
+	form.addEventListener("keydown", (e) => {
+		if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+			e.preventDefault();
+			runGenerate();
+		}
+	});
+
+	copyButton.addEventListener("click", async () => {
+		if (!output.value) return;
+		try {
+			await navigator.clipboard.writeText(output.value);
+			copyLabel.textContent = "Copied!";
+			copyStatus.textContent = "Text copied to clipboard";
+			setTimeout(() => {
+				copyLabel.textContent = "Copy";
+			}, 1800);
+		} catch {
+			// Fallback for browsers without clipboard API permission.
+			output.select();
+			document.execCommand("copy");
+			copyLabel.textContent = "Copied!";
+			copyStatus.textContent = "Text copied to clipboard";
+			setTimeout(() => {
+				copyLabel.textContent = "Copy";
+			}, 1800);
+		}
+	});
+
+	// Initial generation on load.
+	runGenerate();
+</script>

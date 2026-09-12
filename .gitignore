@@ -22,3 +22,15 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# AI assistant configs
+.claude/
+.agents/
+.kiro/
+.vscode/
+CLAUDE.md
+skills-lock.json
+MCP Configuration
+
+# wrangler local state
+.wrangler/

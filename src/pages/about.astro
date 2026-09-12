@@ -1,0 +1,100 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+
+const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "AboutPage",
+	name: "About Lorem Ipsum Generator",
+	url: new URL("/about", Astro.site).toString(),
+	description:
+		"Learn about Lorem Ipsum Generator, a free, no-signup placeholder text tool for generating lorem ipsum by paragraph, sentence, word, or exact character count.",
+	mainEntity: {
+		"@type": "WebApplication",
+		name: "Lorem Ipsum Generator",
+		url: Astro.site?.toString(),
+		applicationCategory: "DesignApplication",
+		operatingSystem: "Any",
+		offers: {
+			"@type": "Offer",
+			price: "0",
+			priceCurrency: "USD",
+		},
+	},
+};
+---
+
+<PageLayout
+	title="About Lorem Ipsum Generator — Free Placeholder Text Tool"
+	description="Lorem Ipsum Generator is a free, no-signup lorem ipsum generator for designers and developers. Generate placeholder text by paragraph, sentence, word, or exact character count, in classic Latin or five themed word banks."
+	eyebrow="About us"
+	heading="About Lorem Ipsum Generator"
+	structuredData={structuredData}
+>
+	<p>
+		Lorem Ipsum Generator is a free lorem ipsum generator built for real
+		design and development workflows — not just one fixed block of Latin
+		copied from an old bookmark. Every visit gives you a fresh online lorem
+		ipsum generator session: pick a vocabulary, set an exact amount, and
+		export the placeholder text in the format your project needs, all
+		without an account or a page reload.
+	</p>
+
+	<h2>Why we built another lorem ipsum generator</h2>
+	<p>
+		Most lorem ipsum generators online do one thing: dump a fixed number of
+		paragraphs of Latin. That covers the easy case, but it breaks down the
+		moment you need a lorem ipsum generator by character count — for example,
+		testing a 155-character meta description, a tweet-length caption, or a
+		fixed-width form field where "close enough" isn't good enough. We built
+		this tool to handle paragraph, sentence, word, and exact
+		character-count modes in one place, so you're not switching tools
+		depending on what you're testing.
+	</p>
+
+	<h2>What makes this generator different</h2>
+	<p>
+		Generate text by paragraph, sentence, or word, or dial in an exact
+		character count — set the unit to <strong>Characters</strong>, enter a
+		number like 500, and the <a href="/#generator">lorem ipsum generator</a>{" "}
+		above returns exactly that many characters, not an approximation.
+		Choose classic Latin or one of five <a href="/#themes">themed word banks</a>{" "}
+		— Corporate, Tech/Startup, Foodie, Cat, and a funny lorem ipsum option
+		built from absurd filler words — when you want placeholder copy that
+		still feels on-brand instead of a 2,000-year-old Latin treatise. Then
+		copy the result instantly as plain text, HTML wrapped in
+		&lt;p&gt; tags, or Markdown.
+	</p>
+
+	<h2>How it works</h2>
+	<p>
+		Everything runs client-side, directly in your browser. Generated text,
+		the options you choose, and anything you paste are never sent to a
+		server or stored anywhere — there's no database, no account, and no
+		usage limit. That also means the generator works instantly: change the
+		theme, amount, or unit and the output regenerates live, with word and
+		character counters updating as you go. See our{" "}
+		<a href="/privacy-policy">Privacy Policy</a> for the full details on
+		what limited technical data we do collect.
+	</p>
+
+	<h2>Who it's for</h2>
+	<p>
+		Designers mocking up layouts who need realistic-looking text without
+		distracting a client with real copy. Developers seeding test data or
+		checking how a UI handles a specific character count. Writers and
+		content strategists blocking out a draft's structure before real copy
+		is ready. If you've ever searched for a lorem ipsum generator
+		online, a lorem ipsum generator by character count, or a funny lorem
+		ipsum generator for a lighter design review, this tool is built for
+		that exact use case.
+	</p>
+
+	<h2>Get in touch</h2>
+	<p>
+		Questions, feedback, or a themed word bank you'd like to see added?
+		Visit our <a href="/contact">Contact page</a> — we read every message.
+		You can also jump straight to the <a href="/#generator">generator</a>{" "}
+		or check the <a href="/#faq">FAQ</a> for answers to common questions
+		about paragraph, word, and character-count modes.
+	</p>
+</PageLayout>
