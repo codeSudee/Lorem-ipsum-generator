@@ -1,46 +1,70 @@
-# Astro Starter Kit: Basics
+# Lorem Ipsum Generator
 
-```sh
-npm create astro@latest -- --template basics
-```
+A fast, client-side Lorem Ipsum generator built with Astro and Tailwind CSS. Generate placeholder text by paragraphs, sentences, words, or an exact character count — in classic Latin or one of five themed word banks — and export it as plain text, HTML, or Markdown.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+**Live site:** [https://loremmaker.com](https://loremmaker.com)
 
-## 🚀 Project Structure
+## Features
 
-Inside of your Astro project, you'll see the following folders and files:
+- **Multiple output units** — generate by paragraphs, sentences, words, or an exact character count
+- **Six word banks** — Classic Latin, Corporate, Tech/Startup, Foodie, Cat, and Funny
+- **Export formats** — copy as plain text, HTML (`<p>`-wrapped), or Markdown
+- **Live word/character counts** — updates instantly as you configure the output
+- **One-click copy** — Clipboard API with a visible confirmation state
+- **Keyboard shortcut** — `⌘/Ctrl + Enter` to regenerate
+- **No page reloads, no sign-up** — everything runs client-side in the browser
+- **SEO-ready** — sitemap, meta tags, and dedicated FAQ/About/Contact pages
+
+## Tech Stack
+
+- [Astro](https://astro.build) — static site framework
+- [Tailwind CSS v4](https://tailwindcss.com) — styling
+- TypeScript — generator logic and word banks
+- [Cloudflare Workers](https://workers.cloudflare.com) — hosting/deployment via Wrangler
+
+## Project Structure
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+├── public/                  # Static assets, favicons, robots.txt, manifest
+├── src/
+│   ├── components/          # Hero, Generator, Navbar, Themes, FAQ, About, Footer, SEOContent
+│   ├── layouts/              # PageLayout.astro
+│   ├── lib/                  # generator.ts, wordBanks.ts, faqs.ts
+│   ├── pages/                # index, about, contact, privacy-policy, terms, 404, 500
+│   └── styles/                # global.css
+├── astro.config.mjs
+├── wrangler.jsonc
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Getting Started
 
-## 🧞 Commands
+```sh
+# Install dependencies
+npm install
 
-All commands are run from the root of the project, from a terminal:
+# Start the local dev server (http://localhost:4321)
+npm run dev
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+# Type-check and build for production
+npm run build
 
-## 👀 Want to learn more?
+# Preview the production build locally
+npm run preview
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Commands
+
+| Command             | Action                                              |
+| :------------------- | :--------------------------------------------------- |
+| `npm run dev`        | Start local dev server at `localhost:4321`           |
+| `npm run build`      | Build the production site to `./dist/`               |
+| `npm run preview`    | Preview the production build locally                  |
+| `npm run astro ...`  | Run Astro CLI commands (e.g. `astro check`)           |
+| `npm run deploy`     | Build and deploy to Cloudflare Workers via Wrangler   |
+| `npm run cf:dev`     | Run the site locally through the Wrangler dev runtime |
+
+## Deployment
+
+The site is deployed to Cloudflare Workers. Configuration lives in `wrangler.jsonc`; running `npm run deploy` builds the Astro site and publishes it with Wrangler.
