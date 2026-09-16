@@ -8,8 +8,8 @@ import { THEME_LIST } from "../lib/wordBanks";
 			<p class="mono-eyebrow mb-3 text-mute">The generator</p>
 			<h2 class="text-heading-lg text-pretty text-ink">Configure and generate</h2>
 			<p class="mt-3 text-body-lg text-body">
-				Pick a vocabulary, choose how much text you need, and export it in
-				the format your project expects — all without leaving this page.
+				Set the amount and hit Generate — or open "More options" to pick a
+				theme and export format.
 			</p>
 		</div>
 
@@ -21,28 +21,9 @@ import { THEME_LIST } from "../lib/wordBanks";
 				<div class="grid gap-8 lg:grid-cols-[minmax(0,320px)_1fr]">
 					<!-- Controls -->
 					<div class="flex flex-col gap-6">
-						<!-- Vocabulary / theme selector -->
-						<fieldset>
-							<legend class="mb-2 block text-label-sm font-medium text-ink">Vocabulary</legend>
-							<div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Vocabulary theme">
-								{THEME_LIST.map((theme, i) => (
-									<label
-										class="theme-option flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-3 py-2 text-center text-body-sm text-body transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint"
-									>
-										<input
-											type="radio"
-											name="theme"
-											value={theme.key}
-											checked={i === 0}
-											class="sr-only"
-										/>
-										{theme.label}
-									</label>
-								))}
-							</div>
-						</fieldset>
-
-						<!-- Amount unit + value -->
+						<!-- Primary row: amount + unit + generate. This is the one decision
+						     a first-time visitor needs to make; everything else is secondary
+						     and lives behind the "More options" disclosure below. -->
 						<div>
 							<label for="amount-input" class="mb-2 block text-label-sm font-medium text-ink">
 								Amount
@@ -90,50 +71,96 @@ import { THEME_LIST } from "../lib/wordBanks";
 									<input type="hidden" id="unit-select" name="unit" value="paragraphs" />
 								</div>
 							</div>
+							<p class="mt-2 text-body-sm text-mute" id="amount-status" aria-live="polite"></p>
 						</div>
-
-						<!-- Start with lorem toggle -->
-						<label class="flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-hairline px-3 py-2.5">
-							<span class="text-body-md text-ink">Start with the standard opener</span>
-							<input
-								type="checkbox"
-								id="start-with-lorem"
-								name="startWithLorem"
-								checked
-								class="h-5 w-9 shrink-0 cursor-pointer appearance-none rounded-full bg-hairline transition-colors before:block before:h-4 before:w-4 before:translate-x-0.5 before:translate-y-0.5 before:rounded-full before:bg-canvas-elevated before:shadow before:transition-transform checked:bg-ink checked:before:translate-x-[18px] checked:before:bg-on-primary"
-							/>
-						</label>
-
-						<!-- Format selector -->
-						<fieldset>
-							<legend class="mb-2 block text-label-sm font-medium text-ink">Export format</legend>
-							<div class="grid grid-cols-3 gap-2" role="radiogroup" aria-label="Export format">
-								{["plain", "html", "markdown"].map((fmt, i) => (
-									<label
-										class="format-option flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-2 py-2 text-center text-body-sm text-body capitalize transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint"
-									>
-										<input
-											type="radio"
-											name="format"
-											value={fmt}
-											checked={i === 0}
-											class="sr-only"
-										/>
-										{fmt}
-									</label>
-								))}
-							</div>
-						</fieldset>
 
 						<button
 							type="submit"
-							class="mt-1 flex items-center justify-center gap-2 rounded-sm bg-ink px-4 py-2.5 text-button-lg font-medium text-on-primary transition-opacity hover:opacity-90"
+							class="flex items-center justify-center gap-2 rounded-sm bg-ink px-4 py-2.5 text-button-lg font-medium text-on-primary transition-opacity hover:opacity-90"
 						>
 							Generate
 							<kbd class="rounded-xs border border-on-primary/20 bg-on-primary/10 px-1.5 py-0.5 text-body-sm font-normal" aria-hidden="true">
 								&#8984;&#8617;
 							</kbd>
 						</button>
+
+						<!-- Secondary controls: theme, standard-opener toggle, export format.
+						     Collapsed by default so a first-time visitor sees one clear
+						     decision (amount + unit) instead of seven at once; a returning
+						     or detail-oriented user can expand for full control. -->
+						<details id="more-options" class="group rounded-sm border border-hairline">
+							<summary class="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2.5 text-label-sm font-medium text-ink marker:content-none">
+								More options
+								<span
+									class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-hairline text-body-sm text-mute transition-transform group-open:rotate-45"
+									aria-hidden="true"
+								>
+									+
+								</span>
+							</summary>
+
+							<div class="flex flex-col gap-6 border-t border-hairline p-3 pt-4">
+								<!-- Theme selector -->
+								<fieldset>
+									<legend class="mb-2 block text-label-sm font-medium text-ink">Theme</legend>
+									<div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Word bank theme">
+										{THEME_LIST.map((theme, i) => (
+											<label
+												class="theme-option flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-3 py-2 text-center text-body-sm text-body transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint"
+											>
+												<input
+													type="radio"
+													name="theme"
+													value={theme.key}
+													checked={i === 0}
+													class="sr-only"
+												/>
+												{theme.label}
+											</label>
+										))}
+									</div>
+								</fieldset>
+
+								<!-- Start with lorem toggle -->
+								<div>
+									<label class="flex cursor-pointer items-center justify-between gap-3 rounded-sm border border-hairline px-3 py-2.5">
+										<span class="text-body-md text-ink">Start with the standard opener</span>
+										<input
+											type="checkbox"
+											id="start-with-lorem"
+											name="startWithLorem"
+											checked
+											class="h-5 w-9 shrink-0 cursor-pointer appearance-none rounded-full bg-hairline transition-colors before:block before:h-4 before:w-4 before:translate-x-0.5 before:translate-y-0.5 before:rounded-full before:bg-canvas-elevated before:shadow before:transition-transform checked:bg-ink checked:before:translate-x-[18px] checked:before:bg-on-primary"
+										/>
+									</label>
+									<p class="mt-2 text-body-sm text-mute">
+										Begins the output with "Lorem ipsum dolor sit amet…", the
+										traditional opening line, before the rest of the generated text.
+									</p>
+								</div>
+
+								<!-- Format selector -->
+								<fieldset>
+									<legend class="mb-2 block text-label-sm font-medium text-ink">Export format</legend>
+									<div class="grid grid-cols-3 gap-2" role="radiogroup" aria-label="Export format">
+										{[{ value: "plain", label: "Plain" }, { value: "html", label: "HTML" }, { value: "markdown", label: "Markdown" }].map((fmt, i) => (
+											<label
+												class="format-option flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-2 py-2 text-center text-body-sm text-body transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint"
+											>
+												<input
+													type="radio"
+													name="format"
+													value={fmt.value}
+													checked={i === 0}
+													class="sr-only"
+												/>
+												{fmt.label}
+											</label>
+										))}
+									</div>
+								</fieldset>
+							</div>
+						</details>
 					</div>
 
 					<!-- Output -->
@@ -187,6 +214,7 @@ import { THEME_LIST } from "../lib/wordBanks";
 	const copyButton = document.getElementById("copy-button") as HTMLButtonElement;
 	const copyLabel = document.getElementById("copy-button-label") as HTMLElement;
 	const copyStatus = document.getElementById("copy-status") as HTMLElement;
+	const amountStatus = document.getElementById("amount-status") as HTMLElement;
 
 	// Custom "unit" listbox (replaces a native <select> to avoid inconsistent
 	// popup positioning across browsers/devices) backed by a hidden input.
@@ -237,6 +265,9 @@ import { THEME_LIST } from "../lib/wordBanks";
 		const current = Number(amountInput.value);
 		if (!current || current < constraints.min || current > constraints.max) {
 			amountInput.value = String(constraints.default);
+			amountStatus.textContent = `Amount reset to ${constraints.default} — valid range for ${unit} is ${constraints.min}\u2013${constraints.max}.`;
+		} else {
+			amountStatus.textContent = "";
 		}
 	}
 
@@ -246,6 +277,12 @@ import { THEME_LIST } from "../lib/wordBanks";
 		} else {
 			closeUnitListbox();
 		}
+	});
+
+	// Catch out-of-range values typed directly into the amount field (not
+	// just ones left stale after a unit switch), and tell the user what happened.
+	amountInput.addEventListener("blur", () => {
+		applyAmountConstraints(unitHiddenInput.value);
 	});
 
 	unitOptions.forEach((option) => {
@@ -317,22 +354,33 @@ import { THEME_LIST } from "../lib/wordBanks";
 
 	copyButton.addEventListener("click", async () => {
 		if (!output.value) return;
+
+		function announceCopied() {
+			copyLabel.textContent = "Copied!";
+			copyStatus.textContent = "Text copied to clipboard";
+			setTimeout(() => {
+				copyLabel.textContent = "Copy";
+			}, 1800);
+		}
+
+		function announceFailure() {
+			copyStatus.textContent = "Copy failed. Select the text and copy it manually.";
+		}
+
 		try {
 			await navigator.clipboard.writeText(output.value);
-			copyLabel.textContent = "Copied!";
-			copyStatus.textContent = "Text copied to clipboard";
-			setTimeout(() => {
-				copyLabel.textContent = "Copy";
-			}, 1800);
+			announceCopied();
 		} catch {
-			// Fallback for browsers without clipboard API permission.
+			// Fallback for browsers without clipboard API permission. execCommand
+			// returns a boolean we must check — announcing success unconditionally
+			// here would tell screen-reader users the copy worked when it didn't.
 			output.select();
-			document.execCommand("copy");
-			copyLabel.textContent = "Copied!";
-			copyStatus.textContent = "Text copied to clipboard";
-			setTimeout(() => {
-				copyLabel.textContent = "Copy";
-			}, 1800);
+			const fallbackSucceeded = document.execCommand("copy");
+			if (fallbackSucceeded) {
+				announceCopied();
+			} else {
+				announceFailure();
+			}
 		}
 	});
 

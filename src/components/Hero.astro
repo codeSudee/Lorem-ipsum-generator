@@ -1,27 +1,34 @@
 ---
+// The hero's decorative layer is built from the product's own material —
+// real words from the classic Latin bank — instead of a borrowed gradient
+// blob. Oversized, faint, and set behind the headline, it reads as texture
+// rather than as a competing element.
+const backdropWords = ["lorem", "ipsum", "dolor", "sit", "amet", "consectetur"];
 ---
 
 <section class="relative overflow-hidden border-b border-hairline bg-canvas">
-	<!-- Mesh gradient — the hero's only decorative flourish -->
+	<!-- Typographic backdrop — oversized Latin words from the generator's own
+	     word bank, faint enough to read as texture, not competing content.
+	     No negative z-index: it sits in normal DOM order above the section's
+	     own background paint, and the content column below stacks above it
+	     via its own `relative` position (later in source order). -->
 	<div
-		class="pointer-events-none absolute inset-0 -z-10 opacity-60"
+		class="pointer-events-none absolute inset-0 select-none overflow-hidden"
 		aria-hidden="true"
 	>
-		<div
-			class="absolute -top-32 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full blur-[100px]"
-			style="background: conic-gradient(from 180deg at 50% 50%, #50e3c2, #0070f3, #7928ca, #ff0080, #f5a623, #50e3c2);"
-		>
+		<div class="absolute inset-0 flex flex-col justify-center gap-2 opacity-[0.14] sm:gap-3">
+			{backdropWords.map((word) => (
+				<p class="whitespace-nowrap text-center font-mono text-[18vw] leading-none font-medium tracking-tight text-ink sm:text-[9vw]">
+					{word}
+				</p>
+			))}
 		</div>
-	</div>
-	<div
-		class="pointer-events-none absolute inset-0 -z-10 bg-canvas/60"
-		aria-hidden="true"
-	>
+		<div class="absolute inset-0 bg-gradient-to-b from-canvas via-transparent to-canvas"></div>
 	</div>
 
 	<div class="relative mx-auto max-w-[1200px] px-6 pt-24 pb-20 text-center sm:pt-32 sm:pb-28">
 		<p class="mono-eyebrow mb-4 inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas-elevated px-3 py-1 text-mute">
-			<span class="h-1.5 w-1.5 rounded-full bg-cyan" aria-hidden="true"></span>
+			<span class="h-1.5 w-1.5 animate-pulse rounded-full bg-ink" aria-hidden="true"></span>
 			Free &amp; instant placeholder text
 		</p>
 

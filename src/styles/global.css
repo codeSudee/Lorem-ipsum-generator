@@ -174,4 +174,8 @@
   body {
     transition: none;
   }
+
+  .animate-pulse {
+    animation: none;
+  }
 }
