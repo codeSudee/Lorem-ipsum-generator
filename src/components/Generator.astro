@@ -67,6 +67,9 @@ import { THEME_LIST } from "../lib/wordBanks";
 										<li role="option" id="unit-option-sentences" data-value="sentences" aria-selected="false" class="cursor-pointer px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Sentences</li>
 										<li role="option" id="unit-option-words" data-value="words" aria-selected="false" class="cursor-pointer px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Words</li>
 										<li role="option" id="unit-option-characters" data-value="characters" aria-selected="false" class="cursor-pointer px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Characters</li>
+										<li role="option" id="unit-option-titles" data-value="titles" aria-selected="false" class="cursor-pointer border-t border-hairline px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Titles</li>
+										<li role="option" id="unit-option-captions" data-value="captions" aria-selected="false" class="cursor-pointer px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Captions</li>
+										<li role="option" id="unit-option-names" data-value="names" aria-selected="false" class="cursor-pointer px-3 py-2 text-body-md text-ink aria-selected:bg-ink aria-selected:text-on-primary hover:bg-hairline-soft">Names</li>
 									</ul>
 									<input type="hidden" id="unit-select" name="unit" value="paragraphs" />
 								</div>
@@ -118,6 +121,35 @@ import { THEME_LIST } from "../lib/wordBanks";
 												{theme.label}
 											</label>
 										))}
+										<label
+											class="theme-option col-span-2 flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-3 py-2 text-center text-body-sm text-body transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint"
+										>
+											<input type="radio" name="theme" value="custom" class="sr-only" />
+											Custom — use your own text
+										</label>
+									</div>
+
+									<!-- Custom word bank source. Shown only while the Custom theme is
+									     selected; words are extracted from this passage and fed through
+									     the same sentence/paragraph builders as the built-in banks. -->
+									<div id="custom-text-field" class="mt-3" hidden>
+										<label for="custom-text" class="mb-2 block text-label-sm font-medium text-ink">
+											Your text
+										</label>
+										<textarea
+											id="custom-text"
+											name="customText"
+											rows="5"
+											maxlength="20000"
+											spellcheck="false"
+											placeholder="Paste a poem, song lyric, or any passage…"
+											aria-describedby="custom-text-hint"
+											class="w-full resize-y rounded-sm border border-hairline bg-canvas-elevated px-3 py-2 text-body-md text-ink placeholder:text-faint focus-visible:outline-2 focus-visible:outline-link"
+										></textarea>
+										<p id="custom-text-hint" class="mt-2 text-body-sm text-mute" aria-live="polite">
+											Words are shuffled into new sentences — your text is never
+											repeated verbatim. Needs at least 10 different words.
+										</p>
 									</div>
 								</fieldset>
 
@@ -138,6 +170,34 @@ import { THEME_LIST } from "../lib/wordBanks";
 										traditional opening line, before the rest of the generated text.
 									</p>
 								</div>
+
+								<!-- Case selector -->
+								<fieldset>
+									<legend class="mb-2 block text-label-sm font-medium text-ink">Case</legend>
+									<div class="grid grid-cols-4 gap-2" role="radiogroup" aria-label="Text case">
+										{[
+											{ value: "sentence", label: "Sentence", title: "Sentence case (natural)" },
+											{ value: "lower", label: "lower", title: "lowercase" },
+											{ value: "upper", label: "UPPER", title: "UPPERCASE" },
+											{ value: "title", label: "Title", title: "Title Case" },
+										].map((opt, i) => (
+											<label
+												title={opt.title}
+												class="case-option flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-1 py-2 text-center text-body-sm text-body transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint"
+											>
+												<input
+													type="radio"
+													name="textCase"
+													value={opt.value}
+													checked={i === 0}
+													aria-label={opt.title}
+													class="sr-only"
+												/>
+												{opt.label}
+											</label>
+										))}
+									</div>
+								</fieldset>
 
 								<!-- Format selector -->
 								<fieldset>
@@ -185,14 +245,30 @@ import { THEME_LIST } from "../lib/wordBanks";
 						</div>
 
 						<label for="output-area" class="sr-only">Generated placeholder text</label>
-						<textarea
-							id="output-area"
-							readonly
-							autocomplete="off"
-							spellcheck="false"
-							class="min-h-[320px] flex-1 resize-none rounded-sm border border-hairline bg-canvas p-4 font-mono text-body-md text-ink focus-visible:outline-2 focus-visible:outline-link"
-							aria-label="Generated placeholder text output"
-						></textarea>
+						<!-- Wrapper sizes both output views identically: the list view is
+						     absolutely positioned so, like the textarea, it scrolls
+						     internally instead of stretching the card. -->
+						<div class="relative flex min-h-[320px] flex-1 flex-col">
+							<textarea
+								id="output-area"
+								readonly
+								autocomplete="off"
+								spellcheck="false"
+								class="min-h-[320px] flex-1 resize-none rounded-sm border border-hairline bg-canvas p-4 font-mono text-body-md text-ink focus-visible:outline-2 focus-visible:outline-link"
+								aria-label="Generated placeholder text output"
+							></textarea>
+
+							<!-- Segmented view for paragraphs/sentences/titles/captions/names:
+							     same text, plus a copy button per piece. -->
+							<div
+								id="output-list"
+								role="region"
+								tabindex="0"
+								aria-label="Generated placeholder text output"
+								hidden
+								class="absolute inset-0 overflow-y-auto rounded-sm border border-hairline bg-canvas p-4 font-mono text-body-md text-ink wrap-break-word whitespace-pre-wrap focus-visible:outline-2 focus-visible:outline-link"
+							></div>
+						</div>
 
 						<p class="sr-only" role="status" id="copy-status"></p>
 					</div>
@@ -203,12 +279,29 @@ import { THEME_LIST } from "../lib/wordBanks";
 </section>
 
 <script>
-	import { generate, type AmountUnit, type OutputFormat } from "../lib/generator";
-	import type { ThemeKey } from "../lib/wordBanks";
+	import {
+		generate,
+		formatSegment,
+		blockSeparator,
+		type AmountUnit,
+		type GenerateResult,
+		type GeneratorTheme,
+		type OutputFormat,
+		type SegmentKind,
+		type TextCase,
+	} from "../lib/generator";
+	import { THEMES } from "../lib/wordBanks";
 
 	const form = document.getElementById("generator-form") as HTMLFormElement;
 	const amountInput = document.getElementById("amount-input") as HTMLInputElement;
 	const output = document.getElementById("output-area") as HTMLTextAreaElement;
+	const outputList = document.getElementById("output-list") as HTMLDivElement;
+	const moreOptions = document.getElementById("more-options") as HTMLDetailsElement;
+	const startWithLoremInput = document.getElementById("start-with-lorem") as HTMLInputElement;
+	const customField = document.getElementById("custom-text-field") as HTMLDivElement;
+	const customTextInput = document.getElementById("custom-text") as HTMLTextAreaElement;
+	const customHint = document.getElementById("custom-text-hint") as HTMLElement;
+	const CUSTOM_HINT_DEFAULT = customHint.textContent?.replace(/\s+/g, " ").trim() ?? "";
 	const wordCountEl = document.getElementById("word-count") as HTMLElement;
 	const charCountEl = document.getElementById("char-count") as HTMLElement;
 	const copyButton = document.getElementById("copy-button") as HTMLButtonElement;
@@ -236,11 +329,16 @@ import { THEME_LIST } from "../lib/wordBanks";
 		selected?.focus();
 	}
 
-	function selectUnitOption(option: HTMLLIElement) {
-		const value = option.dataset.value ?? "paragraphs";
+	/** Reflect a unit choice in the listbox, trigger label, and hidden input. */
+	function setUnitUI(option: HTMLLIElement) {
 		unitOptions.forEach((opt) => opt.setAttribute("aria-selected", String(opt === option)));
 		unitLabel.textContent = option.textContent?.trim() ?? "";
-		unitHiddenInput.value = value;
+		unitHiddenInput.value = option.dataset.value ?? "paragraphs";
+	}
+
+	function selectUnitOption(option: HTMLLIElement) {
+		const value = option.dataset.value ?? "paragraphs";
+		setUnitUI(option);
 		applyAmountConstraints(value);
 		unitHiddenInput.dispatchEvent(new Event("change", { bubbles: true }));
 		closeUnitListbox();
@@ -255,6 +353,9 @@ import { THEME_LIST } from "../lib/wordBanks";
 		sentences: { min: 1, max: 50, default: 5 },
 		words: { min: 1, max: 200, default: 50 },
 		characters: { min: 1, max: 5000, default: 500 },
+		titles: { min: 1, max: 50, default: 5 },
+		captions: { min: 1, max: 50, default: 5 },
+		names: { min: 1, max: 100, default: 10 },
 	};
 
 	function applyAmountConstraints(unit: string) {
@@ -319,19 +420,281 @@ import { THEME_LIST } from "../lib/wordBanks";
 		}
 	});
 
-	function runGenerate() {
-		const formData = new FormData(form);
-		const theme = (formData.get("theme") as ThemeKey) ?? "classic";
-		const unit = (formData.get("unit") as AmountUnit) ?? "paragraphs";
-		const format = (formData.get("format") as OutputFormat) ?? "plain";
-		const amount = Number(formData.get("amount")) || 5;
-		const startWithLorem = formData.get("startWithLorem") === "on";
+	// ------------------------------------------------------------------
+	// Remember last-used settings (localStorage)
+	// ------------------------------------------------------------------
+	// Everything is wrapped in try/catch: storage can be missing, disabled,
+	// full, or throw on access (e.g. some private-browsing modes). Any failure
+	// silently falls back to the defaults already rendered in the markup.
 
-		const result = generate({ theme, unit, amount, startWithLorem, format });
+	const SETTINGS_KEY = "loremmaker:generator-settings";
+	const SETTINGS_VERSION = 1;
 
+	// Note: pasted/typed custom text is deliberately excluded from this shape
+	// and is never written to storage — only the generator's control settings
+	// are remembered.
+	interface GeneratorSettings {
+		unit: AmountUnit;
+		amount: number;
+		theme: GeneratorTheme;
+		format: OutputFormat;
+		textCase: TextCase;
+		startWithLorem: boolean;
+	}
+
+	const VALID_UNITS = Object.keys(AMOUNT_CONSTRAINTS) as AmountUnit[];
+	const VALID_THEMES = [...Object.keys(THEMES), "custom"] as GeneratorTheme[];
+	const VALID_FORMATS: OutputFormat[] = ["plain", "html", "markdown"];
+	const VALID_CASES: TextCase[] = ["sentence", "lower", "upper", "title"];
+
+	function oneOf<T extends string>(value: unknown, allowed: readonly T[]): T | undefined {
+		return typeof value === "string" && (allowed as readonly string[]).includes(value) ? (value as T) : undefined;
+	}
+
+	function loadSettings(): Partial<GeneratorSettings> | null {
+		try {
+			const raw = window.localStorage.getItem(SETTINGS_KEY);
+			if (!raw) return null;
+			const data = JSON.parse(raw);
+			if (!data || typeof data !== "object" || data.v !== SETTINGS_VERSION) return null;
+			// Validate each field independently so one bad value doesn't
+			// discard the rest.
+			return {
+				unit: oneOf(data.unit, VALID_UNITS),
+				amount: Number.isFinite(data.amount) ? Math.floor(data.amount) : undefined,
+				theme: oneOf(data.theme, VALID_THEMES),
+				format: oneOf(data.format, VALID_FORMATS),
+				textCase: oneOf(data.textCase, VALID_CASES),
+				startWithLorem: typeof data.startWithLorem === "boolean" ? data.startWithLorem : undefined,
+			};
+		} catch {
+			return null;
+		}
+	}
+
+	function saveSettings(settings: GeneratorSettings) {
+		try {
+			window.localStorage.setItem(SETTINGS_KEY, JSON.stringify({ v: SETTINGS_VERSION, ...settings }));
+		} catch {
+			// Storage unavailable or full — persistence is best-effort.
+		}
+	}
+
+	function checkRadio(name: string, value: string | undefined) {
+		if (!value) return;
+		const radio = form.querySelector<HTMLInputElement>(`input[type="radio"][name="${name}"][value="${value}"]`);
+		if (radio) radio.checked = true;
+	}
+
+	function restoreSettings() {
+		const saved = loadSettings();
+		if (!saved) return;
+
+		if (saved.unit) {
+			const option = unitOptions.find((opt) => opt.dataset.value === saved.unit);
+			if (option) setUnitUI(option);
+		}
+		const constraints = AMOUNT_CONSTRAINTS[unitHiddenInput.value] ?? AMOUNT_CONSTRAINTS.paragraphs;
+		amountInput.min = String(constraints.min);
+		amountInput.max = String(constraints.max);
+		const amountValid =
+			saved.amount !== undefined && saved.amount >= constraints.min && saved.amount <= constraints.max;
+		amountInput.value = String(amountValid ? saved.amount : constraints.default);
+
+		checkRadio("theme", saved.theme);
+		checkRadio("format", saved.format);
+		checkRadio("textCase", saved.textCase);
+		if (saved.startWithLorem !== undefined) startWithLoremInput.checked = saved.startWithLorem;
+
+		// The custom textarea lives inside "More options"; open it so a
+		// returning Custom user immediately sees where to paste their text
+		// again (its previous content is never remembered).
+		if (saved.theme === "custom") moreOptions.open = true;
+	}
+
+	// ------------------------------------------------------------------
+	// Copy helpers (shared by the main Copy button and per-piece buttons)
+	// ------------------------------------------------------------------
+
+	const COPY_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M11 5V3.5C11 2.67 10.33 2 9.5 2H3.5C2.67 2 2 2.67 2 3.5V9.5C2 10.33 2.67 11 3.5 11H5" stroke="currentColor" stroke-width="1.3"/></svg>`;
+	const CHECK_ICON = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+	const COPIED_RESET_MS = 1800;
+
+	/**
+	 * Copy text via the Clipboard API, falling back to execCommand on a
+	 * temporary off-screen textarea. Resolves to whether the copy succeeded —
+	 * execCommand returns a boolean we must check, since announcing success
+	 * unconditionally would tell screen-reader users the copy worked when it
+	 * didn't.
+	 */
+	async function copyText(text: string): Promise<boolean> {
+		try {
+			await navigator.clipboard.writeText(text);
+			return true;
+		} catch {
+			const previousFocus = document.activeElement as HTMLElement | null;
+			const scratch = document.createElement("textarea");
+			scratch.value = text;
+			scratch.setAttribute("readonly", "");
+			scratch.style.position = "fixed";
+			scratch.style.top = "0";
+			scratch.style.opacity = "0";
+			scratch.style.pointerEvents = "none";
+			document.body.append(scratch);
+			scratch.select();
+			let succeeded = false;
+			try {
+				succeeded = document.execCommand("copy");
+			} catch {
+				succeeded = false;
+			}
+			scratch.remove();
+			previousFocus?.focus({ preventScroll: true });
+			return succeeded;
+		}
+	}
+
+	function announceCopyFailure() {
+		copyStatus.textContent = "Copy failed. Select the text and copy it manually.";
+	}
+
+	// ------------------------------------------------------------------
+	// Output rendering
+	// ------------------------------------------------------------------
+
+	/** Full formatted text currently shown — what the main Copy button copies. */
+	let currentText = "";
+
+	function makeSegmentCopyButton(text: string, kind: SegmentKind, index: number, inline: boolean) {
+		const label = `Copy ${kind} ${index + 1}`;
+		const button = document.createElement("button");
+		button.type = "button";
+		button.title = label;
+		button.setAttribute("aria-label", label);
+		// after:-inset-1 extends the hit area beyond the 20px visual box.
+		button.className =
+			"relative inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-xs text-faint transition-colors after:absolute after:-inset-1 hover:bg-hairline-soft hover:text-ink focus-visible:text-ink" +
+			(inline ? " ml-1 align-[-4px]" : "");
+		button.innerHTML = COPY_ICON;
+
+		let resetTimer: ReturnType<typeof setTimeout> | undefined;
+		button.addEventListener("click", async () => {
+			if (!(await copyText(text))) {
+				announceCopyFailure();
+				return;
+			}
+			const kindLabel = kind.charAt(0).toUpperCase() + kind.slice(1);
+			button.innerHTML = CHECK_ICON;
+			button.classList.add("text-ink");
+			button.setAttribute("aria-label", `${kindLabel} ${index + 1} copied`);
+			copyStatus.textContent = `${kindLabel} ${index + 1} copied to clipboard`;
+			clearTimeout(resetTimer);
+			resetTimer = setTimeout(() => {
+				button.innerHTML = COPY_ICON;
+				button.classList.remove("text-ink");
+				button.setAttribute("aria-label", label);
+			}, COPIED_RESET_MS);
+		});
+
+		return button;
+	}
+
+	function showTextarea(text: string) {
+		output.value = text;
+		output.hidden = false;
+		outputList.hidden = true;
+		outputList.replaceChildren();
+	}
+
+	function showList(children: Node[]) {
+		output.hidden = true;
+		outputList.hidden = false;
+		outputList.replaceChildren(...children);
+		outputList.scrollTop = 0;
+	}
+
+	function renderOutput(result: GenerateResult, format: OutputFormat) {
+		currentText = result.text;
 		output.value = result.text;
 		wordCountEl.textContent = result.wordCount.toLocaleString();
 		charCountEl.textContent = result.characterCount.toLocaleString();
+
+		if (result.error) {
+			const message = document.createElement("p");
+			message.className = "font-sans text-body-md text-mute";
+			message.textContent = result.error;
+			showList([message]);
+			return;
+		}
+
+		const kind = result.segmentKind;
+		if (!kind) {
+			// Words / characters: a single block, shown exactly as before.
+			showTextarea(result.text);
+			return;
+		}
+
+		if (kind === "sentence") {
+			// Sentences form one paragraph in the exported text, so they stay
+			// inline here too, each followed by its own small copy button.
+			const block = document.createElement("div");
+			if (format === "html") block.append("<p>");
+			result.segments.forEach((sentence, i) => {
+				if (i > 0) block.append(" ");
+				const span = document.createElement("span");
+				span.textContent = sentence;
+				block.append(span, makeSegmentCopyButton(sentence, kind, i, true));
+			});
+			if (format === "html") block.append("</p>");
+			showList([block]);
+			return;
+		}
+
+		// Block segments (paragraphs, titles, captions, names): one row each,
+		// spaced to mirror the blank-line / single-line separators in `text`.
+		const gapClass = blockSeparator(kind, format) === "\n\n" ? "mt-5" : "mt-1";
+		const rows = result.segments.map((segment, i) => {
+			const formatted = formatSegment(segment, format);
+			const row = document.createElement("div");
+			row.className = "flex items-start gap-3" + (i > 0 ? ` ${gapClass}` : "");
+			const text = document.createElement("div");
+			text.className = "min-w-0 flex-1";
+			text.textContent = formatted;
+			row.append(text, makeSegmentCopyButton(formatted, kind, i, false));
+			return row;
+		});
+		showList(rows);
+	}
+
+	// ------------------------------------------------------------------
+	// Generation
+	// ------------------------------------------------------------------
+
+	function syncCustomField(theme: GeneratorTheme, error?: string) {
+		customField.hidden = theme !== "custom";
+		customHint.textContent = theme === "custom" && error ? error : CUSTOM_HINT_DEFAULT;
+		customHint.classList.toggle("text-ink", Boolean(theme === "custom" && error));
+		customHint.classList.toggle("text-mute", !(theme === "custom" && error));
+	}
+
+	function runGenerate({ persist = true }: { persist?: boolean } = {}) {
+		const formData = new FormData(form);
+		const theme = (formData.get("theme") as GeneratorTheme) ?? "classic";
+		const unit = (formData.get("unit") as AmountUnit) ?? "paragraphs";
+		const format = (formData.get("format") as OutputFormat) ?? "plain";
+		const textCase = (formData.get("textCase") as TextCase) ?? "sentence";
+		const amount = Number(formData.get("amount")) || 5;
+		const startWithLorem = formData.get("startWithLorem") === "on";
+		const customText = customTextInput.value;
+
+		const result = generate({ theme, unit, amount, startWithLorem, format, textCase, customText });
+
+		renderOutput(result, format);
+		syncCustomField(theme, result.error);
+
+		if (persist) {
+			saveSettings({ unit, amount, theme, format, textCase, startWithLorem });
+		}
 	}
 
 	form.addEventListener("submit", (e) => {
@@ -340,8 +703,18 @@ import { THEME_LIST } from "../lib/wordBanks";
 	});
 
 	// Live-regenerate on control change for instant feedback (no need to click Generate).
-	form.addEventListener("change", () => {
+	form.addEventListener("change", (e) => {
+		// The custom textarea already regenerates on (debounced) input; its
+		// blur-time "change" would otherwise swap the output under the user
+		// as they move to click Copy.
+		if (e.target === customTextInput) return;
 		runGenerate();
+	});
+
+	let customInputTimer: ReturnType<typeof setTimeout> | undefined;
+	customTextInput.addEventListener("input", () => {
+		clearTimeout(customInputTimer);
+		customInputTimer = setTimeout(() => runGenerate(), 250);
 	});
 
 	// Keyboard shortcut: Cmd/Ctrl+Enter to regenerate from anywhere in the form.
@@ -352,38 +725,25 @@ import { THEME_LIST } from "../lib/wordBanks";
 		}
 	});
 
+	let mainCopyResetTimer: ReturnType<typeof setTimeout> | undefined;
 	copyButton.addEventListener("click", async () => {
-		if (!output.value) return;
+		if (!currentText) return;
 
-		function announceCopied() {
+		if (await copyText(currentText)) {
 			copyLabel.textContent = "Copied!";
 			copyStatus.textContent = "Text copied to clipboard";
-			setTimeout(() => {
+			clearTimeout(mainCopyResetTimer);
+			mainCopyResetTimer = setTimeout(() => {
 				copyLabel.textContent = "Copy";
-			}, 1800);
-		}
-
-		function announceFailure() {
-			copyStatus.textContent = "Copy failed. Select the text and copy it manually.";
-		}
-
-		try {
-			await navigator.clipboard.writeText(output.value);
-			announceCopied();
-		} catch {
-			// Fallback for browsers without clipboard API permission. execCommand
-			// returns a boolean we must check — announcing success unconditionally
-			// here would tell screen-reader users the copy worked when it didn't.
-			output.select();
-			const fallbackSucceeded = document.execCommand("copy");
-			if (fallbackSucceeded) {
-				announceCopied();
-			} else {
-				announceFailure();
-			}
+			}, COPIED_RESET_MS);
+		} else {
+			announceCopyFailure();
 		}
 	});
 
-	// Initial generation on load.
-	runGenerate();
+	// Restore last-used settings (if any), then do the initial generation.
+	// The initial render doesn't write to storage, so a first-time visitor
+	// who never touches the controls leaves nothing behind.
+	restoreSettings();
+	runGenerate({ persist: false });
 </script>
