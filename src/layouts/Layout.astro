@@ -142,6 +142,33 @@ const softwareAppStructuredData = {
 			Skip to content
 		</a>
 		<slot />
+		<script>
+			import Lenis from "lenis";
+			import { gsap } from "gsap";
+			import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+			gsap.registerPlugin(ScrollTrigger);
+
+			// Same smooth-scroll setup as hsgpacalc: Lenis driven by the GSAP ticker.
+			const lenis = new Lenis({ respectReducedMotion: true, anchors: true });
+			lenis.on("scroll", ScrollTrigger.update);
+			gsap.ticker.add((time) => lenis.raf(time * 1000));
+			gsap.ticker.lagSmoothing(0);
+
+			// Subtle fade-up as major sections scroll into view.
+			if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+				gsap.utils.toArray<HTMLElement>("[data-scroll-reveal]").forEach((el) => {
+					gsap.from(el, {
+						opacity: 0,
+						y: 24,
+						duration: 0.55,
+						ease: "power2.out",
+						clearProps: "all",
+						scrollTrigger: { trigger: el, start: "top 90%", once: true },
+					});
+				});
+			}
+		</script>
 	</body>
 </html>
 
