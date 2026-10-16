@@ -113,6 +113,15 @@
 @layer base {
   html {
     color-scheme: light;
+    /* Keep in-page anchor targets (#generator, #themes, #faq) clear of the
+       sticky navbar. */
+    scroll-padding-top: 4rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   html.dark {
