@@ -1,14 +1,13 @@
 ---
 // The hero's decorative layer is built from the product's own material —
-// real words from the classic Latin bank — instead of a borrowed gradient
+// words from a designer's everyday vocabulary — instead of a borrowed gradient
 // blob. Oversized, faint, and set behind the headline, it reads as texture
 // rather than as a competing element.
-const backdropWords = ["lorem", "ipsum", "dolor", "sit", "amet", "consectetur"];
+const backdropWords = ["headline", "paragraph", "caption", "layout", "mockup", "draft"];
 ---
 
 <section class="relative overflow-hidden border-b border-hairline bg-canvas">
-	<!-- Typographic backdrop — oversized Latin words from the generator's own
-	     word bank, faint enough to read as texture, not competing content.
+	<!-- Typographic backdrop — oversized English layout words, faint enough to read as texture, not competing content.
 	     No negative z-index: it sits in normal DOM order above the section's
 	     own background paint, and the content column below stacks above it
 	     via its own `relative` position (later in source order). -->

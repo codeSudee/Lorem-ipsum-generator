@@ -56,4 +56,24 @@ export const FAQS: FAQItem[] = [
     q: "What should I look for in a Lorem Ipsum generator?",
     a: "Look for control over the exact output length (paragraphs, words, or characters), more than one word bank, and export in the format you actually need. This site offers paragraph, sentence, word, and exact character-count modes, five themed word banks (Corporate, Tech, Foodie, Cat, and a funny option) alongside classic Latin, and one-click export as plain text, HTML, or Markdown — all running instantly in your browser with no sign-up required.",
   },
+  {
+    q: "Is this Lorem Ipsum generator free to use?",
+    a: "Yes. The generator is free, needs no account or sign-up, and has no usage limit. Text can be used in personal and commercial projects without attribution. The site is supported by advertising, which never changes what the generator produces.",
+  },
+  {
+    q: "Is the text I generate stored or sent anywhere?",
+    a: "No. Generation happens entirely in your browser. The text you generate and any custom text you paste are not uploaded to our servers. Your last-used settings are remembered only in your own browser's local storage.",
+  },
+  {
+    q: "When should I replace placeholder text with real content?",
+    a: "Before launch. Placeholder text is meant for design and development stages only. Published pages that still contain filler are unhelpful to visitors and are treated by search engines as low-value content, so swap in real copy once the layout is approved.",
+  },
+  {
+    q: "Can I use my own words instead of Latin?",
+    a: "Yes. Choose the Custom theme in More options and paste any passage. The generator extracts the words and builds new sentences and paragraphs from them, which is handy for matching a brand's vocabulary or testing a specific language.",
+  },
+  {
+    q: "How is this different from other Lorem Ipsum generators?",
+    a: "Beyond paragraphs, it supports exact character counts, sentence, word, title, caption, and name modes, English-language themed word banks, a custom word bank, and export as plain text, HTML, or Markdown. It also runs fully in your browser with no sign-up.",
+  },
 ];

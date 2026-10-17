@@ -1,5 +1,11 @@
 ---
 import { THEME_LIST } from "../lib/wordBanks";
+
+// Default theme on first load: real English vocabulary rather than Latin or
+// nonsense words, so the first visible output is readable language.
+const DEFAULT_THEME = "tech";
+const SAMPLE_OUTPUT =
+	"Our startup is disrupting the platform with a scalable product roadmap. The team ships every sprint, tracks growth metrics on a shared dashboard, and iterates on user feedback after each launch.";
 ---
 
 <section id="generator" class="border-b border-hairline bg-canvas py-20 sm:py-28">
@@ -115,7 +121,7 @@ import { THEME_LIST } from "../lib/wordBanks";
 													type="radio"
 													name="theme"
 													value={theme.key}
-													checked={i === 0}
+													checked={theme.key === DEFAULT_THEME}
 													class="sr-only"
 												/>
 												{theme.label}
@@ -225,6 +231,9 @@ import { THEME_LIST } from "../lib/wordBanks";
 
 					<!-- Output -->
 					<div class="flex flex-col">
+						<p class="mb-2 text-body-sm text-mute" id="output-caption">
+							Example generated output (placeholder text, not real page content):
+						</p>
 						<div class="mb-2 flex items-center justify-between gap-3">
 							<div class="flex items-center gap-4 text-body-sm text-mute tabular-nums" aria-live="polite">
 								<span><strong id="word-count" class="text-ink">0</strong> words</span>
@@ -256,7 +265,8 @@ import { THEME_LIST } from "../lib/wordBanks";
 								spellcheck="false"
 								class="min-h-[320px] flex-1 resize-none rounded-sm border border-hairline bg-canvas p-4 font-mono text-body-md text-ink focus-visible:outline-2 focus-visible:outline-link"
 								aria-label="Generated placeholder text output"
-							></textarea>
+								aria-describedby="output-caption"
+							>{SAMPLE_OUTPUT}</textarea>
 
 							<!-- Segmented view for paragraphs/sentences/titles/captions/names:
 							     same text, plus a copy button per piece. -->
@@ -679,7 +689,7 @@ import { THEME_LIST } from "../lib/wordBanks";
 
 	function runGenerate({ persist = true }: { persist?: boolean } = {}) {
 		const formData = new FormData(form);
-		const theme = (formData.get("theme") as GeneratorTheme) ?? "classic";
+		const theme = (formData.get("theme") as GeneratorTheme) ?? "tech";
 		const unit = (formData.get("unit") as AmountUnit) ?? "paragraphs";
 		const format = (formData.get("format") as OutputFormat) ?? "plain";
 		const textCase = (formData.get("textCase") as TextCase) ?? "sentence";
