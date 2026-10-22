@@ -21,7 +21,7 @@ const structuredDataList = structuredData
 	: [];
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} breadcrumbs={[{ name: heading, path: Astro.url.pathname }]}>
 	{structuredDataList.map((data) => (
 		<script slot="structured-data" type="application/ld+json" set:html={JSON.stringify(data)} />
 	))}

@@ -1,13 +1,18 @@
 ---
-import { FAQS } from "../lib/faqs";
+import { FAQS, type FAQItem } from "../lib/faqs";
 
-const faqs = FAQS;
+interface Props {
+	items?: FAQItem[];
+	eyebrow?: string;
+}
+const { items = FAQS, eyebrow = "Good to know" } = Astro.props;
+const faqs = items;
 ---
 
 <section id="faq" class="border-b border-hairline bg-hairline-soft py-20 sm:py-28">
 	<div data-scroll-reveal class="mx-auto max-w-[800px] px-6">
 		<div class="mb-10 text-center">
-			<p class="mono-eyebrow mb-3 text-mute">Good to know</p>
+			<p class="mono-eyebrow mb-3 text-mute">{eyebrow}</p>
 			<h2 class="text-heading-lg text-pretty text-ink">Frequently asked questions</h2>
 		</div>
 

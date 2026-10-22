@@ -1,4 +1,6 @@
 ---
+import { LANDING_PAGES } from "../lib/landingPages";
+
 const year = new Date().getFullYear();
 
 const columns = [
@@ -11,12 +13,11 @@ const columns = [
 		],
 	},
 	{
-		heading: "Formats",
-		links: [
-			{ label: "Plain Text", href: "/#generator" },
-			{ label: "HTML", href: "/#generator" },
-			{ label: "Markdown", href: "/#generator" },
-		],
+		heading: "Generators",
+		links: LANDING_PAGES.map((page) => ({
+			label: page.label,
+			href: `/${page.slug}`,
+		})),
 	},
 	{
 		heading: "Company",
@@ -37,7 +38,7 @@ const columns = [
 
 <footer class="bg-canvas py-16">
 	<div class="mx-auto max-w-[1200px] px-6">
-		<div class="grid grid-cols-2 gap-8 sm:grid-cols-4">
+		<div class="grid grid-cols-2 gap-8 sm:grid-cols-5">
 			<div class="col-span-2 sm:col-span-1">
 				<a href="/" class="flex items-center gap-2 text-label-sm text-ink" aria-label="Lorem Ipsum Generator home">
 					<span class="flex h-7 w-7 items-center justify-center rounded-sm bg-ink text-on-primary" aria-hidden="true">

@@ -12,12 +12,21 @@ interface Props {
 	description?: string;
 	/** Only the homepage should emit the FAQPage/WebApplication schema — it's the only page with matching visible content. */
 	isHome?: boolean;
+	/** Keep the page out of the index (404/500). */
+	noindex?: boolean;
+	/** Extra FAQ items to emit as FAQPage JSON-LD instead of the homepage set. */
+	faqs?: { q: string; a: string }[];
+	/** Breadcrumb trail after "Home", e.g. [{ name: "About", path: "/about" }]. */
+	breadcrumbs?: { name: string; path: string }[];
 }
 
 const {
 	title = "Lorem Ipsum Generator — Free Online Text Generator",
 	description = "Generate placeholder text by paragraph, word, or exact character count (e.g. 500 characters) — plus a funny mode and Corporate, Tech, Foodie, and Cat themes. Copy instantly as plain text, HTML, or Markdown.",
 	isHome = false,
+	noindex = false,
+	faqs,
+	breadcrumbs,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -27,7 +36,7 @@ const siteName = "Lorem Ipsum Generator";
 const faqStructuredData = {
 	"@context": "https://schema.org",
 	"@type": "FAQPage",
-	mainEntity: FAQS.map((item) => ({
+	mainEntity: (faqs ?? FAQS).map((item) => ({
 		"@type": "Question",
 		name: item.q,
 		acceptedAnswer: {
@@ -52,6 +61,43 @@ const softwareAppStructuredData = {
 	description:
 		"Free online placeholder text generator that creates lorem ipsum text by paragraph, sentence, word, or exact character count, plus themed word banks including a funny mode.",
 };
+
+const siteURL = Astro.site?.toString() ?? "https://loremmaker.com/";
+
+const siteStructuredData = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "WebSite",
+			"@id": `${siteURL}#website`,
+			url: siteURL,
+			name: siteName,
+			inLanguage: "en",
+			publisher: { "@id": `${siteURL}#organization` },
+		},
+		{
+			"@type": "Organization",
+			"@id": `${siteURL}#organization`,
+			name: siteName,
+			url: siteURL,
+			logo: new URL("/web-app-manifest-512x512.png", Astro.site).toString(),
+			email: "code.sudeepto@gmail.com",
+		},
+	],
+};
+
+const breadcrumbStructuredData = breadcrumbs?.length
+	? {
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			itemListElement: [{ name: "Home", path: "/" }, ...breadcrumbs].map((crumb, i) => ({
+				"@type": "ListItem",
+				position: i + 1,
+				name: crumb.name,
+				item: new URL(crumb.path, Astro.site).toString(),
+			})),
+		}
+	: null;
 ---
 
 <!doctype html>
@@ -87,11 +133,7 @@ const softwareAppStructuredData = {
 
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta
-			name="keywords"
-			content="lorem ipsum generator, lorem ipsum generator online, lorem ipsum generator text, lorem ipsum generator word, lorem ipsum generator characters, lorem ipsum generator character count, lorem ipsum generator by character count, lorem ipsum generator 500 characters, lorem ipsum generator funny, funny lorem ipsum generator, lorem ipsum paragraph, lorem ipsum dolor sit amet, lorem ipsum text copy"
-		/>
-		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large"} />
 		<meta name="author" content="Lorem Ipsum Generator" />
 		<link rel="canonical" href={canonicalURL} />
 
@@ -119,8 +161,10 @@ const softwareAppStructuredData = {
 		<meta name="twitter:image:alt" content="Lorem Ipsum Generator — free online lorem ipsum text generator" />
 
 		<!-- Structured data -->
+		{isHome && <script type="application/ld+json" set:html={JSON.stringify(siteStructuredData)} />}
 		{isHome && <script type="application/ld+json" set:html={JSON.stringify(softwareAppStructuredData)} />}
-		{isHome && <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />}
+		{(isHome || faqs) && <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />}
+		{breadcrumbStructuredData && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbStructuredData)} />}
 		<slot name="structured-data" />
 
 		<script is:inline>

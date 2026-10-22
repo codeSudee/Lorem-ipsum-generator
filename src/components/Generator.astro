@@ -4,6 +4,12 @@ import { THEME_LIST } from "../lib/wordBanks";
 // Default theme on first load: real English vocabulary rather than Latin or
 // nonsense words, so the first visible output is readable language.
 const DEFAULT_THEME = "tech";
+
+interface Props {
+	/** Landing-page preset (unit/amount/theme). When set, saved settings are ignored and nothing is persisted. */
+	preset?: { unit: string; amount: number; theme: string; startWithLorem?: boolean };
+}
+const { preset } = Astro.props;
 const SAMPLE_OUTPUT =
 	"Our startup is disrupting the platform with a scalable product roadmap. The team ships every sprint, tracks growth metrics on a shared dashboard, and iterates on user feedback after each launch.";
 ---
@@ -21,6 +27,7 @@ const SAMPLE_OUTPUT =
 
 		<div
 			id="lorem-generator"
+			data-preset={preset ? JSON.stringify(preset) : undefined}
 			class="rounded-lg border border-hairline bg-canvas-elevated p-5 sm:p-8"
 		>
 			<form id="generator-form">
@@ -361,7 +368,7 @@ const SAMPLE_OUTPUT =
 	const AMOUNT_CONSTRAINTS: Record<string, { min: number; max: number; default: number }> = {
 		paragraphs: { min: 1, max: 50, default: 5 },
 		sentences: { min: 1, max: 50, default: 5 },
-		words: { min: 1, max: 200, default: 50 },
+		words: { min: 1, max: 1000, default: 50 },
 		characters: { min: 1, max: 5000, default: 500 },
 		titles: { min: 1, max: 50, default: 5 },
 		captions: { min: 1, max: 50, default: 5 },
@@ -702,7 +709,7 @@ const SAMPLE_OUTPUT =
 		renderOutput(result, format);
 		syncCustomField(theme, result.error);
 
-		if (persist) {
+		if (persist && !preset) {
 			saveSettings({ unit, amount, theme, format, textCase, startWithLorem });
 		}
 	}
@@ -754,6 +761,27 @@ const SAMPLE_OUTPUT =
 	// Restore last-used settings (if any), then do the initial generation.
 	// The initial render doesn't write to storage, so a first-time visitor
 	// who never touches the controls leaves nothing behind.
-	restoreSettings();
+	function applyPreset(preset: { unit?: string; amount?: number; theme?: string; startWithLorem?: boolean }) {
+		const option = unitOptions.find((opt) => opt.dataset.value === preset.unit);
+		if (option) setUnitUI(option);
+		const constraints = AMOUNT_CONSTRAINTS[unitHiddenInput.value] ?? AMOUNT_CONSTRAINTS.paragraphs;
+		amountInput.min = String(constraints.min);
+		amountInput.max = String(constraints.max);
+		const amount = Number(preset.amount);
+		amountInput.value = String(amount >= constraints.min && amount <= constraints.max ? amount : constraints.default);
+		checkRadio("theme", preset.theme);
+		if (preset.startWithLorem !== undefined) startWithLoremInput.checked = preset.startWithLorem;
+	}
+
+	let preset: Parameters<typeof applyPreset>[0] | null = null;
+	try {
+		const raw = document.getElementById("lorem-generator")?.dataset.preset;
+		preset = raw ? JSON.parse(raw) : null;
+	} catch {
+		preset = null;
+	}
+
+	if (preset) applyPreset(preset);
+	else restoreSettings();
 	runGenerate({ persist: false });
 </script>

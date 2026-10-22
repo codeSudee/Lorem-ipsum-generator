@@ -1,0 +1,18 @@
+# Lorem Ipsum Generator
+
+> Free online lorem ipsum generator at https://loremmaker.com. Generates placeholder text by paragraph, sentence, word, or exact character count, with themed word banks (Corporate, Tech, Foodie, Cat, Funny) and a custom word bank. Output copies as plain text, HTML, or Markdown. Runs entirely in the browser, with no sign-up.
+
+## Generators
+
+- [Lorem Ipsum Generator](https://loremmaker.com/): the main tool with every option
+- [Lorem Ipsum 500 Characters](https://loremmaker.com/lorem-ipsum-500-characters): exact character-count text for testing limits
+- [Funny Lorem Ipsum Generator](https://loremmaker.com/funny-lorem-ipsum-generator): humorous English filler words instead of Latin
+- [Lorem Ipsum 100 Words](https://loremmaker.com/lorem-ipsum-100-words): a short passage of exactly 100 words
+- [Lorem Ipsum 500 Words](https://loremmaker.com/lorem-ipsum-500-words): long-form text for article layouts
+- [Corporate Lorem Ipsum Generator](https://loremmaker.com/corporate-lorem-ipsum-generator): business-style placeholder text
+- [Tech Lorem Ipsum Generator](https://loremmaker.com/tech-lorem-ipsum-generator): startup and developer placeholder text
+
+## About
+
+- [About](https://loremmaker.com/about): what the tool is and how it works
+- [Contact](https://loremmaker.com/contact): feedback and questions
