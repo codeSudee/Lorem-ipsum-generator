@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
-    "deploy": "astro build && npx wrangler deploy",
+    "deploy": "astro build && npx wrangler deploy && node scripts/indexnow.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
     "cf:dev": "npx wrangler dev"
   },
   "dependencies": {
