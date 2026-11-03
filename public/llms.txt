@@ -5,14 +5,18 @@
 ## Generators
 
 - [Lorem Ipsum Generator](https://loremmaker.com/): the main tool with every option
-- [Lorem Ipsum 500 Characters](https://loremmaker.com/lorem-ipsum-500-characters): exact character-count text for testing limits
-- [Funny Lorem Ipsum Generator](https://loremmaker.com/funny-lorem-ipsum-generator): humorous English filler words instead of Latin
-- [Lorem Ipsum 100 Words](https://loremmaker.com/lorem-ipsum-100-words): a short passage of exactly 100 words
-- [Lorem Ipsum 500 Words](https://loremmaker.com/lorem-ipsum-500-words): long-form text for article layouts
-- [Corporate Lorem Ipsum Generator](https://loremmaker.com/corporate-lorem-ipsum-generator): business-style placeholder text
-- [Tech Lorem Ipsum Generator](https://loremmaker.com/tech-lorem-ipsum-generator): startup and developer placeholder text
+- [Lorem Ipsum 500 Characters](https://loremmaker.com/lorem-ipsum-500-characters/): exact character-count text for testing limits
+- [Funny Lorem Ipsum Generator](https://loremmaker.com/funny-lorem-ipsum-generator/): humorous English filler words instead of Latin
+- [Lorem Ipsum 100 Words](https://loremmaker.com/lorem-ipsum-100-words/): a short passage of exactly 100 words
+- [Lorem Ipsum 500 Words](https://loremmaker.com/lorem-ipsum-500-words/): long-form text for article layouts
+- [Corporate Lorem Ipsum Generator](https://loremmaker.com/corporate-lorem-ipsum-generator/): business-style placeholder text
+- [Tech Lorem Ipsum Generator](https://loremmaker.com/tech-lorem-ipsum-generator/): startup and developer placeholder text
+
+## Guides
+
+- [Lorem Ipsum Meaning](https://loremmaker.com/lorem-ipsum-meaning/): what the text means, its English translation, origin, and the full standard passage
 
 ## About
 
-- [About](https://loremmaker.com/about): what the tool is and how it works
-- [Contact](https://loremmaker.com/contact): feedback and questions
+- [About](https://loremmaker.com/about/): what the tool is and how it works
+- [Contact](https://loremmaker.com/contact/): feedback and questions

@@ -30,15 +30,15 @@ export const FAQS: FAQItem[] = [
   },
   {
     q: "What is the full Lorem Ipsum text?",
-    a: "The standard opening is \u201cLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\u201d There isn't a single fixed \u201cfull\u201d version, though \u2014 it's a passage that gets extended, reshuffled, and regenerated to fill however much space is needed. Use the generator above to produce any length you need, from one sentence to many paragraphs, with the classic opener included if you enable it.",
+    a: "The standard passage is 69 words and 445 characters long: \u201cLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\u201d Longer versions simply extend or reshuffle it. Use the generator above to produce any length, or read <a href=\"/lorem-ipsum-meaning/\">what the passage means</a>.",
   },
   {
     q: "What does Ipsum mean?",
-    a: "\u201cIpsum\u201d is Latin for \u201citself\u201d or \u201cvery.\u201d In the original Cicero text the phrase was part of \u201cdolorem ipsum,\u201d roughly \u201cpain itself,\u201d before the passage was scrambled into the filler text we now call Lorem Ipsum. The word carries no special meaning in the placeholder text itself \u2014 it's simply part of the recognizable opening phrase.",
+    a: "\u201cIpsum\u201d is Latin for \u201citself.\u201d In the original Cicero text the phrase was \u201cdolorem ipsum,\u201d meaning \u201cpain itself,\u201d before the passage was scrambled. See the <a href=\"/lorem-ipsum-meaning/\">full meaning and English translation</a>.",
   },
   {
     q: "Why do people use Lorem Ipsum?",
-    a: "Lorem Ipsum has a roughly normal distribution of letters and word lengths, so it reads like real language at a glance without pulling focus from the actual design. Designers and developers use it to mock up layouts, test typography, check line wrapping and spacing, and demo templates before real copy exists \u2014 all without a client or reviewer getting hung up on the wording.",
+    a: "Lorem Ipsum looks like real language at a glance without pulling focus from the actual design. Designers and developers use it to mock up layouts, test typography, check line wrapping and spacing, and demo templates before real copy exists, without a client or reviewer getting hung up on the wording.",
   },
   {
     q: "Can you provide me with 100 words of Lorem Ipsum?",

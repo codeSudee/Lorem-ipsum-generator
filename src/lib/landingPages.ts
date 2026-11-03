@@ -7,6 +7,8 @@ import type { FAQItem } from "./faqs";
 export interface LandingSection {
   heading: string;
   paragraphs: string[];
+  /** Optional external resources, listed after the paragraphs. */
+  links?: { label: string; href: string; note: string }[];
 }
 
 export interface LandingPage {
@@ -33,19 +35,19 @@ export const LANDING_PAGES: LandingPage[] = [
     label: "500 Characters",
     title: "Lorem Ipsum 500 Characters — Exact Character Count Generator",
     description:
-      "Generate lorem ipsum with exactly 500 characters, or any count you choose. Ideal for testing meta descriptions, text fields, and truncation. Free, instant, no sign-up.",
+      "Generate exactly 500 characters of lorem ipsum, or any count up to 5,000. Test meta descriptions, text fields, and truncation. Free, instant, no sign-up.",
     eyebrow: "Exact length",
     h1: "Lorem Ipsum Generator: 500 Characters",
     intro:
       "This generator is preset to produce exactly 500 characters of lorem ipsum. Change the number to any count you need and the text updates instantly, with a live character counter so you can verify the length before you copy.",
     preset: { unit: "characters", amount: 500, theme: "classic", startWithLorem: true },
-    updated: "2026-10-22",
+    updated: "2026-11-03",
     related: ["lorem-ipsum-100-words", "lorem-ipsum-500-words", "tech-lorem-ipsum-generator"],
     sections: [
       {
         heading: "When an exact character count matters",
         paragraphs: [
-          "Paragraph and word counts are fine for page layouts, but many interface constraints are measured in characters. A meta description is trimmed by search engines at a few hundred characters, a text message has a fixed segment size, a database column has a hard limit, and a form field may refuse input past a set length. Testing these with text that is roughly the right size hides the bugs that appear at the boundary.",
+          "Paragraph and word counts are fine for page layouts, but many interface constraints are measured in characters. A meta description is usually cut off in search results at around 155 to 160 characters, a text message has a fixed segment size, a database column has a hard limit, and a form field may refuse input past a set length. Testing these with text that is roughly the right size hides the bugs that appear at the boundary.",
           "With an exact count you can paste a string that is precisely at the limit, then one character over it, and see what your interface does. That is how you find truncation that cuts a word in half, a counter that is off by one, or a layout that breaks when a field is filled to the edge.",
         ],
       },
@@ -81,15 +83,15 @@ export const LANDING_PAGES: LandingPage[] = [
   {
     slug: "funny-lorem-ipsum-generator",
     label: "Funny Lorem Ipsum",
-    title: "Funny Lorem Ipsum Generator — Humorous Placeholder Text",
+    title: "Funny Lorem Ipsum Generator + Other Silly Filler Text",
     description:
-      "Generate funny lorem ipsum filled with absurd, silly words instead of Latin. Copy it as plain text, HTML, or Markdown. Free, instant, no sign-up.",
+      "Generate funny lorem ipsum with absurd, silly words instead of Latin, plus other themed filler generators to try. Free, instant, no sign-up.",
     eyebrow: "Funny mode",
     h1: "Funny Lorem Ipsum Generator",
     intro:
       "Swap the Latin for absurd, playful filler words. This generator is preset to the Funny word bank, which keeps the natural rhythm of real sentences while using words like kerfuffle, bamboozle, and flapjack.",
     preset: { unit: "paragraphs", amount: 3, theme: "funny", startWithLorem: false },
-    updated: "2026-10-22",
+    updated: "2026-11-03",
     related: ["lorem-ipsum-100-words", "tech-lorem-ipsum-generator", "corporate-lorem-ipsum-generator"],
     sections: [
       {
@@ -104,6 +106,18 @@ export const LANDING_PAGES: LandingPage[] = [
         paragraphs: [
           "The Funny word bank is a list of humorous words that the generator arranges into sentences and paragraphs using the same builders as every other theme. Sentence lengths vary and punctuation falls where you would expect, so the result still tests your typography and spacing the way real text would.",
           "The page opens with three paragraphs. Use the amount and unit controls to change that, or switch to words, sentences, titles, or captions when you want something shorter. Titles and captions are useful for mocking up cards, headings, and image labels.",
+        ],
+      },
+      {
+        heading: "Other funny lorem ipsum generators to try",
+        paragraphs: [
+          "Most people searching for funny filler text want a few styles to choose from, and the word banks here will not suit every project. These independent generators each commit to a single theme. They are not affiliated with this site.",
+        ],
+        links: [
+          { label: "Bacon Ipsum", href: "https://baconipsum.com/", note: "meat-themed filler text" },
+          { label: "Cupcake Ipsum", href: "https://cupcakeipsum.com/", note: "dessert-themed filler text" },
+          { label: "Hipster Ipsum", href: "https://hipsum.co/", note: "artisanal, hipster-flavored filler text" },
+          { label: "Pirate Ipsum", href: "https://pirateipsum.me/", note: "filler text in pirate slang" },
         ],
       },
       {
@@ -133,13 +147,13 @@ export const LANDING_PAGES: LandingPage[] = [
     label: "100 Words",
     title: "Lorem Ipsum 100 Words — Generate Exactly 100 Words",
     description:
-      "Get exactly 100 words of lorem ipsum, ready to copy. Change the count to any number of words, choose a theme, and export as text, HTML, or Markdown. Free and instant.",
+      "Get exactly 100 words of lorem ipsum, ready to copy. Change the count, choose a theme, and export as text, HTML, or Markdown. Free and instant.",
     eyebrow: "Short passage",
     h1: "Lorem Ipsum Generator: 100 Words",
     intro:
       "A hundred words is roughly one solid paragraph. This generator is preset to produce exactly 100 words of classic lorem ipsum, with a word counter so you can confirm the total before you copy.",
     preset: { unit: "words", amount: 100, theme: "classic", startWithLorem: true },
-    updated: "2026-10-22",
+    updated: "2026-11-03",
     related: ["lorem-ipsum-500-words", "lorem-ipsum-500-characters", "funny-lorem-ipsum-generator"],
     sections: [
       {
@@ -166,7 +180,7 @@ export const LANDING_PAGES: LandingPage[] = [
     faqs: [
       {
         q: "How many sentences are in 100 words?",
-        a: "It varies, because the generator builds sentences of different lengths. You will typically see somewhere between five and ten sentences in a block of 100 words.",
+        a: "It varies, because the generator builds sentences of different lengths. You will typically see 7 to 10 sentences in a block of 100 words.",
       },
       {
         q: "Is it exactly 100 words every time?",
@@ -181,15 +195,15 @@ export const LANDING_PAGES: LandingPage[] = [
   {
     slug: "lorem-ipsum-500-words",
     label: "500 Words",
-    title: "Lorem Ipsum 500 Words — Long Placeholder Text Generator",
+    title: "Lorem Ipsum 500 Words — Copy & Paste Placeholder Text",
     description:
-      "Generate 500 words of lorem ipsum for long-form layouts, article templates, and scroll testing. Choose a theme and export as plain text, HTML, or Markdown. Free.",
+      "Get exactly 500 words of lorem ipsum in readable paragraphs for article templates and scroll tests. Copy as plain text, HTML, or Markdown. Free.",
     eyebrow: "Long form",
     h1: "Lorem Ipsum Generator: 500 Words",
     intro:
       "Five hundred words is enough to fill a full article body or a long landing page section. This generator is preset to produce exactly 500 words, split into readable paragraphs you can copy in one click.",
     preset: { unit: "words", amount: 500, theme: "classic", startWithLorem: true },
-    updated: "2026-10-22",
+    updated: "2026-11-03",
     related: ["lorem-ipsum-100-words", "lorem-ipsum-500-characters", "corporate-lorem-ipsum-generator"],
     sections: [
       {
@@ -209,14 +223,14 @@ export const LANDING_PAGES: LandingPage[] = [
       {
         heading: "Checking readability at length",
         paragraphs: [
-          "Body text is usually most readable at around 50 to 75 characters per line. Paste 500 words into your template and look at how many characters actually land on each line at desktop, tablet, and phone widths. If lines run much longer than 75 characters on a wide screen, constrain the column width. If they fall under 40 on a phone, reduce the side padding.",
+          "Body text is usually most readable at around 45 to 75 characters per line. Paste 500 words into your template and look at how many characters actually land on each line at desktop, tablet, and phone widths. If lines run much longer than 75 characters on a wide screen, constrain the column width. If they fall under 40 on a phone, reduce the side padding.",
         ],
       },
     ],
     faqs: [
       {
         q: "How many paragraphs is 500 words?",
-        a: "Usually four to eight, depending on how the generator splits the text. If you need a specific number of paragraphs, switch the unit to Paragraphs instead.",
+        a: "Usually five to seven, depending on how the generator splits the text. If you need a specific number of paragraphs, switch the unit to Paragraphs instead.",
       },
       {
         q: "Can I use this text on a live site?",
@@ -233,13 +247,13 @@ export const LANDING_PAGES: LandingPage[] = [
     label: "Corporate Lorem Ipsum",
     title: "Corporate Lorem Ipsum Generator — Business Placeholder Text",
     description:
-      "Generate corporate lorem ipsum in plain business English: stakeholders, synergy, roadmaps, and quarterly goals. Good for decks and B2B mockups. Free and instant.",
+      "Generate corporate lorem ipsum in business English: stakeholders, synergy, roadmaps, and quarterly goals. Good for decks and B2B mockups. Free.",
     eyebrow: "Corporate theme",
     h1: "Corporate Lorem Ipsum Generator",
     intro:
       "Placeholder copy that sounds like a business. This generator is preset to the Corporate word bank, which draws on the vocabulary of strategy decks, quarterly reports, and B2B product pages.",
     preset: { unit: "paragraphs", amount: 3, theme: "corporate", startWithLorem: false },
-    updated: "2026-10-22",
+    updated: "2026-11-03",
     related: ["tech-lorem-ipsum-generator", "lorem-ipsum-500-words", "funny-lorem-ipsum-generator"],
     sections: [
       {
@@ -281,7 +295,7 @@ export const LANDING_PAGES: LandingPage[] = [
   {
     slug: "tech-lorem-ipsum-generator",
     label: "Tech Lorem Ipsum",
-    title: "Tech Lorem Ipsum Generator — Startup & Developer Placeholder Text",
+    title: "Tech Lorem Ipsum Generator — Startup Placeholder Text",
     description:
       "Generate tech and startup lorem ipsum with words like API, deploy, and sprint. Ideal for SaaS, developer tools, and app mockups. Free, instant, no sign-up.",
     eyebrow: "Tech / startup theme",
@@ -289,7 +303,7 @@ export const LANDING_PAGES: LandingPage[] = [
     intro:
       "Placeholder text in the language of software teams. This generator is preset to the Tech / Startup word bank, built from the vocabulary you see on SaaS landing pages, changelogs, and developer docs.",
     preset: { unit: "paragraphs", amount: 3, theme: "tech", startWithLorem: false },
-    updated: "2026-10-22",
+    updated: "2026-11-03",
     related: ["corporate-lorem-ipsum-generator", "lorem-ipsum-500-characters", "funny-lorem-ipsum-generator"],
     sections: [
       {

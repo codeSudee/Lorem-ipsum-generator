@@ -128,7 +128,10 @@ function buildParagraphs(
   return paragraphs;
 }
 
-/** Build N standalone words (flat list), optionally starting with the opener. */
+/**
+ * Build exactly `count` single words. Bank entries can hold several words
+ * ("dark mode"), so they are flattened first or the count would overshoot.
+ */
 function buildWords(
   words: string[],
   count: number,
@@ -137,21 +140,86 @@ function buildWords(
   const result: string[] = [];
 
   if (openerWords) {
-    result.push(...openerWords.slice(0, count));
+    result.push(...openerWords.flatMap((w) => w.split(" ")));
   }
 
   while (result.length < count) {
-    result.push(pickWord(words));
+    result.push(...pickWord(words).split(" "));
   }
 
   return result.slice(0, count);
 }
 
+/** Word mode stays one paragraph up to this size, then splits into paragraphs. */
+const MAX_SINGLE_PARAGRAPH_WORDS = 120;
+const MIN_PARAGRAPH_WORDS = 70;
+const MAX_PARAGRAPH_WORDS = 110;
+
+/** Join words into a sentence, keeping the exact words it was given. */
+function wordsToSentence(sentenceWords: string[]): string {
+  const out = [...sentenceWords];
+  if (out.length > 8) {
+    const commaIndex = randomInt(3, out.length - 3);
+    out[commaIndex] = out[commaIndex] + ",";
+  }
+  return capitalize(out.join(" ")) + ".";
+}
+
 /**
- * Build a string of exactly `count` characters of lorem-style text.
- * Words are appended (space-separated) until the target length is reached,
- * then the result is trimmed to the exact character count. The output is
- * capitalized and, if there is room, terminated with a period.
+ * Arrange exactly `count` words into punctuated sentences and, for longer
+ * text, paragraphs. The word total never changes: only punctuation is added.
+ */
+function buildWordParagraphs(
+  words: string[],
+  count: number,
+  openerWords: string[] | null,
+): string[] {
+  const flat = buildWords(words, count, openerWords);
+  const openerLength = openerWords
+    ? Math.min(openerWords.flatMap((w) => w.split(" ")).length, count)
+    : 0;
+
+  const sentences: { text: string; words: number }[] = [];
+  let index = 0;
+  if (openerLength > 0) {
+    sentences.push({ text: capitalize(flat.slice(0, openerLength).join(" ")) + ".", words: openerLength });
+    index = openerLength;
+  }
+  while (index < flat.length) {
+    let length = randomInt(MIN_SENTENCE_WORDS, MAX_SENTENCE_WORDS);
+    // Never strand a tiny fragment at the end: absorb it into this sentence.
+    if (flat.length - index - length < MIN_SENTENCE_WORDS) length = flat.length - index;
+    sentences.push({ text: wordsToSentence(flat.slice(index, index + length)), words: length });
+    index += length;
+  }
+
+  if (count <= MAX_SINGLE_PARAGRAPH_WORDS) {
+    return [sentences.map((s) => s.text).join(" ")];
+  }
+
+  const paragraphs: string[] = [];
+  let current: string[] = [];
+  let currentWords = 0;
+  let target = randomInt(MIN_PARAGRAPH_WORDS, MAX_PARAGRAPH_WORDS);
+  for (const sentence of sentences) {
+    current.push(sentence.text);
+    currentWords += sentence.words;
+    if (currentWords >= target) {
+      paragraphs.push(current.join(" "));
+      current = [];
+      currentWords = 0;
+      target = randomInt(MIN_PARAGRAPH_WORDS, MAX_PARAGRAPH_WORDS);
+    }
+  }
+  if (current.length > 0) paragraphs.push(current.join(" "));
+  return paragraphs;
+}
+
+/**
+ * Build a string of exactly `count` characters of lorem-style text ending in a
+ * period. Whole words are used until they no longer fit. Any remaining gap is
+ * filled with the start of another word, so the final word can be cut short
+ * but the text never contains invented filler letters.
  */
 function buildCharacters(
   words: string[],
@@ -159,42 +227,49 @@ function buildCharacters(
   openerWords: string[] | null,
 ): string {
   if (count <= 0) return "";
+  if (count === 1) return ".";
 
-  const pool: string[] = [];
-  if (openerWords) {
-    pool.push(...openerWords);
-  }
+  // The final character is reserved for the period.
+  const target = count - 1;
+  const pool: string[] = openerWords ? [...openerWords] : [];
 
   let text = "";
   let poolIndex = 0;
+  let overflow = "";
 
-  // Add whole words one at a time, stopping as soon as the next word would
-  // overshoot the target so the output never gets cut off mid-word.
   while (true) {
     const word = poolIndex < pool.length ? pool[poolIndex] : pickWord(words);
     const candidate = text.length === 0 ? word : `${text} ${word}`;
-    if (candidate.length > count) break;
+    if (candidate.length > target) {
+      overflow = word;
+      break;
+    }
     text = candidate;
     poolIndex++;
   }
 
-  text = capitalize(text);
-
-  // If we came up short of the target (e.g. count is smaller than the first
-  // whole word), pad with filler letters rather than leaving it short.
-  if (text.length < count) {
-    text = text.padEnd(count, "x");
+  const gap = target - text.length;
+  if (gap === 1 && text.includes(" ")) {
+    // A single spare character reads most naturally as a comma.
+    text = text.replace(" ", ", ");
+  } else if (gap === 1 || (gap > 0 && text.length === 0)) {
+    // Too short for a separate word: use the start of one long enough to fill
+    // it, or a short word plus part of the longest when none is long enough.
+    const flat = words.flatMap((w) => w.split(" "));
+    const longest = flat.reduce((a, b) => (b.length > a.length ? b : a));
+    const shortest = flat.reduce((a, b) => (b.length < a.length ? b : a));
+    text =
+      longest.length >= target
+        ? (flat.find((w) => w.length >= target) as string).slice(0, target)
+        : `${shortest} ${longest.slice(0, target - shortest.length - 1)}`;
+  } else if (gap > 1) {
+    // The word that did not fit is always long enough to supply the fragment.
+    const fragment = overflow.slice(0, gap - 1);
+    // A multi-word entry can be cut right at its space; a comma keeps the length.
+    text = fragment.endsWith(" ") ? `${text}, ${fragment.trimEnd()}` : `${text} ${fragment}`;
   }
 
-  // Reserve the final character for punctuation for a natural ending,
-  // unless the string is too short for that to make sense.
-  if (count > 1) {
-    text = text.slice(0, count - 1) + ".";
-  } else {
-    text = text.slice(0, count);
-  }
-
-  return text;
+  return capitalize(text) + ".";
 }
 
 // ---------------------------------------------------------------------------
@@ -467,9 +542,7 @@ export function generate(options: GenerateOptions): GenerateResult {
   let lineSeparated = false;
 
   if (unit === "words") {
-    const flatWords = buildWords(words, safeAmount, opener);
-    const sentence = capitalize(flatWords.join(" ")) + ".";
-    paragraphsForOutput = [cased(sentence)];
+    paragraphsForOutput = buildWordParagraphs(words, safeAmount, opener).map(cased);
   } else if (unit === "sentences") {
     const sentences = buildSentences(words, safeAmount, opener).map(cased);
     paragraphsForOutput = [sentences.join(" ")];

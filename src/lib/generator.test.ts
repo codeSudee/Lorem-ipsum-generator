@@ -11,6 +11,7 @@ import {
   type OutputFormat,
   type TextCase,
 } from "./generator";
+import { STANDARD_PASSAGE, STANDARD_PASSAGE_CHARACTERS, STANDARD_PASSAGE_WORDS } from "./loremPassage";
 import { THEMES, type ThemeKey } from "./wordBanks";
 
 const THEME_KEYS = Object.keys(THEMES) as ThemeKey[];
@@ -39,7 +40,7 @@ describe("existing units", () => {
 
       const w = generate({ theme, unit: "words", amount: 25, startWithLorem: false, format: "plain" });
       expect(w.segmentKind).toBeNull();
-      expect(w.wordCount).toBeGreaterThanOrEqual(25); // multi-word bank entries count as >1
+      expect(w.wordCount).toBe(25);
     }
   });
 
@@ -49,7 +50,66 @@ describe("existing units", () => {
   });
 });
 
+describe("word mode", () => {
+  const run = (theme: (typeof THEME_KEYS)[number], amount: number, startWithLorem = true, format: OutputFormat = "plain") =>
+    generate({ theme, unit: "words", amount, startWithLorem, format });
+
+  it.each(THEME_KEYS)("gives the exact count in every format (%s)", (theme) => {
+    for (const amount of [1, 2, 3, 5, 7, 8, 9, 25, 100, 121, 500, 1000]) {
+      for (const startWithLorem of [true, false]) {
+        for (const format of FORMATS) {
+          for (let i = 0; i < 20; i++) expect(run(theme, amount, startWithLorem, format).wordCount).toBe(amount);
+        }
+      }
+    }
+  });
+
+  it("writes punctuated sentences, not one run-on", () => {
+    for (let i = 0; i < 200; i++) {
+      const sentences = run("classic", 100).text.split(". ").length;
+      expect(sentences).toBeGreaterThanOrEqual(5);
+      expect(sentences).toBeLessThanOrEqual(14);
+    }
+  });
+
+  it("keeps 100 words as one paragraph and splits 500 words into several", () => {
+    for (let i = 0; i < 200; i++) {
+      expect(run("classic", 100).text.split("\n\n")).toHaveLength(1);
+      const paragraphs = run("classic", 500).text.split("\n\n").length;
+      expect(paragraphs).toBeGreaterThanOrEqual(4);
+      expect(paragraphs).toBeLessThanOrEqual(8);
+    }
+  });
+
+  it("starts classic text with the standard opener", () => {
+    expect(run("classic", 100).text.startsWith("Lorem ipsum dolor sit amet consectetur adipiscing elit.")).toBe(true);
+    expect(run("classic", 2).text).toBe("Lorem ipsum.");
+  });
+});
+
 describe("exact character count", () => {
+  it.each(THEME_KEYS)("uses only real words, except a shortened last word (%s)", (theme) => {
+    const bank = THEMES[theme].words.flatMap((w) => w.toLowerCase().split(" "));
+    const known = new Set([...bank, ...THEMES[theme].opener.flatMap((w) => w.toLowerCase().split(" "))]);
+    // Short lengths hit the rare fill paths, so they get many more attempts.
+    const amounts = [
+      ...Array.from({ length: 699 }, (_, i) => i + 2),
+      ...Array.from({ length: 4000 }, (_, i) => 2 + (i % 40)),
+    ];
+    for (const amount of amounts) {
+      for (const startWithLorem of [true, false]) {
+        const r = generate({ theme, unit: "characters", amount, startWithLorem, format: "plain" });
+        expect(r.text.length).toBe(amount);
+        expect(r.text.endsWith(".")).toBe(true);
+        expect(r.text).not.toMatch(/ \.$|,\.$|  /);
+        const tokens = r.text.slice(0, -1).toLowerCase().replace(/,/g, "").split(" ");
+        const last = tokens.pop() as string;
+        tokens.forEach((t) => expect(known.has(t)).toBe(true));
+        expect([...known].some((w) => w.startsWith(last))).toBe(true);
+      }
+    }
+  });
+
   const themes = [...THEME_KEYS, "custom"] as const;
   it.each(themes)("is exact for every case and length (%s)", (theme) => {
     for (const textCase of CASES) {
@@ -188,5 +248,16 @@ describe("custom word bank", () => {
       expect(r.error).toBeUndefined();
       expect(r.text.length).toBeGreaterThan(0);
     }
+  });
+});
+
+describe("published figures", () => {
+  it("states the true size of the standard passage", () => {
+    expect(countWords(STANDARD_PASSAGE)).toBe(STANDARD_PASSAGE_WORDS);
+    expect(STANDARD_PASSAGE.length).toBe(STANDARD_PASSAGE_CHARACTERS);
+  });
+
+  it("keeps the 'more than 130 Latin words' claim true", () => {
+    expect(new Set(THEMES.classic.words).size).toBeGreaterThan(130);
   });
 });

@@ -1,0 +1,240 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import FAQ from "../components/FAQ.astro";
+import Footer from "../components/Footer.astro";
+import { STANDARD_PASSAGE, STANDARD_PASSAGE_CHARACTERS, STANDARD_PASSAGE_WORDS } from "../lib/loremPassage";
+
+const title = "Lorem Ipsum Meaning: English Translation, Origin & Full Text";
+const description =
+	"What does lorem ipsum mean? It is scrambled Latin from Cicero. See the word-by-word meaning, the English translation, its real history, and the full text.";
+const heading = "What Does Lorem Ipsum Mean?";
+const published = "2026-11-03";
+const pageURL = new URL("/lorem-ipsum-meaning/", Astro.site).toString();
+
+const glossary = [
+	{ term: "lorem", source: "dolorem (cut to “lorem”)", meaning: "pain" },
+	{ term: "ipsum", source: "ipsum", meaning: "itself" },
+	{ term: "dolor", source: "dolor", meaning: "pain" },
+	{ term: "sit", source: "sit", meaning: "is" },
+	{ term: "amet", source: "amet", meaning: "loves" },
+	{ term: "consectetur", source: "consectetur", meaning: "pursues" },
+	{ term: "adipiscing", source: "adipisci (altered)", meaning: "to obtain" },
+	{ term: "elit", source: "velit (cut to “elit”)", meaning: "wishes" },
+];
+
+const faqs = [
+	{
+		q: "What does lorem ipsum mean in English?",
+		a: "As written, it means nothing, because the words were cut and rearranged. It comes from the Latin phrase “dolorem ipsum,” which means “pain itself.” The closest real translation is Cicero's original sentence: “Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain.”",
+	},
+	{
+		q: "Is lorem ipsum real Latin?",
+		a: "Partly. Most of its words are real Latin or pieces of real Latin taken from Cicero, but they have been shortened, altered, and reordered, so the passage does not form correct Latin sentences.",
+	},
+	{
+		q: "How do you translate lorem ipsum?",
+		a: "You cannot translate the scrambled text word for word into sentences that make sense. To read what it was based on, use an English translation of Cicero's <em>De finibus</em>, book 1, sections 32 and 33. H. Rackham's 1914 translation is a widely quoted one.",
+	},
+	{
+		q: "What is the full text of lorem ipsum?",
+		a: `The standard passage has ${STANDARD_PASSAGE_WORDS} words and ${STANDARD_PASSAGE_CHARACTERS} characters, counting spaces and punctuation. It is shown in full on this page. Longer versions extend or reshuffle the same vocabulary.`,
+	},
+	{
+		q: "How old is lorem ipsum?",
+		a: "Cicero's source text dates to 45 BC. The scrambled filler is far newer: the earliest uses that can be traced are Letraset transfer sheets from the 1960s.",
+	},
+];
+
+const articleData = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: heading,
+	description,
+	url: pageURL,
+	mainEntityOfPage: pageURL,
+	inLanguage: "en",
+	datePublished: published,
+	dateModified: published,
+	image: new URL("/og-image.png", Astro.site).toString(),
+	author: { "@type": "Organization", name: "Lorem Ipsum Generator", url: Astro.site?.toString() },
+	publisher: { "@type": "Organization", name: "Lorem Ipsum Generator", url: Astro.site?.toString() },
+};
+---
+
+<Layout
+	title={title}
+	description={description}
+	faqs={faqs}
+	breadcrumbs={[{ name: "Lorem Ipsum Meaning", path: "/lorem-ipsum-meaning/" }]}
+>
+	<script slot="structured-data" type="application/ld+json" set:html={JSON.stringify(articleData)} />
+	<Navbar />
+	<main id="main-content">
+		<article class="border-b border-hairline bg-canvas pt-20 pb-20 sm:pt-28 sm:pb-28">
+			<div class="meaning mx-auto flex max-w-[800px] flex-col gap-6 px-6 text-body-md text-body">
+				<header>
+					<p class="mono-eyebrow mb-3 text-mute">Meaning, translation &amp; origin</p>
+					<h1 class="text-heading-lg text-pretty text-ink sm:text-display-xl">{heading}</h1>
+				</header>
+
+				<p class="text-body-lg">
+					<strong class="text-ink">Lorem ipsum has no real meaning as written.</strong> It is
+					scrambled Latin taken from <em>De finibus bonorum et malorum</em>, a work on ethics that
+					Cicero wrote in 45 BC. The word “lorem” is what is left of <em>dolorem</em> (“pain”), and{" "}
+					<em>ipsum</em> means “itself,” so the phrase began as <em>dolorem ipsum</em>, “pain itself.”
+				</p>
+
+				<h2>The sentence it comes from</h2>
+				<p>The opening of lorem ipsum is a cut-up version of this line from book 1, section 32:</p>
+				<blockquote lang="la">
+					Neque porro quisquam est, qui <strong>dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit</strong>,
+					sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem.
+				</blockquote>
+				<p>H. Rackham's 1914 English translation reads:</p>
+				<blockquote>
+					Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it
+					is pain, but occasionally circumstances occur in which toil and pain can procure him some great
+					pleasure.
+				</blockquote>
+				<p>
+					So the text designers use as neutral filler was once part of an argument about pleasure and
+					pain. Nothing in the modern passage still says that, because the cuts removed the grammar.
+				</p>
+
+				<h2>Lorem ipsum dolor sit amet, word by word</h2>
+				<p>Each word below is matched to the Latin it came from in Cicero's sentence.</p>
+				<div class="overflow-x-auto">
+					<table>
+						<thead>
+							<tr><th scope="col">Word</th><th scope="col">Cicero's Latin</th><th scope="col">Meaning there</th></tr>
+						</thead>
+						<tbody>
+							{glossary.map((row) => (
+								<tr><td lang="la"><em>{row.term}</em></td><td lang="la">{row.source}</td><td>{row.meaning}</td></tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+				<p>
+					Read in order these do not form a sentence, which is why “pain itself is, loves, pursues” is
+					about as far as any literal translation of lorem ipsum can go. Any tool that turns it into flowing
+					English has to invent most of the meaning.
+				</p>
+
+				<h2>The full lorem ipsum text</h2>
+				<p>
+					This is the standard passage. It has {STANDARD_PASSAGE_WORDS} words and {STANDARD_PASSAGE_CHARACTERS} characters, counting
+					spaces and punctuation.
+				</p>
+				<div class="rounded-md border border-hairline bg-canvas-elevated p-6">
+					<p id="standard-passage" lang="la" class="font-mono text-code text-ink">{STANDARD_PASSAGE}</p>
+					<button
+						type="button"
+						id="copy-passage"
+						class="mt-4 min-w-[9rem] rounded-pill border border-hairline bg-canvas px-[14px] py-2.5 text-button-lg font-medium text-ink transition-colors hover:bg-hairline-soft"
+					>
+						Copy passage
+					</button>
+				</div>
+				<p>
+					Need another length? The <a href="/">lorem ipsum generator</a> makes any amount, including
+					exactly <a href="/lorem-ipsum-100-words/">100 words</a>,{" "}
+					<a href="/lorem-ipsum-500-words/">500 words</a>, or{" "}
+					<a href="/lorem-ipsum-500-characters/">500 characters</a>.
+				</p>
+
+				<h2>Where lorem ipsum really came from</h2>
+				<ul>
+					<li><strong>45 BC:</strong> Cicero writes <em>De finibus bonorum et malorum</em>.</li>
+					<li><strong>1960s:</strong> Letraset dry-transfer sheets feature the scrambled text and make it popular. This is the earliest use that has been traced.</li>
+					<li><strong>1985:</strong> The first version of Aldus PageMaker includes lorem ipsum, carrying it into desktop publishing.</li>
+					<li><strong>1994:</strong> Latin scholar Richard McClintock publishes the link to Cicero in a letter to <em>Before &amp; After</em> magazine, after tracing the rare word <em>consectetur</em>.</li>
+				</ul>
+				<p>
+					You may have read that a printer scrambled the text in the 1500s. That claim comes from the same
+					1994 letter, and it has no documented evidence behind it. McClintock later told The Straight Dope
+					he could not find the old type sample he remembered, and that the earliest use he could confirm
+					was on Letraset sheets.
+				</p>
+
+				<h2>Why designers still use it</h2>
+				<p>
+					Lorem ipsum looks like text without saying anything, so reviewers judge the layout instead of the
+					wording. It also makes a draft easy to spot. The risk is that it can hide real problems, because
+					real headlines and paragraphs are rarely so even. If tone matters to your mockup, try{" "}
+					<a href="/corporate-lorem-ipsum-generator/">corporate</a>, <a href="/tech-lorem-ipsum-generator/">tech</a>,{" "}
+					or <a href="/funny-lorem-ipsum-generator/">funny</a> placeholder text instead.
+				</p>
+
+				<h2>Sources</h2>
+				<ul>
+					<li><a href="https://www.thelatinlibrary.com/cicero/fin1.shtml" rel="noopener">Cicero, <em>De finibus</em>, book 1, Latin text</a> (The Latin Library)</li>
+					<li><a href="https://archive.org/details/definibusbonoru02cicegoog" rel="noopener">Cicero, <em>De finibus</em>, translated by H. Rackham, 1914</a> (Internet Archive)</li>
+					<li><a href="https://www.straightdope.com/21343427/what-does-the-filler-text-lorem-ipsum-mean" rel="noopener">What does the filler text “lorem ipsum” mean?</a> (The Straight Dope)</li>
+					<li><a href="https://en.wikipedia.org/wiki/Lorem_ipsum" rel="noopener">Lorem ipsum</a> (Wikipedia)</li>
+				</ul>
+			</div>
+		</article>
+
+		<FAQ items={faqs} eyebrow="Common questions" />
+	</main>
+	<Footer />
+</Layout>
+
+<script>
+	const button = document.getElementById("copy-passage");
+	const passage = document.getElementById("standard-passage");
+	button?.addEventListener("click", async () => {
+		try {
+			await navigator.clipboard.writeText(passage?.textContent ?? "");
+			button.textContent = "Copied";
+		} catch {
+			button.textContent = "Copy failed";
+		}
+		setTimeout(() => {
+			button.textContent = "Copy passage";
+		}, 2000);
+	});
+</script>
+
+<style>
+	.meaning h2 {
+		margin-top: 1rem;
+		font-size: 1.5rem;
+		font-weight: 600;
+		line-height: 1.3;
+		color: var(--color-ink, inherit);
+	}
+	.meaning blockquote {
+		margin: 0;
+		border-left: 2px solid var(--color-hairline, currentColor);
+		padding-left: 1rem;
+	}
+	.meaning ul {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding-left: 1.25rem;
+		list-style: disc;
+	}
+	.meaning a:not(.rounded-pill) {
+		color: var(--color-ink, inherit);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+	.meaning table {
+		width: 100%;
+		border-collapse: collapse;
+		text-align: left;
+	}
+	.meaning th,
+	.meaning td {
+		border-bottom: 1px solid var(--color-hairline, currentColor);
+		padding: 0.5rem 1rem 0.5rem 0;
+	}
+	.meaning th {
+		font-weight: 600;
+		color: var(--color-ink, inherit);
+	}
+</style>

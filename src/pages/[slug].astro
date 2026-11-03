@@ -12,7 +12,7 @@ export function getStaticPaths() {
 
 const { page } = Astro.props;
 const related = page.related.map((slug) => getLandingPage(slug)).filter((p) => p !== undefined);
-const pageURL = new URL(`/${page.slug}`, Astro.site).toString();
+const pageURL = new URL(`/${page.slug}/`, Astro.site).toString();
 
 const webPageData = {
 	"@context": "https://schema.org",
@@ -29,7 +29,7 @@ const webPageData = {
 	title={page.title}
 	description={page.description}
 	faqs={page.faqs}
-	breadcrumbs={[{ name: page.label, path: `/${page.slug}` }]}
+	breadcrumbs={[{ name: page.label, path: `/${page.slug}/` }]}
 >
 	<script slot="structured-data" type="application/ld+json" set:html={JSON.stringify(webPageData)} />
 	<Navbar />
@@ -51,6 +51,15 @@ const webPageData = {
 						<>
 							<h2 class="text-heading-lg text-pretty text-ink">{section.heading}</h2>
 							{section.paragraphs.map((text) => <p>{text}</p>)}
+							{section.links && (
+								<ul class="flex list-disc flex-col gap-2 pl-5">
+									{section.links.map((link) => (
+										<li>
+											<a href={link.href} rel="noopener" class="font-medium text-ink underline underline-offset-2">{link.label}</a>: {link.note}
+										</li>
+									))}
+								</ul>
+							)}
 						</>
 					))}
 				</div>
@@ -66,13 +75,21 @@ const webPageData = {
 					{related.map((r) => (
 						<li>
 							<a
-								href={`/${r.slug}`}
+								href={`/${r.slug}/`}
 								class="rounded-pill border border-hairline bg-canvas-elevated px-[14px] py-2.5 text-button-lg font-medium text-ink transition-colors hover:bg-hairline-soft"
 							>
 								{r.label}
 							</a>
 						</li>
 					))}
+					<li>
+						<a
+							href="/lorem-ipsum-meaning/"
+							class="rounded-pill border border-hairline bg-canvas-elevated px-[14px] py-2.5 text-button-lg font-medium text-ink transition-colors hover:bg-hairline-soft"
+						>
+							What lorem ipsum means
+						</a>
+					</li>
 					<li>
 						<a
 							href="/"

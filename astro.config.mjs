@@ -13,11 +13,11 @@ export default defineConfig({
 			serialize(item) {
 				const path = new URL(item.url).pathname;
 				const known = {
-					'/': '2026-10-22',
+					'/': '2026-11-03',
 					'/privacy-policy/': '2026-09-12',
 					'/terms/': '2026-09-12',
 				};
-				const lastmod = path in known ? known[path] : path.length > 1 && !['/about/', '/contact/'].includes(path) ? '2026-10-22' : undefined;
+				const lastmod = path in known ? known[path] : path.length > 1 && !['/about/', '/contact/'].includes(path) ? '2026-11-03' : undefined;
 				if (lastmod) item.lastmod = lastmod;
 				return item;
 			},
