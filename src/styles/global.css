@@ -3,30 +3,33 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Colors — Geist system */
-  --color-ink: #171717;
+  /* Colors — Coolors system (see DESIGN.md) */
+  --color-ink: #0a0a0a;
   --color-on-primary: #ffffff;
-  --color-body: #4d4d4d;
-  --color-mute: #8f8f8f;
-  --color-faint: #a1a1a1;
-  --color-hairline: #ebebeb;
-  --color-hairline-soft: #f2f2f2;
-  --color-canvas: #fafafa;
-  --color-canvas-elevated: #ffffff;
-  --color-link: #0070f3;
-  --color-link-deep: #0761d1;
-  --color-link-soft: #d3e5ff;
+  --color-body: #525252;
+  --color-mute: #737373;
+  --color-faint: #a3a3a3;
+  --color-hairline: #e5e5e5;
+  --color-hairline-soft: #eeeeee;
+  --color-canvas: #ffffff;
+  --color-canvas-elevated: #f7f7f7;
+  --color-link: #2563eb;
+  --color-link-deep: #1d4ed8;
+  --color-link-soft: #dbeafe;
   --color-error: #ee0000;
   --color-error-deep: #c50000;
   --color-warning: #f5a623;
-  --color-warning-soft: #ffefcf;
+  --color-warning-soft: #fef9c3;
   --color-warning-deep: #ab570a;
-  --color-violet: #7928ca;
-  --color-violet-soft: #d8ccf1;
-  --color-cyan: #50e3c2;
-  --color-cyan-soft: #aaffec;
-  --color-pink: #ff0080;
-  --color-magenta: #eb367f;
+  --color-violet: #9333ea;
+  --color-violet-soft: #f3e8ff;
+  --color-cyan: #06b6d4;
+  --color-cyan-soft: #cffafe;
+  --color-pink-soft: #fce7f3;
+  --color-green-soft: #dcfce7;
+  --color-peach-soft: #fff4e4;
+  --color-pink: #ec4899;
+  --color-magenta: #ec4899;
   --color-gradient-develop-start: #007cf0;
   --color-gradient-develop-end: #00dfd8;
   --color-gradient-preview-start: #7928ca;
@@ -134,7 +137,7 @@
     color-scheme: dark;
   }
 
-  /* Dark mode — inverted Geist ink/canvas duet. Same structural roles
+  /* Dark mode — inverted ink/canvas duet. Same structural roles
      (ink/body/mute/faint/hairline/canvas/canvas-elevated), swapped values. */
   .dark {
     --color-ink: #fafafa;
@@ -146,9 +149,9 @@
     --color-hairline-soft: #1f1f1f;
     --color-canvas: #0a0a0a;
     --color-canvas-elevated: #141414;
-    --color-link: #3291ff;
-    --color-link-deep: #0070f3;
-    --color-link-soft: #12233e;
+    --color-link: #60a5fa;
+    --color-link-deep: #3b82f6;
+    --color-link-soft: #172554;
   }
 
   body {

@@ -1,468 +1,148 @@
----
-version: alpha
-name: Vercel Analysis
-description: An analysis of Vercel's design language — the Geist system, a stark black-on-near-white developer-platform aesthetic where a single ink tone carries every heading, CTA, and border, and the only color the page allows itself is a multi-stop mesh gradient (cyan / blue / violet / magenta / amber) confined to the hero. Geist Sans drives tightly-tracked display type, Geist Mono labels the technical eyebrows, and pill-shaped black buttons mark the marketing CTAs while 6px square buttons handle app and nav chrome.
+<!-- MIT licensed. Copyright and license: https://opendesignmd.com/licenses/ -->
 
-colors:
-  primary: "#171717"
-  on-primary: "#ffffff"
-  ink: "#171717"
-  body: "#4d4d4d"
-  mute: "#8f8f8f"
-  faint: "#a1a1a1"
-  hairline: "#ebebeb"
-  hairline-soft: "#f2f2f2"
-  canvas: "#fafafa"
-  canvas-elevated: "#ffffff"
-  link: "#0070f3"
-  link-deep: "#0761d1"
-  link-soft: "#d3e5ff"
-  error: "#ee0000"
-  error-deep: "#c50000"
-  warning: "#f5a623"
-  warning-soft: "#ffefcf"
-  warning-deep: "#ab570a"
-  violet: "#7928ca"
-  violet-soft: "#d8ccf1"
-  cyan: "#50e3c2"
-  cyan-soft: "#aaffec"
-  pink: "#ff0080"
-  magenta: "#eb367f"
-  gradient-develop-start: "#007cf0"
-  gradient-develop-end: "#00dfd8"
-  gradient-preview-start: "#7928ca"
-  gradient-preview-end: "#ff0080"
-  gradient-ship-start: "#ff4d4d"
-  gradient-ship-end: "#f9cb28"
-
-typography:
-  display-xl:
-    fontFamily: Geist, Arial, sans-serif
-    fontSize: 48px
-    fontWeight: 600
-    lineHeight: 48px
-    letterSpacing: -2.4px
-  heading-lg:
-    fontFamily: Geist, Arial, sans-serif
-    fontSize: 32px
-    fontWeight: 600
-    lineHeight: 40px
-    letterSpacing: -1.28px
-  heading-md:
-    fontFamily: Geist, Arial, sans-serif
-    fontSize: 20px
-    fontWeight: 600
-    lineHeight: 28px
-    letterSpacing: -0.4px
-  label-sm:
-    fontFamily: Geist, Arial, sans-serif
-    fontSize: 14px
-    fontWeight: 500
-    lineHeight: 20px
-    letterSpacing: -0.28px
-  mono-eyebrow:
-    fontFamily: Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace
-    fontSize: 12px
-    fontWeight: 500
-    lineHeight: 16px
-    letterSpacing: 0
-  body-lg:
-    fontFamily: Geist, Arial, sans-serif
-    fontSize: 16px
-    fontWeight: 400
-    lineHeight: 24px
-    letterSpacing: 0
-  body-md:
-    fontFamily: Geist, Arial, sans-serif
-    fontSize: 14px
-    fontWeight: 400
-    lineHeight: 20px
-    letterSpacing: 0
-  body-sm:
-    fontFamily: Geist, Arial, sans-serif
-    fontSize: 12px
-    fontWeight: 400
-    lineHeight: 16px
-    letterSpacing: 0
-  button-lg:
-    fontFamily: Geist, Arial, sans-serif
-    fontSize: 16px
-    fontWeight: 500
-    lineHeight: 20px
-    letterSpacing: 0
-  button-md:
-    fontFamily: Geist, Arial, sans-serif
-    fontSize: 14px
-    fontWeight: 500
-    lineHeight: 20px
-    letterSpacing: 0
-  code:
-    fontFamily: Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace
-    fontSize: 14px
-    fontWeight: 400
-    lineHeight: 20px
-    letterSpacing: 0
-
-rounded:
-  none: 0px
-  sm: 6px
-  md: 12px
-  lg: 16px
-  pill-category: 64px
-  pill: 100px
-  full: 9999px
-
-spacing:
-  xxs: 4px
-  xs: 8px
-  sm: 12px
-  md: 16px
-  lg: 24px
-  xl: 32px
-  2xl: 40px
-  3xl: 64px
-  4xl: 96px
-  section: 128px
-
-components:
-  nav-bar:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.body}"
-    typography: "{typography.body-md}"
-    borderColor: "{colors.hairline}"
-    padding: "{spacing.sm} {spacing.lg}"
-  nav-link:
-    textColor: "{colors.body}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.full}"
-    padding: "{spacing.xs} {spacing.sm}"
-  button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.button-lg}"
-    rounded: "{rounded.pill}"
-    padding: "0px 14px"
-  button-secondary:
-    backgroundColor: "{colors.canvas-elevated}"
-    textColor: "{colors.ink}"
-    typography: "{typography.button-lg}"
-    rounded: "{rounded.pill}"
-    padding: "0px 14px"
-  button-primary-sm:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.sm}"
-    padding: "0px 6px"
-  button-ghost-sm:
-    backgroundColor: "{colors.canvas-elevated}"
-    textColor: "{colors.ink}"
-    borderColor: "{colors.hairline}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.sm}"
-    padding: "0px 6px"
-  button-category-pill:
-    backgroundColor: "{colors.canvas-elevated}"
-    textColor: "{colors.ink}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.pill-category}"
-    padding: "0px 16px"
-  button-icon-circular:
-    backgroundColor: "{colors.canvas-elevated}"
-    textColor: "{colors.ink}"
-    borderColor: "{colors.hairline}"
-    typography: "{typography.body-lg}"
-    rounded: "{rounded.full}"
-    padding: "0px"
-  text-input:
-    backgroundColor: "{colors.canvas-elevated}"
-    textColor: "{colors.ink}"
-    borderColor: "{colors.hairline}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.sm}"
-    padding: "{spacing.xs} {spacing.sm}"
-  feature-card:
-    backgroundColor: "{colors.canvas-elevated}"
-    textColor: "{colors.ink}"
-    borderColor: "{colors.hairline}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.md}"
-    padding: "{spacing.lg}"
-  feature-card-elevated:
-    backgroundColor: "{colors.canvas-elevated}"
-    textColor: "{colors.ink}"
-    borderColor: "{colors.hairline}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.md}"
-    padding: "{spacing.lg}"
-  pricing-card:
-    backgroundColor: "{colors.canvas-elevated}"
-    textColor: "{colors.ink}"
-    borderColor: "{colors.hairline}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.lg}"
-    padding: "{spacing.xl}"
-  code-block:
-    backgroundColor: "{colors.canvas-elevated}"
-    textColor: "{colors.ink}"
-    borderColor: "{colors.hairline}"
-    typography: "{typography.code}"
-    rounded: "{rounded.md}"
-    padding: "{spacing.md}"
-  logo-strip:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.mute}"
-    typography: "{typography.body-md}"
-    padding: "{spacing.xl} {spacing.lg}"
-  hero-band:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.display-xl}"
-    padding: "{spacing.section} {spacing.lg}"
-  cta-band:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.display-xl}"
-    padding: "{spacing.4xl} {spacing.lg}"
-  footer:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.body}"
-    typography: "{typography.body-md}"
-    borderColor: "{colors.hairline}"
-    padding: "{spacing.3xl} {spacing.lg}"
-
----
-
+# How coolors.co is designed
 
 ## Overview
 
-Vercel's Geist system is an exercise in subtraction. The page is a near-white sheet (`{colors.canvas}` — #fafafa) carrying near-black ink (`{colors.ink}` — #171717), and almost nothing else competes. Headings, body copy, primary buttons, and the thin 1px borders that define every card all draw from the same ink-and-grey ladder. The one place color is allowed to exist is the hero, where a soft multi-stop **mesh gradient** — cyan, blue, violet, magenta, amber — blooms behind or beside the headline as the brand's entire decorative system. Everywhere else, restraint.
+Coolors is a color-first product wrapped in a very light SaaS shell. The page stays almost empty until color appears: a white canvas, black Inter headlines, thin rules, and a small amount of utility chrome. That restraint makes the product feel immediate. The marketing home uses oversized type and pastel cards to explain the tools; the palette editor turns the product into the interface by filling the page with vertical color columns; Color Bot reduces the layout again to a centered greeting and a bottom composer. The brand does not rely on ornament. It relies on scale, whitespace, and the fact that color is the thing being sold.
 
-Typography does the heavy lifting. **Geist Sans** sets the display headline in tightly-tracked weight-600 (the hero h1 runs -2.4px letter-spacing), and **Geist Mono** appears as small uppercase eyebrows labeling sections like a technical spec sheet. Buttons split into two shapes by context: the marketing CTAs are fully rounded black **pills** (`{rounded.pill}` — 100px, "Start Deploying" / "Get a Demo"), while nav and in-app controls use a tight 6px square (`{rounded.sm}`, "Sign Up" / "Log In"). The contrast between the rounded marketing pill and the square app button is itself a deliberate signal of which surface you're on.
-
-Surfaces barely lift. Cards are white (`{colors.canvas-elevated}`) on the #fafafa canvas, separated by a 1px hairline (`{colors.hairline}` — #ebebeb) and, at most, a whisper-soft layered shadow. Feature sections are built from precise grids of these hairline cards, often holding thin node-graph or code-editor illustrations rendered in the same ink-on-white palette. The page reads like documentation that happens to be selling something — engineered, exact, and confident enough to let a single gradient be the only flourish.
-
-**Key Characteristics:**
-- A single near-black ink (`{colors.ink}`) carries headings, body, primary CTAs, and borders on a near-white canvas (`{colors.canvas}`) — near-zero chromatic chrome.
-- The multi-stop mesh gradient (cyan → blue → violet → magenta → amber) is the entire decorative system, confined to the hero.
-- Two button shapes by context: rounded black **pills** (`{rounded.pill}`) for marketing CTAs, tight 6px squares (`{rounded.sm}`) for nav/app controls.
-- Geist Sans for tightly-tracked display type (`{typography.display-xl}` at -2.4px), Geist Mono for uppercase technical eyebrows (`{typography.mono-eyebrow}`).
-- Hairline-bordered white cards (`{colors.hairline}` on `{colors.canvas-elevated}`) in precise grids; depth via 1px border + whisper shadow, never heavy elevation.
-- The classic Vercel gradient trio (develop/preview/ship) survives as a named accent system: `{colors.gradient-develop-start}`→end, preview, ship.
-- Color-block page rhythm: white hero with mesh gradient → logo strip → hairline feature-card grid → code-editor band → template cards → black-text CTA band → grey footer.
+The strongest visual pattern is contrast between neutral structure and saturated content. White and near-white surfaces hold the marketing copy, while the palette pages flip into full-height color bands with inverse text. The cards, buttons, and toolbars remain quiet so the color fields stay dominant.
 
 ## Colors
 
-> Source pages analyzed: the home page, the AI Gateway page, the customers page, and the pricing page. The ink/canvas/hairline trio recurs on every page; the accent blue (`{colors.link}`) surfaces on pricing, and the mesh-gradient stops live in the hero.
+Coolors uses a neutral base and then lets color do the expressive work. The base is simple: `#FFFFFF` canvas, `#0A0A0A` ink, muted `#525252` text, and faint separators around `#E5E5E5` to `#EEEEEE`. That quiet foundation matters because the product itself is loud. The blue action button uses `#2563EB`, while links and small utility actions can lean on a sharper blue like `#0000EE`. In the captured views, the brand does not settle into one fixed accent. It uses a broader color language: blue, cyan, teal, green, lime, purple, pink, rose, orange, and gold all appear as card titles, palette names, and interface accents.
 
-### Brand & Accent
-- **Ink** (`{colors.primary}` / `{colors.ink}` — #171717): the brand's defining near-black. Headings, primary CTA fill, logo, and the darkest text tier. Paired with `{colors.on-primary}` (white).
-- **Vercel Blue** (`{colors.link}` — #0070f3): the link and accent blue — inline links, pricing highlights, focus signals. Darker press tone `{colors.link-deep}` (#0761d1), pale wash `{colors.link-soft}` (#d3e5ff).
-- **Violet** (`{colors.violet}` — #7928ca), **Cyan** (`{colors.cyan}` — #50e3c2), **Pink** (`{colors.pink}` — #ff0080), **Magenta** (`{colors.magenta}` — #eb367f): the chromatic accent family, used sparingly for illustration accents and as mesh-gradient stops, never as chrome fills.
+The marketing cards make that range feel organized. Soft panel fills such as `#CFFAFE`, `#DBEAFE`, `#F3E8FF`, `#FCE7F3`, `#FFF4E4`, `#FEF9C3`, and `#DCFCE7` carry large colored headlines without losing readability. On the palette pages, the accent colors are the content: `#565554`, `#2E86AB`, `#FFED9C`, `#F5F749`, `#F24236` in one set, and `#ADEEE3`, `#86DEB7`, `#619EA0`, `#50723C`, `#423E28` in another. Those columns work because the inverse label treatment is consistent: white text over darker or saturated fields, black text over lighter fields, and no decorative gradients needed to explain the structure.
 
-### Surface
-- **Canvas** (`{colors.canvas}` — #fafafa): the default page background — the near-white sheet everything sits on.
-- **Elevated** (`{colors.canvas-elevated}` — #ffffff): pure white for cards, buttons, inputs, and code blocks lifted off the canvas.
-- **Hairline-Soft Surface** (`{colors.hairline-soft}` — #f2f2f2): the faintest grey fill for subtle alternating panels and inset wells.
-
-### Text
-- **Ink** (`{colors.ink}` — #171717): primary headings and high-emphasis text.
-- **Body** (`{colors.body}` — #4d4d4d): standard paragraph and secondary copy, nav links.
-- **Mute** (`{colors.mute}` — #8f8f8f): lower-emphasis captions, logo-strip labels, metadata.
-- **Faint** (`{colors.faint}` — #a1a1a1): the lowest tier — placeholders, disabled labels.
-
-### Borders
-- **Hairline** (`{colors.hairline}` — #ebebeb): the 1px border on every card, input, and divider — the structural workhorse of the system.
-
-### Semantic
-- **Error** (`{colors.error}` — #ee0000): validation / destructive, with a deep press tier `{colors.error-deep}` (#c50000).
-- **Warning** (`{colors.warning}` — #f5a623): caution states, with soft `{colors.warning-soft}` and deep `{colors.warning-deep}` tiers.
-- **Success** maps to `{colors.link}` (#0070f3) — the blue doubles as the positive/active signal.
-
-### Brand Gradient
-Three named two-stop gradients form the legacy Vercel gradient identity, surviving as illustration and accent washes:
-- **Develop**: `{colors.gradient-develop-start}` (#007cf0) → `{colors.gradient-develop-end}` (#00dfd8) — blue to cyan.
-- **Preview**: `{colors.gradient-preview-start}` (#7928ca) → `{colors.gradient-preview-end}` (#ff0080) — violet to pink.
-- **Ship**: `{colors.gradient-ship-start}` (#ff4d4d) → `{colors.gradient-ship-end}` (#f9cb28) — red to amber.
-These, blended together, form the hero's multi-stop mesh.
+There is no photographic mode in the captured pages. The design uses flat color fields instead. That keeps the system coherent: light marketing surfaces on one side, saturated product fields on the other, and only small dark utility details where needed for clarity. A separate dark theme is not part of the captured pages.
 
 ## Typography
 
-### Font Family
-The system runs entirely on **Geist** — Vercel's own type family. **Geist Sans** (with an `Arial` system fallback) sets all UI and prose; **Geist Mono** sets code, inline technical tokens, and the small uppercase section eyebrows. There is no third face. Geist Sans is a clean geometric-humanist sans; substitute **Inter** if Geist is unavailable, and **JetBrains Mono** or **IBM Plex Mono** for Geist Mono.
+Inter carries almost every visible role in the captured pages. It handles the giant homepage headline, the card titles, the navigation, the palette numbers, and the small utility copy. Google Sans Code appears only once, in the tiny code-like page note. No licensing details were provided.
 
-### Hierarchy
+| token | family | size | weight | leading | tracking | use |
+|---|---|---:|---:|---:|---:|---|
+| hero-display | Inter | 6.875rem | 700 | 0.9 | -0.035em | The oversized homepage statement |
+| section-display | Inter | 3.75rem | 700 | 0.9 | -0.03em | Large supporting headlines and the Bot greeting scale |
+| card-heading | Inter | 1.875rem | 700 | 1 | -0.02em | Feature-card titles and strong subheads |
+| palette-code | Inter | 1.875rem | 400 | 1 | 0.03em | Large palette numbers in the color columns |
+| body | Inter | 0.9375rem | 400 | 1.4 | 0em | Supporting copy, short descriptions, and nav text |
+| body-strong | Inter | 0.9375rem | 700 | 1.4 | 0em | Button labels and emphasized short text |
+| nav | Inter | 0.9375rem | 400 | 1 | 0em | Top navigation and utility links |
+| label | Inter | 0.75rem | 400 | 1.3 | 0.03em | Small labels beneath palette names |
+| micro | Inter | 0.625rem | 400 | 1.2 | 0.04em | Tiny utility copy and quiet helper lines |
+| code-note | Google Sans Code | 0.5625rem | 400 | 1 | 0.04em | The smallest page-note style |
 
-| Token | Size | Weight | Line Height | Letter Spacing | Use |
-|---|---|---|---|---|---|
-| `{typography.display-xl}` | 48px | 600 | 48px | -2.4px | Hero headline |
-| `{typography.heading-lg}` | 32px | 600 | 40px | -1.28px | Major section headings |
-| `{typography.heading-md}` | 20px | 600 | 28px | -0.4px | Sub-section / card headings |
-| `{typography.label-sm}` | 14px | 500 | 20px | -0.28px | Strong labels, nav emphasis |
-| `{typography.mono-eyebrow}` | 12px | 500 | 16px | 0 | Uppercase Geist Mono section eyebrows |
-| `{typography.body-lg}` | 16px | 400 | 24px | 0 | Lead paragraphs, large body |
-| `{typography.body-md}` | 14px | 400 | 20px | 0 | Default body, nav links, table cells |
-| `{typography.body-sm}` | 12px | 400 | 16px | 0 | Captions, footnotes, metadata |
-| `{typography.button-lg}` | 16px | 500 | 20px | 0 | Marketing pill button labels |
-| `{typography.button-md}` | 14px | 500 | 20px | 0 | Nav / app button labels |
-| `{typography.code}` | 14px | 400 | 20px | 0 | Code blocks, inline code (Geist Mono) |
-
-### Principles
-- Display type is defined by tight negative tracking — the larger the heading, the tighter (-2.4px at hero scale, -1.28px at section scale). Body type sits at neutral spacing.
-- Weight is binary: 600 for headings and 500 for buttons/labels; everything else is 400. There is no light or black weight, and no italic.
-- Geist Mono is reserved for two roles only — code, and the small uppercase eyebrow labels that introduce sections like spec-sheet headers.
-
-### Note on Font Substitutes
-Geist Sans and Geist Mono are freely available (open-source, via Vercel / Google Fonts). If unavailable, **Inter** (sans) and **JetBrains Mono** (mono) are the closest open substitutes; keep heading weight at 600 and preserve the negative display tracking.
+The hierarchy is mostly a matter of scale and density. Headlines are very large and nearly solid-set. Supporting copy opens slightly but still stays compact. The palette columns use a numeric display treatment that feels separate from ordinary body text: the numbers are big, centered low in the column, and letterspaced just enough to feel deliberate. Labels under the palette names are smaller and quieter, so the hierarchy reads from hex code to name to tiny tool icons without confusion. Nothing here depends on a second display family. The system stays consistent because one sans family does all the work.
 
 ## Layout
 
-### Spacing System
-- **Base unit**: 4px. The scale steps 4 → 8 → 12 → 16 → 24 → 32 → 40 → 64 → 96 → 128px.
-- **Tokens**: `{spacing.xxs}` 4px · `{spacing.xs}` 8px · `{spacing.sm}` 12px · `{spacing.md}` 16px · `{spacing.lg}` 24px · `{spacing.xl}` 32px · `{spacing.2xl}` 40px · `{spacing.3xl}` 64px · `{spacing.4xl}` 96px · `{spacing.section}` 128px.
-- **Card interiors** sit at `{spacing.lg}`–`{spacing.xl}` (24–32px); **section bands** run `{spacing.4xl}`–`{spacing.section}` (96–128px) of vertical rhythm.
-- **Button padding** is horizontal-only — marketing pills run `0px 14px`, nav buttons `0px 6px` — with height set by line-height rather than vertical padding.
+The page structure is wide, calm, and deliberate. The top bar is thin and low in visual weight. It keeps the Coolors wordmark at left, a narrow promo strip beside it, and a compact utility cluster at right: Tools, Go Pro, Sign in, and a filled Sign up button. A light divider line separates the header from the page body. That line matters because the body itself is mostly open space.
 
-### Grid & Container
-- Centered max-width container (~1200px) with comfortable gutters; the hero and CTA bands center their content.
-- Feature sections use 2-up, 3-up, and 4-up hairline-card grids that collapse toward 1-up on narrow widths.
-- The pricing page uses a multi-column tier grid; the customers page a logo / case-study grid.
+The marketing home uses a split rhythm. The hero places the headline on the left and a colorful product composition on the right, with the copy held in a narrow block so the product imagery can breathe. Below that, the feature grid becomes a three-column card layout. Each card has generous internal padding, rounded corners, and a lot of blank surface around the oversized heading. The grid reads quickly because the card spacing is regular and the color fills are distinct enough to separate without borders.
 
-### Whitespace Philosophy
-Whitespace is structural. The near-white canvas and generous section padding do the separating work; cards are grouped by thin hairlines rather than heavy backgrounds. The page breathes — large vertical gaps between bands, tight internal rhythm inside cards.
+The palette editor removes most of that framing. The columns run edge to edge, all the way across the viewport, so the page feels more like a working surface than a marketing page. Each column is the same width, and the interaction icons sit in a narrow vertical rail near the center of the band. Hex code and color name anchor the bottom of each column, which gives the layout a clear top-to-bottom reading order even when the colors themselves are changing. The warm and mint palettes in the captured views prove that the structure stays the same while the palette changes completely.
 
-### Responsive Strategy
+Color Bot is the quietest layout of the set. It uses a left sidebar for chats and assets, a mostly empty center field, and a bottom composer that stretches across the width of the main area. The greeting sits dead center in the empty field, which turns emptiness into part of the composition. The left rail is narrow and text-light, so it never competes with the greeting or the composer.
 
-#### Breakpoints
-| Name | Width | Key Changes |
-|---|---|---|
-| Mobile | ≤ 640px | Single-column stacks; nav → menu trigger; hero type scales down; pill CTAs go full-width |
-| Tablet | 768px | 2-up card grids; condensed nav |
-| Laptop | 1024px | 3–4-up grids; full nav row |
-| Desktop | 1200px+ | Centered max-width container, full multi-column grids |
+## Visual language
 
-#### Touch Targets
-Marketing pill CTAs (`{components.button-primary}`) and nav buttons clear the 44px WCAG-AAA target via line-height-driven height. Circular icon buttons (`{components.button-icon-circular}`) keep adequate hit area.
+Coolors uses flat surfaces, strong type, and simple geometry. Rounded corners are present, but they are modest. The marketing cards feel soft rather than bubbly, and the palette columns are mostly flush edges rather than framed tiles. That keeps the interface from looking playful in a decorative way; it looks purposeful instead.
 
-#### Collapsing Strategy
-The nav row collapses behind a menu trigger; multi-column hairline-card grids reflow to a single column; code-editor and node-graph illustrations scale or scroll rather than shrink illegibly; the pricing tier grid stacks vertically.
+The shape system is easy to read. Buttons are compact and rectangular with soft corners. Feature cards are larger, softer blocks. The palette editor is almost entirely straight-edged because the content already supplies the color. The page therefore avoids extra textures, embossed surfaces, and heavy depth cues. Shadows are minimal to nonexistent. When the interface needs separation, it uses whitespace, pale separators, and changes in color instead of elevation.
 
-#### Image Behavior
-The hero mesh gradient is a CSS/SVG composition that scales fluidly. Feature illustrations (node graphs, code editors) are vector/HTML, ink-on-white, scaling crisply. Customer logos sit in a greyscale strip. No heavy raster photography.
+The icon language is similarly restrained. The tool rails and utility controls use small black line icons. They are functional markers, not ornament. The small spark mark above the Color Bot greeting is the rare decorative element, and even that mark stays simple: a tiny multicolor cluster that echoes the site’s product promise without adding a complex illustration system.
 
-## Elevation & Depth
-
-| Level | Treatment | Use |
-|---|---|---|
-| 0 — Flat | 1px hairline (`{colors.hairline}`), no shadow | Default feature cards, inputs, dividers, the canvas |
-| 1 — Whisper | Border + `0px 1px 1px rgba(0,0,0,0.04)` micro-shadow | Lightly-raised cards |
-| 2 — Floating | Layered soft shadow (`0px 2px 2px` + `0px 8px 16px -4px` low-alpha black) + inset hairline | Menus, modals, tooltips |
-
-Depth is deliberately minimal. The system prefers a crisp 1px hairline plus the near-white-on-white surface step to a shadow; when a surface floats, it uses a finely-layered, very-low-alpha shadow stack rather than a single heavy drop.
-
-### Decorative Depth
-The hero **mesh gradient** is the only atmospheric element — a soft multi-stop bloom of the brand accent colors against the white canvas. Feature illustrations (ink node-graphs, code editors) add a sense of product depth without color. No glows, no heavy gradients elsewhere.
-
-## Shapes
-
-### Border Radius Scale
-
-| Token | Value | Use |
-|---|---|---|
-| `{rounded.none}` | 0px | Full-bleed bands, dividers |
-| `{rounded.sm}` | 6px | Nav / app buttons, inputs |
-| `{rounded.md}` | 12px | Feature cards, code blocks |
-| `{rounded.lg}` | 16px | Pricing cards, larger panels |
-| `{rounded.pill-category}` | 64px | Category-tab pills (AI Apps / Web Apps) |
-| `{rounded.pill}` | 100px | Marketing CTA pills |
-| `{rounded.full}` | 9999px | Circular icon buttons, avatars, nav ghost links |
-
-The radius language is bimodal: tight 6px squares for functional chrome, full pills for marketing CTAs and category tabs, with 12–16px on content cards in between.
-
-### Geometry
-Cards are rectangles at 12–16px radius; marketing buttons and category tabs are full pills; icon buttons and avatars are circular. Illustrations are line-weight vector graphics in ink on white.
+The most distinctive part of the visual language is that color is treated as structure. In the marketing cards, color is the background. In the palette editor, color is the page. In Color Bot, color appears only as a tiny flourish so the shell can stay mostly white. That hierarchy makes the product feel efficient rather than flashy.
 
 ## Components
 
-> No hover states are documented. Each spec covers Default and (where extracted) pressed/active states. Variants live as separate `components:` entries.
+### Top bar
 
-### Navigation
+**Anatomy:** Coolors wordmark, a slim promo strip, a `Tools` dropdown, `Go Pro`, `Sign in`, and a filled `Sign up` action.  
+**Surface:** White with a faint bottom rule.  
+**Typography:** Small Inter text in a light, utility-first size.  
+**Shape:** The filled account action is softly rounded; the rest of the bar stays flat.  
+**Visible states:** `Go Pro` reads as a colored text action, while `Sign up` is the strongest control because it is filled blue.
 
-**`nav-bar`** — top navigation
-- Background `{colors.canvas}`, bottom hairline `{colors.hairline}`, text `{colors.body}`, type `{typography.body-md}`, padding `{spacing.sm} {spacing.lg}`. Holds the black wordmark, ghost nav links, and the Sign Up / Log In buttons at right.
+### Marketing feature card
 
-**`nav-link`** — individual nav item
-- Body-grey text `{colors.body}`, type `{typography.body-md}`, fully rounded hit area `{rounded.full}`, padding `{spacing.xs} {spacing.sm}`. Transparent until interacted.
+**Anatomy:** Large headline, short supporting paragraph, and a text link with an arrow.  
+**Surface:** Pastel blocks with distinct fills per card, such as cyan, blue, lilac, pink, peach, yellow, and mint.  
+**Typography:** 30px-ish bold titles, with smaller body copy below.  
+**Spacing:** Generous internal padding gives each card its own breathing room.  
+**Composition:** The headline sits high and left; the link sits low and left; the right side of each card stays open.  
+**Role:** Each card reads like a short invitation to a tool, not like a feature checklist.
 
-### Buttons
+### Palette stage
 
-**`button-primary`** — the black marketing pill ("Start Deploying", "Deploy")
-- Background `{colors.primary}`, text `{colors.on-primary}`, type `{typography.button-lg}`, fully rounded `{rounded.pill}` (100px), padding `0px 14px`.
+**Anatomy:** Five equal vertical columns, a large hex code, a color name, and a narrow rail of tool icons.  
+**Surface:** Solid color fields with no decorative framing.  
+**Typography:** The hex code uses a large, centered numeric style; the name is smaller and quieter below it.  
+**Shape:** The columns are edge-to-edge bands rather than cards.  
+**Visible states:** Light columns use dark text; darker columns use white text; the icon rail stays small and black.  
+**Role:** This component is the product itself. Nothing should be added that weakens the full-height color field.
 
-**`button-secondary`** — the white marketing pill ("Get a Demo")
-- Background `{colors.canvas-elevated}`, text `{colors.ink}`, type `{typography.button-lg}`, rounded `{rounded.pill}`, padding `0px 14px`. Same pill shape as primary, inverted fill.
+### Color Bot shell
 
-**`button-primary-sm`** — the compact black nav CTA ("Sign Up")
-- Background `{colors.primary}`, text `{colors.on-primary}`, type `{typography.button-md}`, tight square `{rounded.sm}` (6px), padding `0px 6px`.
+**Anatomy:** Left sidebar, empty-state copy, centered star mark, bold greeting, short helper line, and a bottom input bar.  
+**Surface:** White with very light grey in the composer area.  
+**Typography:** Large Inter greeting text, quieter helper text, and tiny sidebar notes.  
+**Composition:** The center is intentionally sparse so the greeting and composer feel prominent.  
+**Role:** The shell is calm and direct. It makes room for the input, not for ornament.
 
-**`button-ghost-sm`** — the white nav/app button ("Log In", "Ask AI")
-- Background `{colors.canvas-elevated}`, text `{colors.ink}`, 1px hairline `{colors.hairline}`, type `{typography.button-md}`, rounded `{rounded.sm}`, padding `0px 6px`.
+### Input composer
 
-**`button-category-pill`** — the category-tab pill ("AI Apps", "Web Apps", "Ecommerce")
-- Background `{colors.canvas-elevated}`, text `{colors.ink}`, type `{typography.button-md}`, rounded `{rounded.pill-category}` (64px), padding `0px 16px`.
+**Anatomy:** Long rounded text field, blue send button, and compact auxiliary buttons to the right.  
+**Surface:** Pale, low-contrast field with a stronger blue send control.  
+**Typography:** Light placeholder text in a small utility size.  
+**Shape:** Soft corners and a low-profile bar keep the composer from looking heavy.  
+**Visible states:** The send button is the clearest action on the page; the secondary buttons remain quieter and icon-led.
 
-**`button-icon-circular`** — circular icon / carousel control
-- Background `{colors.canvas-elevated}`, text `{colors.ink}`, 1px hairline `{colors.hairline}`, type `{typography.body-lg}`, rounded `{rounded.full}`, no padding.
+## Responsive behavior
 
-### Inputs & Forms
+The captured views are desktop-led, so the design language should stay focused on wide layouts first. On narrower widths, the safest move is to preserve the reading order: headline, support copy, and primary action first; product surface second; utility details last. The marketing cards should collapse cleanly into a single column before the text becomes cramped. The palette editor should keep the color columns legible, either by stacking them or by allowing a controlled horizontal scroll rather than shrinking the labels beyond recognition. The Color Bot shell should keep the composer reachable without forcing the greeting to fight for space.
 
-**`text-input`** — default form field
-- Background `{colors.canvas-elevated}`, ink text `{colors.ink}`, 1px hairline `{colors.hairline}`, type `{typography.body-md}`, rounded `{rounded.sm}`, padding `{spacing.xs} {spacing.sm}`.
+The key responsive rule is simple: do not squeeze color into a small box. If the palette stage loses its full-height banding or the card grid loses its breathing room, the identity gets weaker. Narrow screens should protect that hierarchy, not flatten it.
 
-### Cards & Containers
+## Practical implementation guidance
 
-**`feature-card`** — flat hairline content card
-- Background `{colors.canvas-elevated}`, 1px hairline `{colors.hairline}`, ink text `{colors.ink}`, type `{typography.body-md}`, rounded `{rounded.md}`, padding `{spacing.lg}`. The workhorse grid tile, often holding a node-graph or code illustration.
+### Preserve
 
-**`feature-card-elevated`** — lifted card variant
-- Same chrome as `feature-card` with the Level-2 floating shadow for menus / featured tiles.
+- Keep white canvas and black Inter text as the base.
+- Keep the filled blue action button as the main control treatment.
+- Keep the feature cards soft, pastel, and roomy.
+- Keep the palette editor full-bleed and column-based.
+- Keep the bot shell sparse and centered.
+- Keep shadows near zero; use spacing and color changes for separation.
 
-**`pricing-card`** — pricing tier card
-- Background `{colors.canvas-elevated}`, 1px hairline `{colors.hairline}`, ink text `{colors.ink}`, type `{typography.body-md}`, rounded `{rounded.lg}`, padding `{spacing.xl}`.
+### Avoid
 
-**`code-block`** — code / terminal surface
-- Background `{colors.canvas-elevated}`, ink text `{colors.ink}`, 1px hairline `{colors.hairline}`, monospace `{typography.code}`, rounded `{rounded.md}`, padding `{spacing.md}`. Syntax rendered in the ink-and-accent palette.
+- Avoid adding a second display family.
+- Avoid turning the palette editor into a small swatch grid.
+- Avoid heavy borders, bevels, or soft depth effects.
+- Avoid making every control the same blue; the brand already uses a wide color range.
+- Avoid overfitting the shell with extra panels or decorative containers.
+- Avoid letting small-screen compression destroy the large type scale.
 
-### Bands
+### Recommended build order
 
-**`logo-strip`** — customer logo band
-- Background `{colors.canvas}`, mute text `{colors.mute}`, type `{typography.body-md}`, padding `{spacing.xl} {spacing.lg}`. A greyscale row of customer wordmarks.
+1. Set the neutral base colors and Inter type scale.
+2. Build the top bar and the blue action button.
+3. Build the hero and the pastel feature-card grid.
+4. Build the palette-column component with inverse text handling.
+5. Build the Color Bot shell and composer.
+6. Tune spacing, rounding, and narrow-width stacking.
 
-**`hero-band`** — full-width hero section
-- Background `{colors.canvas}` with the mesh gradient, ink text `{colors.ink}`, display type `{typography.display-xl}`, padding `{spacing.section} {spacing.lg}`.
+### Accessibility
 
-**`cta-band`** — end-of-page call-to-action band ("Start Deploying")
-- Background `{colors.canvas}`, ink text `{colors.ink}`, display type `{typography.display-xl}`, padding `{spacing.4xl} {spacing.lg}`, with a `{components.button-primary}` pill.
+- Keep contrast high for white labels on saturated palette columns.
+- Give icon-only controls clear names and keyboard focus styles.
+- Make the send button and primary links visually distinct from secondary text actions.
+- Keep placeholder text lighter than entered text in the composer.
+- Avoid using color alone to explain actions; pair it with text or icons where the interface needs meaning.
+- Make sure small labels under palette names remain readable at desktop and narrow widths.
 
-### Footer
+## Scope note
 
-**`footer`** — site footer
-- Background `{colors.canvas}`, top hairline `{colors.hairline}`, body-grey text `{colors.body}`, type `{typography.body-md}`, padding `{spacing.3xl} {spacing.lg}`. Multi-column link groups under the wordmark.
-
-## Do's and Don'ts
-
-### Do
-- Keep the canvas near-white (`{colors.canvas}`) and let near-black ink (`{colors.ink}`) carry headings, CTAs, and borders — the system is a black-and-white duet.
-- Confine color to the hero mesh gradient and small illustration accents; reserve `{colors.link}` for links and focus.
-- Use the two button shapes by context: black pill (`{components.button-primary}`) for marketing CTAs, 6px square (`{components.button-primary-sm}`) for nav/app.
-- Define cards and inputs with a 1px hairline (`{colors.hairline}`) before any shadow — flat is the default.
-- Set display headings in Geist Sans 600 with tight negative tracking; label sections with uppercase Geist Mono eyebrows (`{typography.mono-eyebrow}`).
-- Step the grey text ladder deliberately: `{colors.ink}` → `{colors.body}` → `{colors.mute}` → `{colors.faint}`.
-
-### Don't
-- Don't fill large surfaces with the accent colors — violet/cyan/pink/blue live in the gradient and illustrations, not as chrome.
-- Don't mix the button shapes within one context — marketing CTAs stay pills, app/nav controls stay 6px squares.
-- Don't pile on shadows — depth is a 1px hairline plus, at most, a finely-layered low-alpha shadow stack.
-- Don't set body copy in pure black (`#000000`) — the brand's ink is #171717 and body steps to `{colors.body}`.
-- Don't add a second decorative system — the mesh gradient is the only flourish; everything else is ink on white.
-- Don't loosen the display tracking — large Geist headings carry tight negative letter-spacing by design.
+This guide covers the captured Coolors desktop homepage, feature-card grid, palette editor columns, and Color Bot shell. Small-screen rearrangements, motion, hover and focus specifics, loading states, and other tool pages are not included. Type and spacing values are rounded to the shared 0.125rem step.
