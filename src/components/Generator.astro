@@ -69,6 +69,7 @@ const SAMPLE_OUTPUT =
 									</button>
 									<ul
 										id="unit-select-listbox"
+										data-lenis-prevent
 										role="listbox"
 										tabindex="-1"
 										aria-label="Amount unit"
@@ -104,7 +105,7 @@ const SAMPLE_OUTPUT =
 						     Collapsed by default so a first-time visitor sees one clear
 						     decision (amount + unit) instead of seven at once; a returning
 						     or detail-oriented user can expand for full control. -->
-						<details id="more-options" class="group rounded-sm border border-hairline">
+						<details id="more-options" open class="group rounded-sm border border-hairline">
 							<summary class="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2.5 text-label-sm font-medium text-ink marker:content-none">
 								More options
 								<span
@@ -151,6 +152,7 @@ const SAMPLE_OUTPUT =
 										</label>
 										<textarea
 											id="custom-text"
+											data-lenis-prevent
 											name="customText"
 											rows="5"
 											maxlength="20000"
@@ -267,6 +269,7 @@ const SAMPLE_OUTPUT =
 						<div class="relative flex min-h-[320px] flex-1 flex-col">
 							<textarea
 								id="output-area"
+								data-lenis-prevent
 								readonly
 								autocomplete="off"
 								spellcheck="false"
@@ -279,6 +282,7 @@ const SAMPLE_OUTPUT =
 							     same text, plus a copy button per piece. -->
 							<div
 								id="output-list"
+								data-lenis-prevent
 								role="region"
 								tabindex="0"
 								aria-label="Generated placeholder text output"
