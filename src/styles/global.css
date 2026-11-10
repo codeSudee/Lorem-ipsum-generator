@@ -4,30 +4,30 @@
 
 @theme {
   /* Colors — Coolors system (see DESIGN.md) */
-  --color-ink: #0a0a0a;
+  --color-ink: #000000;
   --color-on-primary: #ffffff;
-  --color-body: #525252;
-  --color-mute: #737373;
-  --color-faint: #a3a3a3;
-  --color-hairline: #e5e5e5;
-  --color-hairline-soft: #eeeeee;
-  --color-canvas: #ffffff;
-  --color-canvas-elevated: #f7f7f7;
-  --color-link: #2563eb;
-  --color-link-deep: #1d4ed8;
-  --color-link-soft: #dbeafe;
+  --color-body: #4a463f;
+  --color-mute: #6e6962;
+  --color-faint: #a19b90;
+  --color-hairline: #ddd6cb;
+  --color-hairline-soft: #ebe5da;
+  --color-canvas: #f7f4ed;
+  --color-canvas-elevated: #ffffff;
+  --color-link: #000000;
+  --color-link-deep: #000000;
+  --color-link-soft: #e6dfd0;
   --color-error: #ee0000;
   --color-error-deep: #c50000;
   --color-warning: #f5a623;
-  --color-warning-soft: #fef9c3;
+  --color-warning-soft: #e9e6d6;
   --color-warning-deep: #ab570a;
   --color-violet: #9333ea;
-  --color-violet-soft: #f3e8ff;
+  --color-violet-soft: #ecd9ed;
   --color-cyan: #06b6d4;
-  --color-cyan-soft: #cffafe;
-  --color-pink-soft: #fce7f3;
-  --color-green-soft: #dcfce7;
-  --color-peach-soft: #fff4e4;
+  --color-cyan-soft: #cfdcef;
+  --color-pink-soft: #f1dfdd;
+  --color-green-soft: #dde3d2;
+  --color-peach-soft: #f2e6d6;
   --color-pink: #ec4899;
   --color-magenta: #ec4899;
   --color-gradient-develop-start: #007cf0;
@@ -45,17 +45,17 @@
   --text-display-xl: 48px;
   --text-display-xl--line-height: 48px;
   --text-display-xl--letter-spacing: -2.4px;
-  --text-display-xl--font-weight: 600;
+  --text-display-xl--font-weight: 400;
 
   --text-heading-lg: 32px;
   --text-heading-lg--line-height: 40px;
   --text-heading-lg--letter-spacing: -1.28px;
-  --text-heading-lg--font-weight: 600;
+  --text-heading-lg--font-weight: 400;
 
   --text-heading-md: 20px;
   --text-heading-md--line-height: 28px;
   --text-heading-md--letter-spacing: -0.4px;
-  --text-heading-md--font-weight: 600;
+  --text-heading-md--font-weight: 400;
 
   --text-label-sm: 14px;
   --text-label-sm--line-height: 20px;
@@ -91,7 +91,7 @@
   --radius-xs: 6px;
   --radius-sm: 6px;
   --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-lg: 24px;
   --radius-pill-category: 64px;
   --radius-pill: 100px;
 
@@ -140,18 +140,18 @@
   /* Dark mode — inverted ink/canvas duet. Same structural roles
      (ink/body/mute/faint/hairline/canvas/canvas-elevated), swapped values. */
   .dark {
-    --color-ink: #fafafa;
-    --color-on-primary: #171717;
-    --color-body: #b4b4b4;
-    --color-mute: #8f8f8f;
-    --color-faint: #6e6e6e;
-    --color-hairline: #333333;
-    --color-hairline-soft: #1f1f1f;
-    --color-canvas: #0a0a0a;
-    --color-canvas-elevated: #141414;
-    --color-link: #60a5fa;
-    --color-link-deep: #3b82f6;
-    --color-link-soft: #172554;
+    --color-ink: #f7f4ed;
+    --color-on-primary: #000000;
+    --color-body: #c9c3b8;
+    --color-mute: #958f85;
+    --color-faint: #6e6962;
+    --color-hairline: #2e2c28;
+    --color-hairline-soft: #1c1b19;
+    --color-canvas: #000000;
+    --color-canvas-elevated: #0f0f0e;
+    --color-link: #f7f4ed;
+    --color-link-deep: #f7f4ed;
+    --color-link-soft: #2a2823;
   }
 
   body {

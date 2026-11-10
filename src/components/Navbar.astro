@@ -85,7 +85,7 @@ const navLinks = [
 			</button>
 			<a
 				href="/#generator"
-				class="rounded-sm bg-ink px-3 py-1.5 text-button-md font-medium text-on-primary transition-opacity hover:opacity-90"
+				class="rounded-pill bg-ink px-4 py-1.5 text-button-md font-medium text-on-primary transition-opacity hover:opacity-90"
 			>
 				Generate Text
 			</a>
@@ -107,7 +107,8 @@ const navLinks = [
 
 	toggle.addEventListener("click", () => {
 		const isDark = !document.documentElement.classList.contains("dark");
-		localStorage.setItem("theme", isDark ? "dark" : "light");
+		try { localStorage.setItem("theme", isDark ? "dark" : "light"); } catch {}
+		document.querySelector('meta[name="theme-color"]')?.setAttribute("content", isDark ? "#000000" : "#f7f4ed");
 		applyTheme(isDark);
 	});
 </script>

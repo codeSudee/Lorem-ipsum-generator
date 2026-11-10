@@ -1,148 +1,161 @@
 <!-- MIT licensed. Copyright and license: https://opendesignmd.com/licenses/ -->
 
-# How coolors.co is designed
+# How cosmos.so is designed
 
 ## Overview
 
-Coolors is a color-first product wrapped in a very light SaaS shell. The page stays almost empty until color appears: a white canvas, black Inter headlines, thin rules, and a small amount of utility chrome. That restraint makes the product feel immediate. The marketing home uses oversized type and pastel cards to explain the tools; the palette editor turns the product into the interface by filling the page with vertical color columns; Color Bot reduces the layout again to a centered greeting and a bottom composer. The brand does not rely on ornament. It relies on scale, whitespace, and the fact that color is the thing being sold.
+Cosmos.so feels like a calm discovery system built from a paper-white canvas, a black typographic spine, and a loose field of rounded image tiles. The page is not dense or dashboard-like. It opens with a centered call to action surrounded by floating thumbnails, then moves into editorial chapters where a single headline, one image, and a short explanatory block do most of the work. Further down, a three-card comparison row turns the interface into a clearer product explanation, and the dark app shell at the end shifts the mood without changing the restraint.
 
-The strongest visual pattern is contrast between neutral structure and saturated content. White and near-white surfaces hold the marketing copy, while the palette pages flip into full-height color bands with inverse text. The cards, buttons, and toolbars remain quiet so the color fields stay dominant.
+The strongest pattern is contrast through spacing, not decoration. Large empty margins let the typography breathe, the rounded pills keep interactions soft, and the image collage brings color only where the page wants attention to drift. The whole system reads as curated, minimal, and image-led.
 
 ## Colors
 
-Coolors uses a neutral base and then lets color do the expressive work. The base is simple: `#FFFFFF` canvas, `#0A0A0A` ink, muted `#525252` text, and faint separators around `#E5E5E5` to `#EEEEEE`. That quiet foundation matters because the product itself is loud. The blue action button uses `#2563EB`, while links and small utility actions can lean on a sharper blue like `#0000EE`. In the captured views, the brand does not settle into one fixed accent. It uses a broader color language: blue, cyan, teal, green, lime, purple, pink, rose, orange, and gold all appear as card titles, palette names, and interface accents.
+Cosmos keeps the interface almost monochrome. Warm paper tones and white surfaces carry the reading experience, black ink supplies the main contrast, and a muted gray handles quieter text. Color appears most clearly in the floating thumbnail collage and in the comparison cards, where the page allows cool blues, lilacs, roses, and olive notes to surface. Those tones should stay secondary so the interface still feels like a clean discovery product rather than a colorful control panel.
 
-The marketing cards make that range feel organized. Soft panel fills such as `#CFFAFE`, `#DBEAFE`, `#F3E8FF`, `#FCE7F3`, `#FFF4E4`, `#FEF9C3`, and `#DCFCE7` carry large colored headlines without losing readability. On the palette pages, the accent colors are the content: `#565554`, `#2E86AB`, `#FFED9C`, `#F5F749`, `#F24236` in one set, and `#ADEEE3`, `#86DEB7`, `#619EA0`, `#50723C`, `#423E28` in another. Those columns work because the inverse label treatment is consistent: white text over darker or saturated fields, black text over lighter fields, and no decorative gradients needed to explain the structure.
+### Core UI colors
 
-There is no photographic mode in the captured pages. The design uses flat color fields instead. That keeps the system coherent: light marketing surfaces on one side, saturated product fields on the other, and only small dark utility details where needed for clarity. A separate dark theme is not part of the captured pages.
+| token | value | use |
+|---|---|---|
+| `action` | `#000000` | Solid primary pills, the COSMOS wordmark, and strong emphasis |
+| `ink` | `#000000` | Main headlines and body text on light surfaces |
+| `mutedInk` | `#6E6962` | Supporting copy, captions, and quieter link text |
+| `canvas` | `#F7F4ED` | Page background and the open space around major sections |
+| `surface` | `#FFFFFF` | White cards, ghost buttons, and small top-bar chips |
+| `surfaceDark` | `#000000` | The dark app stage and high-contrast end sections |
+| `border` | `#DDD6CB` | Hairline outlines and card edges |
+| `onDark` | `#F7F4ED` | Text and icons on the dark stage |
+
+### Image-led tones
+
+| token | value | use |
+|---|---|---|
+| `imageBlue` | `#4A87D6` | Blue-toned thumbnail fragments and cool image accents |
+| `imageLilac` | `#D4A7D7` | Lilac thumbnail fragments and soft collage accents |
+| `imageRose` | `#E3C0BD` | Rose thumbnail fragments and warm collage accents |
+| `imageOlive` | `#B7B39B` | Olive thumbnail fragments and muted collage accents |
+
+The light system should stay mostly paper white and black. The darker chapter should switch to `surfaceDark` with `onDark` text, while the colored thumbnail tones should never take over buttons, borders, or background shells. Keep the contrast simple in chrome and let the imagery carry the variety.
 
 ## Typography
 
-Inter carries almost every visible role in the captured pages. It handles the giant homepage headline, the card titles, the navigation, the palette numbers, and the small utility copy. Google Sans Code appears only once, in the tiny code-like page note. No licensing details were provided.
+Cosmos uses two families with different jobs. Favorit carries the interface and editorial reading rhythm, while Cosmos Oracle can support the oversized brand wordmark and any moment that needs a more sculpted, logo-like presence. The scale is bold but not noisy: large headings, short supporting copy, and tiny quiet labels. Spacing in the type system comes from size jumps and tight tracking more than from heavy weight changes.
+
+Verify licensing for these families before production use.
 
 | token | family | size | weight | leading | tracking | use |
 |---|---|---:|---:|---:|---:|---|
-| hero-display | Inter | 6.875rem | 700 | 0.9 | -0.035em | The oversized homepage statement |
-| section-display | Inter | 3.75rem | 700 | 0.9 | -0.03em | Large supporting headlines and the Bot greeting scale |
-| card-heading | Inter | 1.875rem | 700 | 1 | -0.02em | Feature-card titles and strong subheads |
-| palette-code | Inter | 1.875rem | 400 | 1 | 0.03em | Large palette numbers in the color columns |
-| body | Inter | 0.9375rem | 400 | 1.4 | 0em | Supporting copy, short descriptions, and nav text |
-| body-strong | Inter | 0.9375rem | 700 | 1.4 | 0em | Button labels and emphasized short text |
-| nav | Inter | 0.9375rem | 400 | 1 | 0em | Top navigation and utility links |
-| label | Inter | 0.75rem | 400 | 1.3 | 0.03em | Small labels beneath palette names |
-| micro | Inter | 0.625rem | 400 | 1.2 | 0.04em | Tiny utility copy and quiet helper lines |
-| code-note | Google Sans Code | 0.5625rem | 400 | 1 | 0.04em | The smallest page-note style |
+| `brandWordmark` | Cosmos Oracle | 7.5rem | 400 | 0.88 | -0.05em | Huge COSMOS logotype at the bottom of the hero |
+| `heroDisplay` | Favorit | 4rem | 400 | 0.95 | -0.04em | Large centered statements and main page hooks |
+| `sectionDisplay` | Favorit | 3.5rem | 400 | 0.95 | -0.035em | Big editorial headlines beside image cards |
+| `cardHeading` | Favorit | 1.5rem | 400 | 1.1 | -0.02em | Card titles and short section labels |
+| `body` | Favorit | 1rem | 400 | 1.5 | 0em | Explanatory paragraphs and supporting text |
+| `bodyMedium` | Favorit | 1rem | 500 | 1.45 | 0em | Buttons, chips, and short emphasized copy |
+| `label` | Favorit | 0.75rem | 500 | 1.2 | 0.08em | Tiny upper labels and chip text |
+| `legalCopy` | Favorit | 0.75rem | 400 | 1.4 | 0em | Footer text, legal lines, and minor metadata |
 
-The hierarchy is mostly a matter of scale and density. Headlines are very large and nearly solid-set. Supporting copy opens slightly but still stays compact. The palette columns use a numeric display treatment that feels separate from ordinary body text: the numbers are big, centered low in the column, and letterspaced just enough to feel deliberate. Labels under the palette names are smaller and quieter, so the hierarchy reads from hex code to name to tiny tool icons without confusion. Nothing here depends on a second display family. The system stays consistent because one sans family does all the work.
+The large headings should feel almost airless, with compact line height and slightly tightened tracking. Body copy should open up enough to read easily against the wide layouts. Labels should stay small, quiet, and precise. Avoid adding a second decorative family for emphasis; the system already gets its character from scale, contrast, and the brand wordmark.
 
 ## Layout
 
-The page structure is wide, calm, and deliberate. The top bar is thin and low in visual weight. It keeps the Coolors wordmark at left, a narrow promo strip beside it, and a compact utility cluster at right: Tools, Go Pro, Sign in, and a filled Sign up button. A light divider line separates the header from the page body. That line matters because the body itself is mostly open space.
+The layout is built from wide, centered chapters with generous negative space between them. The hero is the most open section: a small line of copy sits above the main action, the primary pill anchors the center, and small floating tiles drift around the composition while the huge wordmark sits low and wide. That structure makes the page feel airy even before the user reaches the product explanation.
 
-The marketing home uses a split rhythm. The hero places the headline on the left and a colorful product composition on the right, with the copy held in a narrow block so the product imagery can breathe. Below that, the feature grid becomes a three-column card layout. Each card has generous internal padding, rounded corners, and a lot of blank surface around the oversized heading. The grid reads quickly because the card spacing is regular and the color fills are distinct enough to separate without borders.
+Below the hero, the design turns more editorial. One section pairs a big headline on the left with a tall, rounded image card in the middle and a short supporting paragraph on the right. The image card is the anchor, so the text stays brief and aligned to its edges. Another section uses a three-column comparison row under a centered headline. The cards are evenly spaced and similarly sized, which gives the page a calm explanatory rhythm after the looser hero.
 
-The palette editor removes most of that framing. The columns run edge to edge, all the way across the viewport, so the page feels more like a working surface than a marketing page. Each column is the same width, and the interaction icons sit in a narrow vertical rail near the center of the band. Hex code and color name anchor the bottom of each column, which gives the layout a clear top-to-bottom reading order even when the colors themselves are changing. The warm and mint palettes in the captured views prove that the structure stays the same while the palette changes completely.
-
-Color Bot is the quietest layout of the set. It uses a left sidebar for chats and assets, a mostly empty center field, and a bottom composer that stretches across the width of the main area. The greeting sits dead center in the empty field, which turns emptiness into part of the composition. The left rail is narrow and text-light, so it never competes with the greeting or the composer.
+The dark chapter changes the tone without changing the structure. It uses a near-black shell, small top-right controls, and large empty fields that leave the interface breathing room. The layout depends on repetition of rounded rectangles, consistent gutters, and strong horizontal alignment. Use `spacing.hero` for the largest open vertical moments, `spacing.wide` for chapter separation, and `spacing.gutter` to keep the cards from feeling crowded. Smaller controls can sit on `spacing.compact` and `spacing.control` so the interaction layer stays light.
 
 ## Visual language
 
-Coolors uses flat surfaces, strong type, and simple geometry. Rounded corners are present, but they are modest. The marketing cards feel soft rather than bubbly, and the palette columns are mostly flush edges rather than framed tiles. That keeps the interface from looking playful in a decorative way; it looks purposeful instead.
+Cosmos is quiet, curated, and slightly playful. The floating thumbnail tiles give the page motion without using animation language in the layout itself. Their rounded corners, soft edges, and varied image content make the page feel like a collection wall. The monochrome chrome keeps that collage from becoming busy. Black pills, white chips, and dark shells create a very stable frame around the imagery.
 
-The shape system is easy to read. Buttons are compact and rectangular with soft corners. Feature cards are larger, softer blocks. The palette editor is almost entirely straight-edged because the content already supplies the color. The page therefore avoids extra textures, embossed surfaces, and heavy depth cues. Shadows are minimal to nonexistent. When the interface needs separation, it uses whitespace, pale separators, and changes in color instead of elevation.
-
-The icon language is similarly restrained. The tool rails and utility controls use small black line icons. They are functional markers, not ornament. The small spark mark above the Color Bot greeting is the rare decorative element, and even that mark stays simple: a tiny multicolor cluster that echoes the site’s product promise without adding a complex illustration system.
-
-The most distinctive part of the visual language is that color is treated as structure. In the marketing cards, color is the background. In the palette editor, color is the page. In Color Bot, color appears only as a tiny flourish so the shell can stay mostly white. That hierarchy makes the product feel efficient rather than flashy.
+The system also likes contrast between softness and structure. Pills are fully rounded and friendly, but the headline typography is severe and direct. The image cards are tall and rounded, while the text around them stays open and linear. That balance makes the page feel premium without becoming formal. Flat fills work better than heavy shadows here; the visual interest comes from spacing, image tone, and the shift between paper-white and near-black surfaces. Keep borders light and sparse so the layout keeps its gallery-like calm.
 
 ## Components
 
-### Top bar
+### Hero stage
 
-**Anatomy:** Coolors wordmark, a slim promo strip, a `Tools` dropdown, `Go Pro`, `Sign in`, and a filled `Sign up` action.  
-**Surface:** White with a faint bottom rule.  
-**Typography:** Small Inter text in a light, utility-first size.  
-**Shape:** The filled account action is softly rounded; the rest of the bar stays flat.  
-**Visible states:** `Go Pro` reads as a colored text action, while `Sign up` is the strongest control because it is filled blue.
+- **Anatomy:** A small line of supporting copy, one primary pill, one secondary pill, scattered floating tiles, and the oversized COSMOS wordmark.
+- **Surface:** `canvas` for the open field; `action` for the primary pill; `surface` for the secondary pill.
+- **Typography:** `bodyMedium` for the pills and `brandWordmark` for the bottom wordmark.
+- **Shape:** Use `pill` for the two actions and `tile` for the drifting thumbnails.
+- **Composition:** Keep the action centered and the wordmark low and wide. The tiles should feel dispersed, not grouped into a grid.
+- **Visible states:** The primary action is solid black with light text. The secondary action is white with a light border and dark text.
 
-### Marketing feature card
+### Editorial story card
 
-**Anatomy:** Large headline, short supporting paragraph, and a text link with an arrow.  
-**Surface:** Pastel blocks with distinct fills per card, such as cyan, blue, lilac, pink, peach, yellow, and mint.  
-**Typography:** 30px-ish bold titles, with smaller body copy below.  
-**Spacing:** Generous internal padding gives each card its own breathing room.  
-**Composition:** The headline sits high and left; the link sits low and left; the right side of each card stays open.  
-**Role:** Each card reads like a short invitation to a tool, not like a feature checklist.
+- **Anatomy:** A tall image card, a large headline block, and a short supporting paragraph.
+- **Surface:** White card face on the paper canvas, with the image filling most of the vertical space.
+- **Typography:** `sectionDisplay` for the headline and `body` for the supporting text.
+- **Shape:** `panel` corners make the card feel substantial without becoming heavy.
+- **Spacing:** Keep a wide gutter between headline, image, and supporting text so each part can read on its own.
+- **Composition:** Let the image carry the middle of the section. The text should remain brief and aligned to the visual edges of the card.
 
-### Palette stage
+### Comparison row
 
-**Anatomy:** Five equal vertical columns, a large hex code, a color name, and a narrow rail of tool icons.  
-**Surface:** Solid color fields with no decorative framing.  
-**Typography:** The hex code uses a large, centered numeric style; the name is smaller and quieter below it.  
-**Shape:** The columns are edge-to-edge bands rather than cards.  
-**Visible states:** Light columns use dark text; darker columns use white text; the icon rail stays small and black.  
-**Role:** This component is the product itself. Nothing should be added that weakens the full-height color field.
+- **Anatomy:** Three equal cards with different internal fields and a short label beneath each one.
+- **Surface:** Neutral white or canvas-backed cards with image-led color inside the card area.
+- **Typography:** `cardHeading` for the card copy and `label` for the small captions below.
+- **Shape:** The same panel radius across all three cards keeps the row balanced.
+- **Spacing:** Use consistent horizontal gaps and equal vertical alignment so the row reads like one system, not three separate features.
+- **Composition:** The cards should be visually distinct through tone, not through size. Blue, slate, and deep indigo fields work well because they preserve the page’s quiet feel.
 
-### Color Bot shell
+### Dark app shell
 
-**Anatomy:** Left sidebar, empty-state copy, centered star mark, bold greeting, short helper line, and a bottom input bar.  
-**Surface:** White with very light grey in the composer area.  
-**Typography:** Large Inter greeting text, quieter helper text, and tiny sidebar notes.  
-**Composition:** The center is intentionally sparse so the greeting and composer feel prominent.  
-**Role:** The shell is calm and direct. It makes room for the input, not for ornament.
+- **Anatomy:** A top-right chip row, a mostly empty black workspace, and a floating round control near the lower edge.
+- **Surface:** `surfaceDark` with `onDark` text and light controls.
+- **Typography:** `bodyMedium` for the top chips and `body` or `label` for tiny utility text.
+- **Shape:** Rounded chips and a soft circular control keep the dark stage from feeling rigid.
+- **Spacing:** Leave large amounts of empty black space. The emptiness is part of the composition.
+- **Composition:** Keep the controls close to the top edge and the workspace otherwise sparse. The page should feel focused, not filled.
 
-### Input composer
+### Top bar chip
 
-**Anatomy:** Long rounded text field, blue send button, and compact auxiliary buttons to the right.  
-**Surface:** Pale, low-contrast field with a stronger blue send control.  
-**Typography:** Light placeholder text in a small utility size.  
-**Shape:** Soft corners and a low-profile bar keep the composer from looking heavy.  
-**Visible states:** The send button is the clearest action on the page; the secondary buttons remain quieter and icon-led.
+- **Anatomy:** Compact rounded buttons, small utility icons, and a colored avatar dot.
+- **Surface:** White chips against the surrounding dark or light field.
+- **Typography:** `bodyMedium` so the labels stay legible at small size.
+- **Shape:** `pill` radii with small horizontal padding.
+- **Visible states:** Solid chips are used for the strongest action; lighter chips and simple icons stay visually quieter.
+- **Composition:** Group the controls tightly so they feel like a single toolbar rather than scattered buttons.
 
 ## Responsive behavior
 
-The captured views are desktop-led, so the design language should stay focused on wide layouts first. On narrower widths, the safest move is to preserve the reading order: headline, support copy, and primary action first; product surface second; utility details last. The marketing cards should collapse cleanly into a single column before the text becomes cramped. The palette editor should keep the color columns legible, either by stacking them or by allowing a controlled horizontal scroll rather than shrinking the labels beyond recognition. The Color Bot shell should keep the composer reachable without forcing the greeting to fight for space.
-
-The key responsive rule is simple: do not squeeze color into a small box. If the palette stage loses its full-height banding or the card grid loses its breathing room, the identity gets weaker. Narrow screens should protect that hierarchy, not flatten it.
+On smaller screens, keep the order of information intact: hero message first, action next, image or tile collage after that, then supporting details. The oversized wordmark should shrink without losing its wide, low placement. The three-card comparison row should stack cleanly, with consistent gaps and captions that remain attached to their cards. The dark shell should keep its sparse feel, with controls compressed into one compact top row and enough empty space below to preserve the mood. Favor vertical flow over nested side-by-side layouts once the width gets tight.
 
 ## Practical implementation guidance
 
 ### Preserve
 
-- Keep white canvas and black Inter text as the base.
-- Keep the filled blue action button as the main control treatment.
-- Keep the feature cards soft, pastel, and roomy.
-- Keep the palette editor full-bleed and column-based.
-- Keep the bot shell sparse and centered.
-- Keep shadows near zero; use spacing and color changes for separation.
+- Keep the page mostly paper white and black in chrome.
+- Let the floating thumbnail collage provide color, not the controls.
+- Use large type with tight tracking and short blocks of copy.
+- Keep rounded pills and rounded cards consistent across the system.
+- Preserve the large gaps between sections so the page feels editorial.
 
 ### Avoid
 
-- Avoid adding a second display family.
-- Avoid turning the palette editor into a small swatch grid.
-- Avoid heavy borders, bevels, or soft depth effects.
-- Avoid making every control the same blue; the brand already uses a wide color range.
-- Avoid overfitting the shell with extra panels or decorative containers.
-- Avoid letting small-screen compression destroy the large type scale.
+- Avoid bright brand colors in navigation, buttons, or borders.
+- Avoid dense card shadows or heavy framing.
+- Avoid mixing too many radii in one section.
+- Avoid long paragraphs beside the biggest headlines.
+- Avoid making the thumbnail colors into global chrome colors.
 
 ### Recommended build order
 
-1. Set the neutral base colors and Inter type scale.
-2. Build the top bar and the blue action button.
-3. Build the hero and the pastel feature-card grid.
-4. Build the palette-column component with inverse text handling.
-5. Build the Color Bot shell and composer.
-6. Tune spacing, rounding, and narrow-width stacking.
+1. Build the canvas, ink, and spacing foundation.
+2. Add the primary and secondary pill actions.
+3. Recreate the hero composition with floating tiles and the wordmark.
+4. Build the editorial image card and supporting text layout.
+5. Add the comparison row with three equal cards.
+6. Finish with the dark app shell and compact top controls.
+7. Check the mobile stack so the reading order stays intact.
 
 ### Accessibility
 
-- Keep contrast high for white labels on saturated palette columns.
-- Give icon-only controls clear names and keyboard focus styles.
-- Make the send button and primary links visually distinct from secondary text actions.
-- Keep placeholder text lighter than entered text in the composer.
-- Avoid using color alone to explain actions; pair it with text or icons where the interface needs meaning.
-- Make sure small labels under palette names remain readable at desktop and narrow widths.
+- Keep text over imagery backed by strong contrast.
+- Make every pill and chip large enough to tap comfortably.
+- Use distinct visual cues for the primary and secondary actions.
+- Do not rely on color alone to distinguish the comparison cards.
+- Keep text alternatives useful for the floating thumbnails and the tall image card.
 
 ## Scope note
 
-This guide covers the captured Coolors desktop homepage, feature-card grid, palette editor columns, and Color Bot shell. Small-screen rearrangements, motion, hover and focus specifics, loading states, and other tool pages are not included. Type and spacing values are rounded to the shared 0.125rem step.
+This guide covers cosmos.so’s homepage hero, editorial story card, comparison row, and dark app shell. Mobile-specific layouts, motion, and interaction states are not included. Measurements are practical adaptation targets for implementation.

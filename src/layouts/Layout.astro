@@ -143,9 +143,7 @@ const breadcrumbStructuredData = breadcrumbs?.length
 		<meta name="author" content="Lorem Ipsum Generator" />
 		<link rel="canonical" href={canonicalURL} />
 
-		<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-		<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
-		<meta name="color-scheme" content="light dark" />
+		<meta name="theme-color" content="#f7f4ed" />
 
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
@@ -175,12 +173,13 @@ const breadcrumbStructuredData = breadcrumbs?.length
 
 		<script is:inline>
 			// Runs before first paint to avoid a light/dark flash.
-			// Priority: explicit user choice in localStorage, then OS preference.
+			// Light is the default for everyone; dark only if the visitor chose it with the toggle.
 			(function () {
-				const stored = localStorage.getItem("theme");
-				const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-				const isDark = stored === "dark" || (stored === null && prefersDark);
+				var isDark = false;
+				try { isDark = localStorage.getItem("theme") === "dark"; } catch (e) {}
 				document.documentElement.classList.toggle("dark", isDark);
+				var m = document.querySelector('meta[name="theme-color"]');
+				if (m) m.setAttribute("content", isDark ? "#000000" : "#f7f4ed");
 			})();
 		</script>
 	</head>
@@ -199,8 +198,14 @@ const breadcrumbStructuredData = breadcrumbs?.length
 
 			gsap.registerPlugin(ScrollTrigger);
 
-			// Same smooth-scroll setup as hsgpacalc: Lenis driven by the GSAP ticker.
-			const lenis = new Lenis({ respectReducedMotion: true, anchors: true });
+			// Light-touch smoothing: high lerp so the page tracks the wheel closely
+			// (the 0.1 default trails behind and feels slow), touch stays native.
+			const lenis = new Lenis({
+				respectReducedMotion: true,
+				anchors: { offset: -64 },
+				lerp: 0.25,
+				wheelMultiplier: 1.2,
+			});
 			lenis.on("scroll", ScrollTrigger.update);
 			gsap.ticker.add((time) => lenis.raf(time * 1000));
 			gsap.ticker.lagSmoothing(0);
