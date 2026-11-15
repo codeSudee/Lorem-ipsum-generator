@@ -14,7 +14,7 @@ export const FAQS: FAQItem[] = [
   },
   {
     q: "How do I create Lorem Ipsum text?",
-    a: "Pick a unit (paragraphs, sentences, words, or characters), enter how much you need, choose a word bank such as classic Latin, Corporate, Tech, Foodie, Cat, or Funny, and the generator instantly builds fresh text. Toggle \u201cStart with Lorem Ipsum\u201d if you want the output to begin with the familiar \u201cLorem ipsum dolor sit amet\u201d opener, then copy it with one click.",
+    a: "Pick a unit (paragraphs, sentences, words, or characters), enter how much you need, choose a word bank such as classic Latin, readable English, Corporate, Tech, Foodie, Cat, or Funny, and the generator instantly builds fresh text. Toggle \u201cStart with Lorem Ipsum\u201d if you want the output to begin with the familiar \u201cLorem ipsum dolor sit amet\u201d opener, then copy it with one click.",
   },
   {
     q: "How can I generate Lorem Ipsum text?",
@@ -54,7 +54,7 @@ export const FAQS: FAQItem[] = [
   },
   {
     q: "What should I look for in a Lorem Ipsum generator?",
-    a: "Look for control over the exact output length (paragraphs, words, or characters), more than one word bank, and export in the format you actually need. This site offers paragraph, sentence, word, and exact character-count modes, five themed word banks (Corporate, Tech, Foodie, Cat, and a funny option) alongside classic Latin, and one-click export as plain text, HTML, or Markdown — all running instantly in your browser with no sign-up required.",
+    a: "Look for control over the exact output length (paragraphs, words, or characters), more than one word bank, and export in the format you actually need. This site offers paragraph, sentence, word, and exact character-count modes, readable English sentences and five themed word banks (Corporate, Tech, Foodie, Cat, and a funny option) alongside classic Latin, and one-click export as plain text, HTML, or Markdown — all running instantly in your browser with no sign-up required.",
   },
   {
     q: "Is this Lorem Ipsum generator free to use?",

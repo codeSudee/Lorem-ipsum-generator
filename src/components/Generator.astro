@@ -136,10 +136,10 @@ const SAMPLE_OUTPUT =
 											</label>
 										))}
 										<label
-											class="theme-option col-span-2 flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-3 py-2 text-center text-body-sm text-body transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint"
+											class:list={["theme-option flex cursor-pointer items-center justify-center rounded-sm border border-hairline bg-canvas-elevated px-3 py-2 text-center text-body-sm text-body transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-on-primary hover:border-faint", THEME_LIST.length % 2 === 0 && "col-span-2"]}
 										>
 											<input type="radio" name="theme" value="custom" class="sr-only" />
-											Custom — use your own text
+											{THEME_LIST.length % 2 === 0 ? "Custom — use your own text" : "Custom text"}
 										</label>
 									</div>
 

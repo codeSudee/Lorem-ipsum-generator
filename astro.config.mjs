@@ -12,8 +12,12 @@ export default defineConfig({
 			// lastmod only where we know the real date of the last content change.
 			serialize(item) {
 				const path = new URL(item.url).pathname;
+				/** @type {Record<string, string>} */
 				const known = {
-					'/': '2026-11-03',
+					'/': '2026-11-15',
+					'/dummy-text-generator/': '2026-11-15',
+					'/100-characters-text/': '2026-11-15',
+					'/random-sentence-generator/': '2026-11-15',
 					'/privacy-policy/': '2026-09-12',
 					'/terms/': '2026-09-12',
 				};

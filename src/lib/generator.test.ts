@@ -261,3 +261,30 @@ describe("published figures", () => {
     expect(new Set(THEMES.classic.words).size).toBeGreaterThan(130);
   });
 });
+
+describe("readable English theme", () => {
+  it("writes real sentences, not shuffled words", () => {
+    for (let i = 0; i < 200; i++) {
+      const r = generate({ theme: "english", unit: "sentences", amount: 5, startWithLorem: false, format: "plain" });
+      expect(r.segments).toHaveLength(5);
+      for (const s of r.segments) {
+        expect(s).toMatch(/^[A-Z][^.]*\.$/);
+        expect(s).not.toMatch(/ ,|,,|\ba [aeiou]/);
+        expect(countWords(s)).toBeGreaterThanOrEqual(4);
+      }
+    }
+  });
+
+  it("opens with the pangram when the opener is on", () => {
+    const r = generate({ theme: "english", unit: "paragraphs", amount: 2, startWithLorem: true, format: "plain" });
+    expect(r.text.startsWith("The quick brown fox jumps over the lazy dog.")).toBe(true);
+  });
+
+  it("ends a cut final sentence cleanly in word mode", () => {
+    for (let i = 0; i < 300; i++) {
+      const r = generate({ theme: "english", unit: "words", amount: 1 + (i % 140), startWithLorem: i % 2 === 0, format: "plain" });
+      expect(r.text).toMatch(/[^,]\.$/);
+      expect(r.text).not.toMatch(/\.\./);
+    }
+  });
+});

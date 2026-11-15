@@ -42,7 +42,7 @@ export const LANDING_PAGES: LandingPage[] = [
       "This generator is preset to produce exactly 500 characters of lorem ipsum. Change the number to any count you need and the text updates instantly, with a live character counter so you can verify the length before you copy.",
     preset: { unit: "characters", amount: 500, theme: "classic", startWithLorem: true },
     updated: "2026-11-03",
-    related: ["lorem-ipsum-100-words", "lorem-ipsum-500-words", "tech-lorem-ipsum-generator"],
+    related: ["100-characters-text", "lorem-ipsum-100-words", "lorem-ipsum-500-words"],
     sections: [
       {
         heading: "When an exact character count matters",
@@ -339,6 +339,176 @@ export const LANDING_PAGES: LandingPage[] = [
       {
         q: "Is this the same as the default on the homepage?",
         a: "The homepage also opens on the Tech theme, but this page is built around that use case and starts at three paragraphs without the classic opener.",
+      },
+    ],
+  },
+  {
+    slug: "dummy-text-generator",
+    label: "Dummy Text Generator",
+    title: "Dummy Text Generator — Copy & Paste Placeholder Text",
+    description:
+      "Free dummy text generator for web design, print, and app mockups. Get Latin or readable English filler by paragraph, word, or character. Copy in one click.",
+    eyebrow: "Dummy text",
+    h1: "Dummy Text Generator",
+    intro:
+      "Generate dummy text for any layout that needs words before the real copy is ready. The tool opens on three paragraphs of classic lorem ipsum, and you can switch to readable English or a themed word bank in one click.",
+    preset: { unit: "paragraphs", amount: 3, theme: "classic", startWithLorem: true },
+    updated: "2026-11-15",
+    related: ["random-sentence-generator", "100-characters-text", "lorem-ipsum-500-words"],
+    sections: [
+      {
+        heading: "What dummy text is for",
+        paragraphs: [
+          "Dummy text is temporary copy that fills a design so you can judge the layout before the final words exist. Designers use it in website mockups, brochures, app screens, and slide templates. Developers use it to test how components handle short and long content, and to seed databases with something more realistic than “test test test”.",
+          "The most common dummy text is lorem ipsum, scrambled Latin taken from a text by Cicero. Its words have a natural mix of lengths, so it fills a page the way real writing does, and because most readers cannot understand it they look at the design rather than the content. The “What lorem ipsum means” link at the bottom of this page explains where it came from.",
+        ],
+      },
+      {
+        heading: "Latin or English dummy text?",
+        paragraphs: [
+          "Latin filler is the safe default for visual design. Nobody mistakes it for finished copy, so it rarely ends up on a live page by accident.",
+          "Readable English is better when people will actually read the mockup, for example in a usability test, a client review, or a prototype where word length and reading rhythm matter. Open More options and choose Readable English to get grammatical sentences instead of Latin. The Corporate, Tech, Foodie, Cat, and Funny banks give the filler a specific tone.",
+        ],
+      },
+      {
+        heading: "Getting the amount right",
+        paragraphs: [
+          "Choose Paragraphs for articles and page sections, Sentences for cards and descriptions, Words when a brief gives you a word count, and Characters when a field has a hard limit. Words go up to 1,000 and characters up to 5,000, so you can fill anything from a button label to a long-form page.",
+          "Copy the result as plain text, HTML with paragraph tags, or Markdown. Everything is generated in your browser and nothing is sent to a server.",
+        ],
+      },
+      {
+        heading: "Dummy text in Word, Google Docs, and Figma",
+        paragraphs: [
+          "Microsoft Word can insert its own filler: type =lorem() or =rand() on a new line and press Enter. =lorem(3,5) gives three paragraphs of five sentences each, and =rand() inserts English sample sentences instead of Latin. Google Docs and Figma have no built-in command, so most people paste text from a generator like this one or install a plugin.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Is dummy text the same as lorem ipsum?",
+        a: "Lorem ipsum is the best-known kind of dummy text. Dummy text is any placeholder copy, and it can be Latin, English, or themed words, as long as it is replaced before the design goes live.",
+      },
+      {
+        q: "Can I get dummy text in English?",
+        a: "Yes. Open More options and choose Readable English. You get grammatical English sentences that are still clearly filler, which suits usability tests and client reviews.",
+      },
+      {
+        q: "Is the dummy text free to use?",
+        a: "Yes. The text is generated in your browser, there is no sign-up, and you can use the output in any project, commercial or personal.",
+      },
+      {
+        q: "How do I add dummy text in Microsoft Word?",
+        a: "Type =lorem() on an empty line and press Enter for Latin filler, or =rand() for English sample text. Add numbers in the brackets, such as =lorem(2,4), to set paragraphs and sentences.",
+      },
+    ],
+  },
+  {
+    slug: "100-characters-text",
+    label: "100 Characters Text",
+    title: "100 Characters Text — Copy & Paste Exactly 100 Characters",
+    description:
+      "Copy text that is exactly 100 characters long, spaces included. Generate fresh 100-character strings or any length up to 5,000 to test fields and limits.",
+    eyebrow: "Exact length",
+    h1: "100 Characters Text Generator",
+    intro:
+      "This page is preset to produce text that is exactly 100 characters long, counting spaces and punctuation. Copy it as it is, generate a fresh string, or type any other length and watch the counter confirm it.",
+    preset: { unit: "characters", amount: 100, theme: "classic", startWithLorem: true },
+    updated: "2026-11-15",
+    related: ["lorem-ipsum-500-characters", "lorem-ipsum-100-words", "dummy-text-generator"],
+    sections: [
+      {
+        heading: "What 100 characters looks like",
+        paragraphs: [
+          "100 characters is about one long sentence, or 15 to 20 words of ordinary English. Here is a sample that is exactly 100 characters including spaces: “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.” That sample has 15 words.",
+          "The generator above gives you a new 100-character string each time you press Generate. The last word may be cut short so the total lands exactly on 100, which is what you want when you are testing a limit.",
+        ],
+      },
+      {
+        heading: "Why people need exactly 100 characters",
+        paragraphs: [
+          "Most of the time it is for testing. A form field with a 100-character limit should accept a 100-character value and refuse the 101st character. A table column, a card title, or a notification preview should handle text of that length without breaking the layout. Pasting a string of known length is the quickest way to check.",
+          "Other common uses are checking how a short bio, a product summary, or an alt text will look at full length, and filling a database column to its limit before a release.",
+        ],
+      },
+      {
+        heading: "Other lengths worth testing",
+        paragraphs: [
+          "Limits you will meet often include 30 characters for a Google Ads headline and 90 for an ad description, about 60 for a page title in search results, 150 for an Instagram bio, 160 for a single SMS message, and 280 for a post on X. Change the number in the generator to any of these, or to 1,000 characters for a longer field, and the text updates instantly.",
+          "Test the limit itself and the value one above it. Most bugs show up at the boundary.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Does 100 characters include spaces?",
+        a: "Yes. The generator counts every character, including spaces and punctuation, which matches how text fields, databases, and most character counters measure length.",
+      },
+      {
+        q: "How many words is 100 characters?",
+        a: "Usually between 15 and 20 words, depending on how long the words are. Text with short words fits more of them into 100 characters.",
+      },
+      {
+        q: "Can I get 100 characters of English instead of Latin?",
+        a: "Yes. Open More options and choose another word bank, such as Readable English, Tech, or Funny. The length stays at exactly 100 characters.",
+      },
+      {
+        q: "Can I generate 200, 500, or 1,000 characters?",
+        a: "Yes. Type any number up to 5,000 in the amount box and the text regenerates at that exact length.",
+      },
+    ],
+  },
+  {
+    slug: "random-sentence-generator",
+    label: "Random Sentences",
+    title: "Random Sentence Generator — Readable English Sentences & Paragraphs",
+    description:
+      "Generate random English sentences or paragraphs that read naturally. Pick how many you need, copy them in one click. Free, instant, no sign-up.",
+    eyebrow: "Readable English",
+    h1: "Random Sentence Generator",
+    intro:
+      "Get random sentences in plain, grammatical English. The generator is preset to five sentences from the Readable English bank. Switch the unit to Paragraphs when you need longer random text.",
+    preset: { unit: "sentences", amount: 5, theme: "english", startWithLorem: false },
+    updated: "2026-11-15",
+    related: ["dummy-text-generator", "funny-lorem-ipsum-generator", "lorem-ipsum-100-words"],
+    sections: [
+      {
+        heading: "How the sentences are made",
+        paragraphs: [
+          "Each sentence is built from a set of sentence patterns filled with everyday people, animals, objects, places, and times. Because everything is written in the past tense, the grammar holds together, and you get lines like “Early that spring, Priya found a faded postcard near the old bridge.” The combinations are random, so some sentences are a little odd, but they always read as English.",
+          "Press Generate for a new batch. Use the copy button next to a sentence to grab just that one, or copy the whole set at once.",
+        ],
+      },
+      {
+        heading: "Random paragraphs",
+        paragraphs: [
+          "Change the unit to Paragraphs to get blocks of three to seven random sentences, up to 50 paragraphs at a time. Choose Words to get an exact word count, which helps when a template or assignment asks for a specific length. Turn on the standard opener and the first sentence becomes the pangram “The quick brown fox jumps over the lazy dog.”",
+        ],
+      },
+      {
+        heading: "What people use random sentences for",
+        paragraphs: [
+          "Designers use readable English when a mockup will be shown to users or clients, because Latin filler makes people ask what it means. Developers use it to fill test data, chat interfaces, and comment threads with text that looks real. Writers and teachers use random sentences as warm-up prompts, and typing practice is easier with text that reads naturally.",
+          "If you want filler with a particular tone, try the Funny, Corporate, or Tech word banks under More options. They shuffle themed words instead of building full sentences.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Are the sentences grammatically correct?",
+        a: "Yes. They follow simple English sentence patterns in the past tense. The pairings of people and objects are random, so the meaning can be unusual, but the grammar is correct.",
+      },
+      {
+        q: "Can I generate random paragraphs instead of sentences?",
+        a: "Yes. Change the unit to Paragraphs and set how many you want, up to 50. Each paragraph has three to seven sentences.",
+      },
+      {
+        q: "Will I get the same sentences twice?",
+        a: "Each press of Generate builds new sentences from thousands of possible combinations, so repeats within a batch are rare.",
+      },
+      {
+        q: "Can I use the sentences in my own work?",
+        a: "Yes. The text is generated in your browser and is free to use in any project.",
       },
     ],
   },

@@ -2,6 +2,7 @@
 // Pure functions — no DOM access — so this can be unit tested and reused
 // from any UI (Astro islands, API route, CLI, etc).
 
+import { englishSentence } from "./english";
 import { THEMES, type ThemeKey } from "./wordBanks";
 
 export type AmountUnit =
@@ -273,6 +274,65 @@ function buildCharacters(
 }
 
 // ---------------------------------------------------------------------------
+// Readable English: whole grammatical sentences instead of shuffled words
+// ---------------------------------------------------------------------------
+
+function englishSentences(count: number, openerWords: string[] | null): string[] {
+  const sentences: string[] = [];
+  for (let i = 0; i < count; i++) {
+    sentences.push(i === 0 && openerWords ? capitalize(openerWords.join(" ")) + "." : englishSentence());
+  }
+  return sentences;
+}
+
+function englishParagraphs(count: number, openerWords: string[] | null): string[] {
+  const paragraphs: string[] = [];
+  for (let p = 0; p < count; p++) {
+    const n = randomInt(MIN_SENTENCES_PER_PARAGRAPH, MAX_SENTENCES_PER_PARAGRAPH);
+    paragraphs.push(englishSentences(n, p === 0 ? openerWords : null).join(" "));
+  }
+  return paragraphs;
+}
+
+/**
+ * Exactly `count` words of English sentences. The last sentence is cut to fit
+ * and closed with a period, so only that one can end abruptly.
+ */
+function englishWordParagraphs(count: number, openerWords: string[] | null): string[] {
+  const sentences: { text: string; words: number }[] = [];
+  let total = 0;
+  let first = true;
+  while (total < count) {
+    const full = first && openerWords ? capitalize(openerWords.join(" ")) + "." : englishSentence();
+    first = false;
+    const tokens = full.split(" ");
+    const take = Math.min(tokens.length, count - total);
+    const text = take === tokens.length ? full : tokens.slice(0, take).join(" ").replace(/[,.]$/, "") + ".";
+    sentences.push({ text, words: take });
+    total += take;
+  }
+
+  if (count <= MAX_SINGLE_PARAGRAPH_WORDS) return [sentences.map((s) => s.text).join(" ")];
+
+  const paragraphs: string[] = [];
+  let current: string[] = [];
+  let currentWords = 0;
+  let target = randomInt(MIN_PARAGRAPH_WORDS, MAX_PARAGRAPH_WORDS);
+  for (const sentence of sentences) {
+    current.push(sentence.text);
+    currentWords += sentence.words;
+    if (currentWords >= target) {
+      paragraphs.push(current.join(" "));
+      current = [];
+      currentWords = 0;
+      target = randomInt(MIN_PARAGRAPH_WORDS, MAX_PARAGRAPH_WORDS);
+    }
+  }
+  if (current.length > 0) paragraphs.push(current.join(" "));
+  return paragraphs;
+}
+
+// ---------------------------------------------------------------------------
 // Short-phrase units: titles, captions, names
 // ---------------------------------------------------------------------------
 
@@ -541,10 +601,12 @@ export function generate(options: GenerateOptions): GenerateResult {
   let segmentKind: SegmentKind | null = null;
   let lineSeparated = false;
 
+  const english = theme === "english";
+
   if (unit === "words") {
-    paragraphsForOutput = buildWordParagraphs(words, safeAmount, opener).map(cased);
+    paragraphsForOutput = (english ? englishWordParagraphs(safeAmount, opener) : buildWordParagraphs(words, safeAmount, opener)).map(cased);
   } else if (unit === "sentences") {
-    const sentences = buildSentences(words, safeAmount, opener).map(cased);
+    const sentences = (english ? englishSentences(safeAmount, opener) : buildSentences(words, safeAmount, opener)).map(cased);
     paragraphsForOutput = [sentences.join(" ")];
     segments = sentences;
     segmentKind = "sentence";
@@ -556,7 +618,7 @@ export function generate(options: GenerateOptions): GenerateResult {
     segmentKind = unit === "titles" ? "title" : unit === "captions" ? "caption" : "name";
     lineSeparated = true;
   } else {
-    paragraphsForOutput = buildParagraphs(words, safeAmount, opener).map(cased);
+    paragraphsForOutput = (english ? englishParagraphs(safeAmount, opener) : buildParagraphs(words, safeAmount, opener)).map(cased);
     segments = paragraphsForOutput;
     segmentKind = "paragraph";
   }

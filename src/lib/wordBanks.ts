@@ -3,7 +3,9 @@
 // mimic natural language rhythm (article/noun/verb-ish mixing is not
 // grammatical — like classic lorem ipsum, it's evocative filler text).
 
-export type ThemeKey = "classic" | "corporate" | "tech" | "foodie" | "cat" | "funny";
+import { ENGLISH_OPENER, ENGLISH_WORDS } from "./english";
+
+export type ThemeKey = "classic" | "english" | "corporate" | "tech" | "foodie" | "cat" | "funny";
 
 export interface ThemeDefinition {
   key: ThemeKey;
@@ -149,6 +151,13 @@ export const THEMES: Record<ThemeKey, ThemeDefinition> = {
     description: "The original Cicero-derived lorem ipsum text.",
     words: CLASSIC_WORDS,
     opener: ["lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit"],
+  },
+  english: {
+    key: "english",
+    label: "Readable English",
+    description: "Random, grammatical English sentences instead of Latin.",
+    words: ENGLISH_WORDS,
+    opener: ENGLISH_OPENER,
   },
   corporate: {
     key: "corporate",

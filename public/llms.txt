@@ -1,6 +1,6 @@
 # Lorem Ipsum Generator
 
-> Free online lorem ipsum generator at https://loremmaker.com. Generates placeholder text by paragraph, sentence, word, or exact character count, with themed word banks (Corporate, Tech, Foodie, Cat, Funny) and a custom word bank. Output copies as plain text, HTML, or Markdown. Runs entirely in the browser, with no sign-up.
+> Free online lorem ipsum generator at https://loremmaker.com. Generates placeholder text by paragraph, sentence, word, or exact character count, with readable English sentences, themed word banks (Corporate, Tech, Foodie, Cat, Funny) and a custom word bank. Output copies as plain text, HTML, or Markdown. Runs entirely in the browser, with no sign-up.
 
 ## Generators
 
@@ -11,6 +11,9 @@
 - [Lorem Ipsum 500 Words](https://loremmaker.com/lorem-ipsum-500-words/): long-form text for article layouts
 - [Corporate Lorem Ipsum Generator](https://loremmaker.com/corporate-lorem-ipsum-generator/): business-style placeholder text
 - [Tech Lorem Ipsum Generator](https://loremmaker.com/tech-lorem-ipsum-generator/): startup and developer placeholder text
+- [Dummy Text Generator](https://loremmaker.com/dummy-text-generator/): Latin or readable English dummy text for mockups
+- [100 Characters Text](https://loremmaker.com/100-characters-text/): text that is exactly 100 characters long, for testing limits
+- [Random Sentence Generator](https://loremmaker.com/random-sentence-generator/): random, grammatical English sentences and paragraphs
 
 ## Guides
 
