@@ -173,10 +173,13 @@ const breadcrumbStructuredData = breadcrumbs?.length
 
 		<script is:inline>
 			// Runs before first paint to avoid a light/dark flash.
-			// Light is the default for everyone; dark only if the visitor chose it with the toggle.
+			// Follows the system light/dark setting; a choice made with the toggle overrides it.
 			(function () {
-				var isDark = false;
-				try { isDark = localStorage.getItem("theme") === "dark"; } catch (e) {}
+				var stored = null;
+				try { stored = localStorage.getItem("theme"); } catch (e) {}
+				var isDark = stored === "dark" || stored === "light"
+					? stored === "dark"
+					: window.matchMedia("(prefers-color-scheme: dark)").matches;
 				document.documentElement.classList.toggle("dark", isDark);
 				var m = document.querySelector('meta[name="theme-color"]');
 				if (m) m.setAttribute("content", isDark ? "#000000" : "#f7f4ed");
